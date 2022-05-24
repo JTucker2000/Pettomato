@@ -34,6 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Upgrades"
+        android:onClick="onUpgradeBtnPress"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.90"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -138,10 +139,11 @@
         app:layout_constraintVertical_bias="0.2" />
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentContainerView"
+        android:id="@+id/upgrades_fragmentContainerView"
         android:name="com.example.pettomato.UpgradesItemFragment"
         android:layout_width="272dp"
         android:layout_height="227dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
