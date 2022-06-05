@@ -15,18 +15,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onUpgradeBtnPress(view: View) {
-        var upgradeFrag = findViewById<FragmentContainerView>(R.id.upgrades_fragmentContainerView)
 
-        when (upgradeFrag.visibility) {
-            View.INVISIBLE -> {
-                upgradeFrag.isClickable = true
-                upgradeFrag.visibility = View.VISIBLE
-            }
-            View.VISIBLE -> {
-                upgradeFrag.isClickable = false
-                upgradeFrag.visibility = View.INVISIBLE
-            }
-            else -> Log.e(TAG, "Error: onUpgradeBtnPress unexpected visibility")
-        }
     }
 }
