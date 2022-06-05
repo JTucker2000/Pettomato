@@ -7,12 +7,13 @@ import android.view.View
 import android.widget.ListView
 
 class MainActivity : AppCompatActivity() {
-    private val TAG = "MainActivityTag"
+    private val TAG: String = "MainActivityTag"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // Set up upgrades list view
         val upgradesListView = findViewById<ListView>(R.id.upgrades_listView)
         upgradesListView.adapter = UpgradesListViewAdapter(this)
         upgradesListView.visibility = View.INVISIBLE
