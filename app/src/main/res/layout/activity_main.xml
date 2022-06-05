@@ -33,8 +33,8 @@
         android:id="@+id/upgrades_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Upgrades"
         android:onClick="onUpgradeBtnPress"
+        android:text="Upgrades"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.90"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -146,5 +146,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fitness_progressBar" />
+
+    <ImageView
+        android:id="@+id/pet_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/actions_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fitness_progressBar"
+        android:src="@android:drawable/btn_star_big_on" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
