@@ -152,7 +152,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:adjustViewBounds="false"
-        android:src="@drawable/germanshepard1"
+        android:src="@android:drawable/ic_delete"
         app:layout_constraintBottom_toTopOf="@+id/actions_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -16,7 +16,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // Create test pet
-        var testPet = Pet("German Shepard", 1, 95, 80, 100, 50)
+        var testPet = Pet("Corgi", R.drawable.corgiface1,1,95, 80, 100, 50)
+
+        // Set up pet image
+        val petImage = findViewById<ImageView>(R.id.pet_image)
+        petImage.setImageResource(testPet.image_id)
 
         // Set up upgrades list view
         val upgradesListView = findViewById<ListView>(R.id.upgrades_listView)
