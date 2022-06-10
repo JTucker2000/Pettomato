@@ -10,146 +10,143 @@
         android:id="@+id/garden_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="32dp"
         android:text="Garden"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.10"
+        app:layout_constraintBottom_toBottomOf="@+id/actions_btn"
+        app:layout_constraintEnd_toStartOf="@+id/actions_btn"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.83" />
+        app:layout_constraintTop_toTopOf="@+id/actions_btn" />
 
     <Button
         android:id="@+id/actions_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="100dp"
         android:text="Actions"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.83" />
+        app:layout_constraintTop_toBottomOf="@+id/upgrades_listView" />
 
     <Button
         android:id="@+id/upgrades_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginRight="8dp"
         android:onClick="onUpgradeBtnPress"
         android:text="Upgrades"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.90"
+        app:layout_constraintBottom_toBottomOf="@+id/actions_btn"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.83" />
+        app:layout_constraintStart_toEndOf="@+id/actions_btn"
+        app:layout_constraintTop_toTopOf="@+id/actions_btn" />
 
     <ProgressBar
         android:id="@+id/hunger_progressBar"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="184dp"
         android:layout_height="22dp"
+        android:layout_marginTop="30dp"
         android:scaleY="2.5"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.05" />
+        app:layout_constraintStart_toStartOf="@+id/happy_progressBar"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/hunger_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="3dp"
         android:text="Hunger"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.07"
+        app:layout_constraintBottom_toBottomOf="@+id/hunger_progressBar"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.05" />
+        app:layout_constraintTop_toTopOf="@+id/hunger_progressBar" />
 
     <ProgressBar
         android:id="@+id/thirst_progressBar"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="184dp"
         android:layout_height="22dp"
+        android:layout_marginTop="4dp"
         android:scaleY="2.5"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.1" />
+        app:layout_constraintStart_toStartOf="@+id/happy_progressBar"
+        app:layout_constraintTop_toBottomOf="@+id/hunger_progressBar" />
 
     <TextView
         android:id="@+id/thirst_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="3dp"
         android:text="Thirst"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.07"
+        app:layout_constraintBottom_toBottomOf="@+id/thirst_progressBar"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.1" />
+        app:layout_constraintTop_toTopOf="@+id/thirst_progressBar" />
 
     <ProgressBar
         android:id="@+id/happy_progressBar"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="184dp"
         android:layout_height="22dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
         android:scaleY="2.5"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.15" />
+        app:layout_constraintStart_toEndOf="@+id/happy_text"
+        app:layout_constraintTop_toBottomOf="@+id/thirst_progressBar" />
 
     <TextView
         android:id="@+id/happy_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="3dp"
         android:text="Happiness"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.03333"
+        app:layout_constraintBottom_toBottomOf="@+id/happy_progressBar"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.15" />
+        app:layout_constraintTop_toTopOf="@+id/happy_progressBar" />
 
     <ProgressBar
         android:id="@+id/fitness_progressBar"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="184dp"
         android:layout_height="22dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="100dp"
         android:scaleY="2.5"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.2" />
+        app:layout_constraintStart_toStartOf="@+id/happy_progressBar"
+        app:layout_constraintTop_toBottomOf="@+id/happy_progressBar" />
 
     <TextView
         android:id="@+id/fitness_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="3dp"
         android:text="Fitness"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.07"
+        app:layout_constraintBottom_toBottomOf="@+id/fitness_progressBar"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.2" />
+        app:layout_constraintTop_toTopOf="@+id/fitness_progressBar" />
 
     <ListView
         android:id="@+id/upgrades_listView"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        app:layout_constraintBottom_toTopOf="@+id/actions_btn"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fitness_progressBar" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/pet_image"
@@ -157,9 +154,20 @@
         android:layout_height="wrap_content"
         android:adjustViewBounds="false"
         android:src="@android:drawable/ic_delete"
-        app:layout_constraintBottom_toTopOf="@+id/actions_btn"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fitness_progressBar" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/money_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
+        android:text="Money"
+        app:layout_constraintBottom_toBottomOf="@+id/hunger_progressBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/hunger_progressBar"
+        app:layout_constraintTop_toTopOf="@+id/hunger_progressBar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
