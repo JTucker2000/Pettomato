@@ -18,24 +18,29 @@ class MainActivity : AppCompatActivity() {
         // Create test pet
         var testPet = Pet("Corgi", R.drawable.corgiface1,1,95, 80, 100, 50)
 
-        // Set up pet image
-        val petImage = findViewById<ImageView>(R.id.pet_image)
-        petImage.setImageResource(testPet.image_id)
+        // Update UI with pet info
+        updateFromPet(testPet)
 
         // Set up upgrades list view
         val upgradesListView = findViewById<ListView>(R.id.upgrades_listView)
         upgradesListView.adapter = UpgradesListViewAdapter(this)
         upgradesListView.visibility = View.INVISIBLE
+    }
+
+    fun updateFromPet(pet: Pet) {
+        // Set up pet image
+        val petImage = findViewById<ImageView>(R.id.pet_image)
+        petImage.setImageResource(pet.image_id)
 
         // Set up progress bars
         val hungerProgressBar = findViewById<ProgressBar>(R.id.hunger_progressBar)
         val thirstProgressBar = findViewById<ProgressBar>(R.id.thirst_progressBar)
         val happinessProgressBar = findViewById<ProgressBar>(R.id.happy_progressBar)
         val fitnessProgressBar = findViewById<ProgressBar>(R.id.fitness_progressBar)
-        hungerProgressBar.progress = testPet.hunger_level
-        thirstProgressBar.progress = testPet.thirst_level
-        happinessProgressBar.progress = testPet.happiness_level
-        fitnessProgressBar.progress = testPet.fitness_level
+        hungerProgressBar.progress = pet.hunger_level
+        thirstProgressBar.progress = pet.thirst_level
+        happinessProgressBar.progress = pet.happiness_level
+        fitnessProgressBar.progress = pet.fitness_level
     }
 
     fun onUpgradeBtnPress(view: View) {

@@ -170,4 +170,15 @@
         app:layout_constraintStart_toEndOf="@+id/hunger_progressBar"
         app:layout_constraintTop_toTopOf="@+id/hunger_progressBar" />
 
+    <TextView
+        android:id="@+id/money_amount_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:text="Error"
+        app:layout_constraintBottom_toBottomOf="@+id/thirst_progressBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/thirst_progressBar"
+        app:layout_constraintTop_toTopOf="@+id/thirst_progressBar" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
