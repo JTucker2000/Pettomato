@@ -7,6 +7,8 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.ListView
 import android.widget.ProgressBar
+import androidx.activity.viewModels
+import androidx.lifecycle.Observer
 
 class MainActivity : AppCompatActivity() {
     private val TAG: String = "MainActivityTag"
@@ -15,11 +17,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Create test pet
-        var testPet = Pet("Corgi", R.drawable.corgiface1,1,95, 80, 100, 50)
-
-        // Update UI with pet info
-        updateFromPet(testPet)
+        // Get the viewModel and set up observer(s) for UI.
+        val mainModel: MainViewModel by viewModels()
+        mainModel.getCurrentPet().observe(this, Observer<Pet>{ currentPet ->
+            updateFromPet(currentPet)
+        })
 
         // Set up upgrades list view
         val upgradesListView = findViewById<ListView>(R.id.upgrades_listView)
@@ -27,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         upgradesListView.visibility = View.INVISIBLE
     }
 
-    fun updateFromPet(pet: Pet) {
+    private fun updateFromPet(pet: Pet) {
         // Set up pet image
         val petImage = findViewById<ImageView>(R.id.pet_image)
         petImage.setImageResource(pet.image_id)
