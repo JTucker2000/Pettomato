@@ -1,25 +1,19 @@
 package com.example.pettomato
 
-import android.content.Context
-import androidx.lifecycle.MutableLiveData
-import java.io.File
-
 class PlayerRepository {
-    private val petList: MutableList<Pet> = getPetList()
-    private var moneyAmount: Int = getMoneyAmount()
+    private val petList: MutableList<Pet> = initPetList()
+    private var moneyAmount: Int = initMoneyAmount()
 
-    private fun getPetList(): MutableList<Pet> {
+    private fun initPetList(): MutableList<Pet> {
         // Placeholder
         return mutableListOf(Pet ("Corgi", R.drawable.corgiface1,1,95, 80, 100, 50))
     }
 
-    private fun getMoneyAmount(): Int {
+    private fun initMoneyAmount(): Int {
         // Placeholder
         return 0
     }
 
-    fun getCurrentPet(): Pet {
-        // Placeholder
-        return petList[0]
-    }
+    fun getCurrentPet(): Pet = petList[0]
+    fun getMoneyAmount(): Int = moneyAmount
 }

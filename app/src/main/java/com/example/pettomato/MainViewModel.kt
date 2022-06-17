@@ -13,7 +13,10 @@ class MainViewModel : ViewModel() {
         MutableLiveData<Pet>(playerRepository.getCurrentPet())
     }
 
-    fun getCurrentPet(): LiveData<Pet> {
-        return currentPet
+    private val moneyAmount: MutableLiveData<Int> by lazy {
+        MutableLiveData<Int>(playerRepository.getMoneyAmount())
     }
+
+    fun getCurrentPet(): LiveData<Pet> = currentPet
+    fun getMoneyAmount(): LiveData<Int> = moneyAmount
 }

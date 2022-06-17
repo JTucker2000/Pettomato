@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.ListView
 import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 
@@ -21,6 +22,10 @@ class MainActivity : AppCompatActivity() {
         val mainModel: MainViewModel by viewModels()
         mainModel.getCurrentPet().observe(this, Observer<Pet>{ currentPet ->
             updateFromPet(currentPet)
+        })
+        mainModel.getMoneyAmount().observe(this, Observer<Int>{ moneyAmount ->
+            val moneyAmountText = findViewById<TextView>(R.id.money_amount_text)
+            moneyAmountText.text = moneyAmount.toString()
         })
 
         // Set up upgrades list view
