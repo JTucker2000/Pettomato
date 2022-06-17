@@ -5,9 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class MainViewModel : ViewModel() {
+    private val playerRepository: PlayerRepository by lazy {
+        PlayerRepository()
+    }
+
     private val currentPet: MutableLiveData<Pet> by lazy {
-        // Directly loads in a test pet for now
-        MutableLiveData<Pet>(Pet ("Corgi", R.drawable.corgiface1,1,95, 80, 100, 50))
+        MutableLiveData<Pet>(playerRepository.getCurrentPet())
     }
 
     fun getCurrentPet(): LiveData<Pet> {
