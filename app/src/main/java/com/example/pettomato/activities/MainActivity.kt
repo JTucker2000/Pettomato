@@ -1,4 +1,4 @@
-package com.example.pettomato
+package com.example.pettomato.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,6 +10,10 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
+import com.example.pettomato.viewmodels.MainViewModel
+import com.example.pettomato.dataclasses.Pet
+import com.example.pettomato.R
+import com.example.pettomato.viewadapters.UpgradesListViewAdapter
 
 class MainActivity : AppCompatActivity() {
     private val TAG: String = "MainActivityTag"

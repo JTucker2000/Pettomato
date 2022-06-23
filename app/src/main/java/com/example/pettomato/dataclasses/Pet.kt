@@ -1,11 +1,6 @@
-package com.example.pettomato
+package com.example.pettomato.dataclasses
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-
-@Entity
-data class PetEntity(
-    @PrimaryKey val id: Int,
+data class Pet(
     var pet_name: String,
     var image_id: Int,
     var pet_level: Int,

@@ -1,10 +1,11 @@
-package com.example.pettomato
+package com.example.pettomato.viewadapters
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import com.example.pettomato.R
 
 class UpgradesListViewAdapter(context: Context): BaseAdapter() {
     private val curContext: Context

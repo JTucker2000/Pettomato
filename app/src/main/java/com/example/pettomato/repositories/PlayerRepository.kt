@@ -1,4 +1,7 @@
-package com.example.pettomato
+package com.example.pettomato.repositories
+
+import com.example.pettomato.R
+import com.example.pettomato.dataclasses.Pet
 
 class PlayerRepository {
     private val petList: MutableList<Pet> = initPetList()
