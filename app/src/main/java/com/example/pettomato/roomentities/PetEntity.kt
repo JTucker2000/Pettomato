@@ -3,7 +3,7 @@ package com.example.pettomato.roomentities
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity
+@Entity (tableName = "pets")
 data class PetEntity(
     @PrimaryKey val id: Int,
     var pet_name: String,

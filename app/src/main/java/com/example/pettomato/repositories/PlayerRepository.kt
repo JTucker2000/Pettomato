@@ -1,11 +1,20 @@
 package com.example.pettomato.repositories
 
+import android.app.Application
+import androidx.room.Room
+import com.example.pettomato.AppDatabase
 import com.example.pettomato.R
 import com.example.pettomato.dataclasses.Pet
 
-class PlayerRepository {
+class PlayerRepository(app_context: Application) {
+    private val database = initDatabase(app_context)
     private val petList: MutableList<Pet> = initPetList()
     private var moneyAmount: Int = initMoneyAmount()
+
+    private fun initDatabase(app_context: Application) = Room.databaseBuilder(
+        app_context,
+        AppDatabase::class.java, "pettomatodb"
+    ).build()
 
     private fun initPetList(): MutableList<Pet> {
         // Placeholder

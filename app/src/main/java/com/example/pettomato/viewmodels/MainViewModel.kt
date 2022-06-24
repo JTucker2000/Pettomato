@@ -1,14 +1,15 @@
 package com.example.pettomato.viewmodels
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.pettomato.dataclasses.Pet
 import com.example.pettomato.repositories.PlayerRepository
 
-class MainViewModel : ViewModel() {
+class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val playerRepository: PlayerRepository by lazy {
-        PlayerRepository()
+        PlayerRepository(application)
     }
 
     private val currentPet: MutableLiveData<Pet> by lazy {
