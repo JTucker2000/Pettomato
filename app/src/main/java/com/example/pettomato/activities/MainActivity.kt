@@ -11,8 +11,8 @@ import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.example.pettomato.viewmodels.MainViewModel
-import com.example.pettomato.dataclasses.Pet
 import com.example.pettomato.R
+import com.example.pettomato.roomentities.PetEntity
 import com.example.pettomato.viewadapters.UpgradesListViewAdapter
 
 class MainActivity : AppCompatActivity() {
@@ -24,13 +24,12 @@ class MainActivity : AppCompatActivity() {
 
         // Get the viewModel and set up observer(s) for UI.
         val mainModel: MainViewModel by viewModels()
-        mainModel.getCurrentPet().observe(this, Observer<Pet>{ currentPet ->
-            updateFromPet(currentPet)
+        mainModel.petList.observe(this, Observer<List<PetEntity>>{ currentPetList ->
+            updateFromPet(currentPetList[0])
         })
-        mainModel.getMoneyAmount().observe(this, Observer<Int>{ moneyAmount ->
-            val moneyAmountText = findViewById<TextView>(R.id.money_amount_text)
-            moneyAmountText.text = moneyAmount.toString()
-        })
+        val moneyAmount = 0 // placeholder
+        val moneyAmountText = findViewById<TextView>(R.id.money_amount_text)
+        moneyAmountText.text = moneyAmount.toString()
 
         // Set up upgrades list view
         val upgradesListView = findViewById<ListView>(R.id.upgrades_listView)
@@ -38,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         upgradesListView.visibility = View.INVISIBLE
     }
 
-    private fun updateFromPet(pet: Pet) {
+    private fun updateFromPet(pet: PetEntity) {
         // Set up pet image
         val petImage = findViewById<ImageView>(R.id.pet_image)
         petImage.setImageResource(pet.image_id)
