@@ -20,7 +20,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         petList = playerRepository.petList
     }
 
-    fun addPet(petEntity: PetEntity){
+    fun addPet(petEntity: PetEntity) {
         viewModelScope.launch(Dispatchers.IO) {
             playerRepository.addPet(petEntity)
         }

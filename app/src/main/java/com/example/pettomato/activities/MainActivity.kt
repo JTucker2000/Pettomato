@@ -10,10 +10,15 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
 import com.example.pettomato.viewmodels.MainViewModel
 import com.example.pettomato.R
 import com.example.pettomato.roomentities.PetEntity
 import com.example.pettomato.viewadapters.UpgradesListViewAdapter
+import com.example.pettomato.workers.PetStatusUpdateWorker
+import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
     private val TAG: String = "MainActivityTag"
@@ -30,6 +35,16 @@ class MainActivity : AppCompatActivity() {
         val moneyAmount = 0 // placeholder
         val moneyAmountText = findViewById<TextView>(R.id.money_amount_text)
         moneyAmountText.text = moneyAmount.toString()
+
+        // Set up worker(s)
+        val updatePetStatusWorkRequest = PeriodicWorkRequestBuilder<PetStatusUpdateWorker>(15, TimeUnit.MINUTES)
+            .build()
+        WorkManager.getInstance(this)
+            .enqueueUniquePeriodicWork (
+                "petStatusUpdate",
+                ExistingPeriodicWorkPolicy.KEEP,
+                updatePetStatusWorkRequest
+            )
 
         // Set up upgrades list view
         val upgradesListView = findViewById<ListView>(R.id.upgrades_listView)

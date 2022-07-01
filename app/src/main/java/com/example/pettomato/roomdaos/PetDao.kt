@@ -7,10 +7,16 @@ import com.example.pettomato.roomentities.PetEntity
 @Dao
 interface PetDao {
     @Query("SELECT * FROM pets")
-    fun getAll(): LiveData<List<PetEntity>>
+    fun getAll(): List<PetEntity>
 
     @Query("SELECT * FROM pets WHERE id=(:pet_id)")
-    fun getById(pet_id: Int): LiveData<PetEntity>
+    fun getById(pet_id: Int): PetEntity
+
+    @Query("SELECT * FROM pets")
+    fun getAllLive(): LiveData<List<PetEntity>>
+
+    @Query("SELECT * FROM pets WHERE id=(:pet_id)")
+    fun getByIdLive(pet_id: Int): LiveData<PetEntity>
 
     @Insert
     fun insert(vararg pets: PetEntity)
