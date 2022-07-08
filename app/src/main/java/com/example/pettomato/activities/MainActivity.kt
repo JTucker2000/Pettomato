@@ -24,21 +24,21 @@ import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
     private val TAG: String = "MainActivityTag"
+    private val mainViewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Get the viewModel and set up observer(s)
-        val mainModel: MainViewModel by viewModels()
+        // Set up observer(s)
         // ---- FIRST RUN, FOR TESTING ONLY ----
         //mainModel.addPet(PetEntity(0, "Corgi", R.drawable.corgiface1, 1, 88, 55, 90, 80))
         //mainModel.addPlayer(PlayerEntity("Jtuck", 1000))
         // ---- END FIRST RUN ----
-        mainModel.petList.observe(this, Observer<List<PetEntity>>{ currentPetList ->
+        mainViewModel.petListLive.observe(this, Observer<List<PetEntity>>{ currentPetList ->
             updateFromPet(currentPetList[0])
         })
-        mainModel.player.observe(this, Observer<PlayerEntity>{ currentPlayer ->
+        mainViewModel.playerLive.observe(this, Observer<PlayerEntity>{ currentPlayer ->
             val moneyAmountText = findViewById<TextView>(R.id.money_amount_text)
             moneyAmountText.text = currentPlayer.money_amount.toString()
         })
@@ -90,7 +90,6 @@ class MainActivity : AppCompatActivity() {
                 actionsListView.visibility == View.VISIBLE
     }
 
-
     fun onUpgradeBtnPress(view: View) {
         val petImage = findViewById<ImageView>(R.id.pet_image)
         val upgradesListView = findViewById<ListView>(R.id.upgrades_listView)
@@ -128,6 +127,18 @@ class MainActivity : AppCompatActivity() {
                 petImage.visibility = View.VISIBLE
             }
             else -> Log.e(TAG, "Error: onActionBtnPress encountered unexpected visibility")
+        }
+    }
+
+    fun onActionListBtnPress(view: View) {
+        val actionsListView = findViewById<ListView>(R.id.actions_listView)
+        when (actionsListView.getPositionForView(view)){
+            0 -> mainViewModel.onFeedBtnPress()
+            1 -> mainViewModel.onGiveWaterBtnPress()
+            2 -> mainViewModel.onPetBtnPress()
+            3 -> mainViewModel.onWalkBtnPress()
+            4 -> mainViewModel.onWorkBtnPress()
+            else -> Log.e(TAG, "Error: onActionListBtnPress encountered unexpected position")
         }
     }
 }

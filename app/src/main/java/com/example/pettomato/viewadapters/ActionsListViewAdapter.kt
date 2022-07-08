@@ -13,8 +13,8 @@ import com.example.pettomato.R
 class ActionsListViewAdapter(context: Context): BaseAdapter() {
     private val TAG: String = "ActionsLstViewAdptrTag"
     private val curContext: Context
-    private val actionOptions = arrayOf("Feed", "Give Water", "Pet", "Go for a walk")
-    private val actionButtonText = arrayOf("-5 Coins", "-10 Coins", "-15 Coins", "Free")
+    private val actionOptions = arrayOf("Feed", "Give water", "Pet", "Go for a walk", "Go to work")
+    private val actionButtonText = arrayOf("-10 Coins", "-5 Coins", "Free", "Free", "+100 Coins")
 
     init {
         curContext = context
@@ -41,9 +41,6 @@ class ActionsListViewAdapter(context: Context): BaseAdapter() {
 
         val actionButton = layout.findViewById<Button>(R.id.action_button)
         actionButton.text = actionButtonText[position]
-        actionButton.setOnClickListener {
-            // Do stuff based on the position of the button
-        }
 
         return layout
     }
