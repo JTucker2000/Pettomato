@@ -15,8 +15,10 @@ class PetStatusUpdateWorker(appContext: Context, workerParams: WorkerParameters)
     CoroutineWorker(appContext, workerParams) {
     override suspend fun doWork(): Result {
         withContext(Dispatchers.IO) {
-            val petDao = AppDatabase.getDatabase(applicationContext).petDao()
-            val playerRepository: PlayerRepository = PlayerRepository(petDao)
+            val database = AppDatabase.getDatabase(applicationContext)
+            val petDao = database.petDao()
+            val playerDao = database.playerDao()
+            val playerRepository: PlayerRepository = PlayerRepository(petDao, playerDao)
 
             updatePetStatus(playerRepository)
         }

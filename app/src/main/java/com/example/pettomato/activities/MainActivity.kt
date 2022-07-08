@@ -16,6 +16,7 @@ import androidx.work.WorkManager
 import com.example.pettomato.viewmodels.MainViewModel
 import com.example.pettomato.R
 import com.example.pettomato.roomentities.PetEntity
+import com.example.pettomato.roomentities.PlayerEntity
 import com.example.pettomato.viewadapters.ActionsListViewAdapter
 import com.example.pettomato.viewadapters.UpgradesListViewAdapter
 import com.example.pettomato.workers.PetStatusUpdateWorker
@@ -30,13 +31,17 @@ class MainActivity : AppCompatActivity() {
 
         // Get the viewModel and set up observer(s)
         val mainModel: MainViewModel by viewModels()
+        // ---- FIRST RUN, FOR TESTING ONLY ----
+        //mainModel.addPet(PetEntity(0, "Corgi", R.drawable.corgiface1, 1, 88, 55, 90, 80))
+        //mainModel.addPlayer(PlayerEntity("Jtuck", 1000))
+        // ---- END FIRST RUN ----
         mainModel.petList.observe(this, Observer<List<PetEntity>>{ currentPetList ->
             updateFromPet(currentPetList[0])
         })
-
-        val moneyAmount = 0 // placeholder
-        val moneyAmountText = findViewById<TextView>(R.id.money_amount_text)
-        moneyAmountText.text = moneyAmount.toString()
+        mainModel.player.observe(this, Observer<PlayerEntity>{ currentPlayer ->
+            val moneyAmountText = findViewById<TextView>(R.id.money_amount_text)
+            moneyAmountText.text = currentPlayer.money_amount.toString()
+        })
 
         // Set up worker(s)
         val updatePetStatusWorkRequest = PeriodicWorkRequestBuilder<PetStatusUpdateWorker>(15, TimeUnit.MINUTES)
