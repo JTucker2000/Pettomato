@@ -4,7 +4,7 @@
         <shape
             android:shape="rectangle"
             android:useLevel="false" >
-            <solid android:color="#ff0000" />
+            <solid android:color="#cc0000" />
         </shape>
     </item>
     <item>
@@ -12,7 +12,7 @@
             <shape
                 android:shape="rectangle"
                 android:useLevel="true" >
-                <solid android:color="#00ff00" />
+                <solid android:color="#00cc00" />
             </shape>
         </clip>
     </item>
