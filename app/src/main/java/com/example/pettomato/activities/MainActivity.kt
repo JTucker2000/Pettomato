@@ -1,5 +1,7 @@
 package com.example.pettomato.activities
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -24,6 +26,7 @@ import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
     private val TAG: String = "MainActivityTag"
+    private val FADE_ANIMATION_DURATION: Long = 150
     private val mainViewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -90,6 +93,33 @@ class MainActivity : AppCompatActivity() {
                 actionsListView.visibility == View.VISIBLE
     }
 
+    // Animates the given view to fade in.
+    private fun fadeInView(view: View) {
+        view.apply {
+            alpha = 0f
+            visibility = View.VISIBLE
+
+            animate()
+                .alpha(1f)
+                .setDuration(FADE_ANIMATION_DURATION)
+                .setListener(null)
+        }
+    }
+
+    // Animates the given view to fade out.
+    private fun fadeOutView(view: View) {
+        view.apply {
+            animate()
+                .alpha(0f)
+                .setDuration(FADE_ANIMATION_DURATION)
+                .setListener(object : AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(animation: Animator) {
+                        view.visibility = View.INVISIBLE
+                    }
+                })
+        }
+    }
+
     fun onUpgradeBtnPress(view: View) {
         val petImage = findViewById<ImageView>(R.id.pet_image)
         val upgradesListView = findViewById<ListView>(R.id.upgrades_listView)
@@ -98,13 +128,13 @@ class MainActivity : AppCompatActivity() {
             View.INVISIBLE -> {
                 if (checkListViewsVisible()) return
                 upgradesListView.isClickable = true
-                upgradesListView.visibility = View.VISIBLE
-                petImage.visibility = View.INVISIBLE
+                fadeInView(upgradesListView)
+                fadeOutView(petImage)
             }
             View.VISIBLE -> {
                 upgradesListView.isClickable = false
-                upgradesListView.visibility = View.INVISIBLE
-                petImage.visibility = View.VISIBLE
+                fadeOutView(upgradesListView)
+                fadeInView(petImage)
             }
             else -> Log.e(TAG, "Error: onUpgradeBtnPress encountered unexpected visibility")
         }
@@ -118,13 +148,13 @@ class MainActivity : AppCompatActivity() {
             View.INVISIBLE -> {
                 if (checkListViewsVisible()) return
                 actionsListView.isClickable = true
-                actionsListView.visibility = View.VISIBLE
-                petImage.visibility = View.INVISIBLE
+                fadeInView(actionsListView)
+                fadeOutView(petImage)
             }
             View.VISIBLE -> {
                 actionsListView.isClickable = false
-                actionsListView.visibility = View.INVISIBLE
-                petImage.visibility = View.VISIBLE
+                fadeOutView(actionsListView)
+                fadeInView(petImage)
             }
             else -> Log.e(TAG, "Error: onActionBtnPress encountered unexpected visibility")
         }
