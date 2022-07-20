@@ -2,6 +2,7 @@ package com.example.pettomato.activities
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import android.animation.ObjectAnimator
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -27,6 +28,7 @@ import java.util.concurrent.TimeUnit
 class MainActivity : AppCompatActivity() {
     private val TAG: String = "MainActivityTag"
     private val FADE_ANIMATION_DURATION: Long = 150
+    private val PROGRESSBAR_ANIMATION_DURATION: Long = 300
     private val mainViewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,8 +37,8 @@ class MainActivity : AppCompatActivity() {
 
         // Set up observer(s)
         // ---- FIRST RUN, FOR TESTING ONLY ----
-        //mainModel.addPet(PetEntity(0, "Corgi", R.drawable.corgiface1, 1, 88, 55, 90, 80))
-        //mainModel.addPlayer(PlayerEntity("Jtuck", 1000))
+        //mainViewModel.addPet(PetEntity(0, "Corgi", R.drawable.corgiface1, 1, 88, 55, 90, 80))
+        //mainViewModel.addPlayer(PlayerEntity("Jtuck", 1000))
         // ---- END FIRST RUN ----
         mainViewModel.petListLive.observe(this, Observer<List<PetEntity>>{ currentPetList ->
             updateFromPet(currentPetList[0])
@@ -78,10 +80,10 @@ class MainActivity : AppCompatActivity() {
         val thirstProgressBar = findViewById<ProgressBar>(R.id.thirst_progressBar)
         val happinessProgressBar = findViewById<ProgressBar>(R.id.happy_progressBar)
         val fitnessProgressBar = findViewById<ProgressBar>(R.id.fitness_progressBar)
-        hungerProgressBar.progress = pet.hunger_level
-        thirstProgressBar.progress = pet.thirst_level
-        happinessProgressBar.progress = pet.happiness_level
-        fitnessProgressBar.progress = pet.fitness_level
+        ObjectAnimator.ofInt(hungerProgressBar, "progress", pet.hunger_level).setDuration(PROGRESSBAR_ANIMATION_DURATION).start()
+        ObjectAnimator.ofInt(thirstProgressBar, "progress", pet.thirst_level).setDuration(PROGRESSBAR_ANIMATION_DURATION).start()
+        ObjectAnimator.ofInt(happinessProgressBar, "progress", pet.happiness_level).setDuration(PROGRESSBAR_ANIMATION_DURATION).start()
+        ObjectAnimator.ofInt(fitnessProgressBar, "progress", pet.fitness_level).setDuration(PROGRESSBAR_ANIMATION_DURATION).start()
     }
 
     // Returns true if any of the list views in the activity are currently visible, false otherwise.
