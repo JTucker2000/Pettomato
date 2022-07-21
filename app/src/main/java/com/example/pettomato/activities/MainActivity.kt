@@ -12,6 +12,7 @@ import android.widget.ListView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.activity.viewModels
+import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.Observer
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
@@ -58,7 +59,7 @@ class MainActivity : AppCompatActivity() {
                 updatePetStatusWorkRequest
             )
 
-        // Set up list view(s)
+        // Set up view(s)
         val upgradesListView = findViewById<ListView>(R.id.upgrades_listView)
         upgradesListView.adapter = UpgradesListViewAdapter(this)
         upgradesListView.visibility = View.INVISIBLE
@@ -68,6 +69,10 @@ class MainActivity : AppCompatActivity() {
         actionsListView.adapter = ActionsListViewAdapter(this)
         actionsListView.visibility = View.INVISIBLE
         actionsListView.isClickable = false
+
+        val arenaFragmentContainer = findViewById<FragmentContainerView>(R.id.arena_fragment_container)
+        arenaFragmentContainer.visibility = View.INVISIBLE
+        arenaFragmentContainer.isClickable = false
     }
 
     private fun updateFromPet(pet: PetEntity) {
@@ -86,13 +91,15 @@ class MainActivity : AppCompatActivity() {
         ObjectAnimator.ofInt(fitnessProgressBar, "progress", pet.fitness_level).setDuration(PROGRESSBAR_ANIMATION_DURATION).start()
     }
 
-    // Returns true if any of the list views in the activity are currently visible, false otherwise.
-    private fun checkListViewsVisible(): Boolean {
+    // Returns true if any of the views in the activity are currently visible, false otherwise.
+    private fun checkViewsVisible(): Boolean {
         val upgradesListView = findViewById<ListView>(R.id.upgrades_listView)
         val actionsListView = findViewById<ListView>(R.id.actions_listView)
+        val arenaFragmentContainer = findViewById<FragmentContainerView>(R.id.arena_fragment_container)
 
         return upgradesListView.visibility == View.VISIBLE ||
-                actionsListView.visibility == View.VISIBLE
+                actionsListView.visibility == View.VISIBLE ||
+                arenaFragmentContainer.visibility == View.VISIBLE
     }
 
     // Animates the given view to fade in.
@@ -128,7 +135,7 @@ class MainActivity : AppCompatActivity() {
 
         when (upgradesListView.visibility){
             View.INVISIBLE -> {
-                if (checkListViewsVisible()) return
+                if (checkViewsVisible()) return
                 upgradesListView.isClickable = true
                 fadeInView(upgradesListView)
                 fadeOutView(petImage)
@@ -148,7 +155,7 @@ class MainActivity : AppCompatActivity() {
 
         when (actionsListView.visibility){
             View.INVISIBLE -> {
-                if (checkListViewsVisible()) return
+                if (checkViewsVisible()) return
                 actionsListView.isClickable = true
                 fadeInView(actionsListView)
                 fadeOutView(petImage)
@@ -171,6 +178,26 @@ class MainActivity : AppCompatActivity() {
             3 -> mainViewModel.onWalkBtnPress()
             4 -> mainViewModel.onWorkBtnPress()
             else -> Log.e(TAG, "Error: onActionListBtnPress encountered unexpected position")
+        }
+    }
+
+    fun onArenaBtnPress(view: View) {
+        val petImage = findViewById<ImageView>(R.id.pet_image)
+        val arenaFragmentContainer = findViewById<FragmentContainerView>(R.id.arena_fragment_container)
+
+        when (arenaFragmentContainer.visibility){
+            View.INVISIBLE -> {
+                if (checkViewsVisible()) return
+                arenaFragmentContainer.isClickable = true
+                fadeInView(arenaFragmentContainer)
+                fadeOutView(petImage)
+            }
+            View.VISIBLE -> {
+                arenaFragmentContainer.isClickable = false
+                fadeOutView(arenaFragmentContainer)
+                fadeInView(petImage)
+            }
+            else -> Log.e(TAG, "Error: onArenaBtnPress encountered unexpected visibility")
         }
     }
 }
