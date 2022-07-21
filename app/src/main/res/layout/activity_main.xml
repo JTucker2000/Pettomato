@@ -225,14 +225,4 @@
         app:layout_constraintStart_toEndOf="@+id/thirst_progressBar"
         app:layout_constraintTop_toTopOf="@+id/thirst_progressBar" />
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/arena_fragment_container"
-        android:name="com.example.pettomato.fragments.ArenaFragment"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

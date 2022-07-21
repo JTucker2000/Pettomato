@@ -3,6 +3,7 @@ package com.example.pettomato.activities
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -69,10 +70,6 @@ class MainActivity : AppCompatActivity() {
         actionsListView.adapter = ActionsListViewAdapter(this)
         actionsListView.visibility = View.INVISIBLE
         actionsListView.isClickable = false
-
-        val arenaFragmentContainer = findViewById<FragmentContainerView>(R.id.arena_fragment_container)
-        arenaFragmentContainer.visibility = View.INVISIBLE
-        arenaFragmentContainer.isClickable = false
     }
 
     private fun updateFromPet(pet: PetEntity) {
@@ -95,11 +92,9 @@ class MainActivity : AppCompatActivity() {
     private fun checkViewsVisible(): Boolean {
         val upgradesListView = findViewById<ListView>(R.id.upgrades_listView)
         val actionsListView = findViewById<ListView>(R.id.actions_listView)
-        val arenaFragmentContainer = findViewById<FragmentContainerView>(R.id.arena_fragment_container)
 
         return upgradesListView.visibility == View.VISIBLE ||
-                actionsListView.visibility == View.VISIBLE ||
-                arenaFragmentContainer.visibility == View.VISIBLE
+                actionsListView.visibility == View.VISIBLE
     }
 
     // Animates the given view to fade in.
@@ -181,23 +176,5 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun onArenaBtnPress(view: View) {
-        val petImage = findViewById<ImageView>(R.id.pet_image)
-        val arenaFragmentContainer = findViewById<FragmentContainerView>(R.id.arena_fragment_container)
-
-        when (arenaFragmentContainer.visibility){
-            View.INVISIBLE -> {
-                if (checkViewsVisible()) return
-                arenaFragmentContainer.isClickable = true
-                fadeInView(arenaFragmentContainer)
-                fadeOutView(petImage)
-            }
-            View.VISIBLE -> {
-                arenaFragmentContainer.isClickable = false
-                fadeOutView(arenaFragmentContainer)
-                fadeInView(petImage)
-            }
-            else -> Log.e(TAG, "Error: onArenaBtnPress encountered unexpected visibility")
-        }
-    }
+    fun onArenaBtnPress(view: View) = startActivity(Intent(this, PetArenaActivity::class.java))
 }
