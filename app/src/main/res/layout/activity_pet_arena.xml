@@ -4,6 +4,148 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/thunderstormbackground"
     tools:context=".activities.PetArenaActivity">
+
+    <ImageView
+        android:id="@+id/player_petImage"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginBottom="128dp"
+        android:src="@drawable/corgiface1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.15"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/enemy_petImage"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginBottom="128dp"
+        android:src="@drawable/germanshepard1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.85"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/attack_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/press_start_2p"
+        android:text="Attack"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/items_btn"
+        app:layout_constraintEnd_toStartOf="@+id/items_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/items_btn" />
+
+    <Button
+        android:id="@+id/items_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/press_start_2p"
+        android:text="Items"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/quit_btn"
+        app:layout_constraintEnd_toEndOf="@+id/quit_btn"
+        app:layout_constraintStart_toStartOf="@+id/quit_btn"
+        app:layout_constraintTop_toBottomOf="@+id/player_petImage"
+        app:layout_constraintVertical_bias="0.92" />
+
+    <Button
+        android:id="@+id/stats_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/press_start_2p"
+        android:text="Stats"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/items_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/items_btn"
+        app:layout_constraintTop_toTopOf="@+id/items_btn" />
+
+    <ProgressBar
+        android:id="@+id/player_healthBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="225dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="32dp"
+        android:progressDrawable="@drawable/pet_status_progressbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/playerHealth_text"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/enemy_healthBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="225dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="16dp"
+        android:progressDrawable="@drawable/pet_status_progressbar"
+        app:layout_constraintEnd_toEndOf="@+id/player_healthBar"
+        app:layout_constraintStart_toStartOf="@+id/player_healthBar"
+        app:layout_constraintTop_toBottomOf="@+id/player_healthBar" />
+
+    <TextView
+        android:id="@+id/playerHealth_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:fontFamily="@font/press_start_2p"
+        android:text="Health:"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/player_healthBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/player_healthBar" />
+
+    <TextView
+        android:id="@+id/enemyHealth_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/press_start_2p"
+        android:text="Enemy:"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/enemy_healthBar"
+        app:layout_constraintEnd_toEndOf="@+id/playerHealth_text"
+        app:layout_constraintStart_toStartOf="@+id/playerHealth_text"
+        app:layout_constraintTop_toTopOf="@+id/enemy_healthBar" />
+
+    <TextView
+        android:id="@+id/playerHealthNum_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/press_start_2p"
+        android:text="0/0"
+        app:layout_constraintBottom_toBottomOf="@+id/player_healthBar"
+        app:layout_constraintEnd_toEndOf="@+id/player_healthBar"
+        app:layout_constraintStart_toStartOf="@+id/player_healthBar"
+        app:layout_constraintTop_toTopOf="@+id/player_healthBar" />
+
+    <TextView
+        android:id="@+id/enemyHealthNum_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/press_start_2p"
+        android:text="0/0"
+        app:layout_constraintBottom_toBottomOf="@+id/enemy_healthBar"
+        app:layout_constraintEnd_toEndOf="@+id/enemy_healthBar"
+        app:layout_constraintStart_toStartOf="@+id/enemy_healthBar"
+        app:layout_constraintTop_toTopOf="@+id/enemy_healthBar" />
+
+    <Button
+        android:id="@+id/quit_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/press_start_2p"
+        android:text="Quit"
+        android:textSize="12sp"
+        android:onClick="onQuitBtnPress"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
