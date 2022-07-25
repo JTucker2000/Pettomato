@@ -6,5 +6,6 @@ import androidx.room.PrimaryKey
 @Entity (tableName = "players")
 data class PlayerEntity(
     @PrimaryKey val username: String,
-    var money_amount: Int
+    var money_amount: Int,
+    var arena_level: Int
 )

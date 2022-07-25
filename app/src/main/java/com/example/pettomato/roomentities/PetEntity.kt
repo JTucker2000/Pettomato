@@ -9,6 +9,8 @@ data class PetEntity(
     var pet_name: String,
     var image_id: Int,
     var pet_level: Int,
+    var pet_health: Int,
+    val pet_maxhp: Int,
     var hunger_level: Int,
     var thirst_level: Int,
     var happiness_level: Int,

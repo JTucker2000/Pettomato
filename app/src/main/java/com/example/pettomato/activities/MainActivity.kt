@@ -39,8 +39,8 @@ class MainActivity : AppCompatActivity() {
 
         // Set up observer(s)
         // ---- FIRST RUN, FOR TESTING ONLY ----
-        //mainViewModel.addPet(PetEntity(0, "Corgi", R.drawable.corgiface1, 1, 88, 55, 90, 80))
-        //mainViewModel.addPlayer(PlayerEntity("Jtuck", 1000))
+        //mainViewModel.addPet(PetEntity(0, "Corgi", R.drawable.corgiface1, 1, 100, 100, 88, 55, 90, 80))
+        //mainViewModel.addPlayer(PlayerEntity("Jtuck", 1000, 1))
         // ---- END FIRST RUN ----
         mainViewModel.petListLive.observe(this, Observer<List<PetEntity>>{ currentPetList ->
             updateFromPet(currentPetList[0])
