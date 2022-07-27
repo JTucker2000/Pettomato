@@ -4,6 +4,7 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -32,8 +33,9 @@ class MainActivity : AppCompatActivity() {
 
     // Constants
     private val TAG: String = "MainActivityTag"
-    private val FADE_ANIMATION_DURATION: Long = 150
+    private val MENU_FADE_ANIMATION_DURATION: Long = 150
     private val PROGRESSBAR_ANIMATION_DURATION: Long = 300
+    private val UPDATE_TEXT_FADE_DURATION: Long = 2000
 
     // View variables
     private lateinit var upgradesListView: ListView
@@ -108,11 +110,41 @@ class MainActivity : AppCompatActivity() {
         // Pet image
         petImage.setImageResource(pet.image_id)
 
+        // Status update texts
+        animatePetStatusUpdateText(hungerUpdateText, pet.hunger_level - hungerProgressBar.progress)
+        animatePetStatusUpdateText(thirstUpdateText, pet.thirst_level - thirstProgressBar.progress)
+        animatePetStatusUpdateText(happyUpdateText, pet.happiness_level - happinessProgressBar.progress)
+        animatePetStatusUpdateText(fitnessUpdateText, pet.fitness_level - fitnessProgressBar.progress)
+
         // Progress bars
         ObjectAnimator.ofInt(hungerProgressBar, "progress", pet.hunger_level).setDuration(PROGRESSBAR_ANIMATION_DURATION).start()
         ObjectAnimator.ofInt(thirstProgressBar, "progress", pet.thirst_level).setDuration(PROGRESSBAR_ANIMATION_DURATION).start()
         ObjectAnimator.ofInt(happinessProgressBar, "progress", pet.happiness_level).setDuration(PROGRESSBAR_ANIMATION_DURATION).start()
         ObjectAnimator.ofInt(fitnessProgressBar, "progress", pet.fitness_level).setDuration(PROGRESSBAR_ANIMATION_DURATION).start()
+    }
+
+    // Animates the given textview to fade in and out while displaying a green or red
+    // number based on the given change amount.
+    // For example, if changeAmount = -10, the textview will fade in and out with a red "-10" text.
+    private fun animatePetStatusUpdateText(curTextView: TextView, changeAmount: Int) {
+        if(changeAmount == 0) return
+
+        val generatedTextWithColor: List<String> = generatePetStatusUpdateText(changeAmount)
+        curTextView.text = generatedTextWithColor[0]
+        curTextView.setTextColor(Color.parseColor(generatedTextWithColor[1]))
+
+        fadeInOutView(curTextView, UPDATE_TEXT_FADE_DURATION)
+    }
+
+    // Returns a list containing two string elements, the first being the update text
+    // and the second being the color code.
+    // For example, if changeAmount == 10, the function will return {"+10", "#00ff00"}
+    private fun generatePetStatusUpdateText(changeAmount: Int): List<String> {
+        return when {
+            changeAmount > 0 -> listOf("+$changeAmount", "#00ff00")
+            changeAmount < 0 -> listOf("$changeAmount", "#ff0000")
+            else -> listOf("$changeAmount", "#ffff00")
+        }
     }
 
     // Returns true if any of the views in the activity are currently visible, false otherwise.
@@ -122,27 +154,45 @@ class MainActivity : AppCompatActivity() {
     }
 
     // Animates the given view to fade in.
-    private fun fadeInView(view: View) {
+    private fun fadeInView(view: View, duration: Long) {
         view.apply {
             alpha = 0f
             visibility = View.VISIBLE
 
             animate()
                 .alpha(1f)
-                .setDuration(FADE_ANIMATION_DURATION)
+                .setDuration(duration)
                 .setListener(null)
         }
     }
 
     // Animates the given view to fade out.
-    private fun fadeOutView(view: View) {
+    private fun fadeOutView(view: View, duration: Long) {
         view.apply {
             animate()
                 .alpha(0f)
-                .setDuration(FADE_ANIMATION_DURATION)
+                .setDuration(duration)
                 .setListener(object : AnimatorListenerAdapter() {
                     override fun onAnimationEnd(animation: Animator) {
+                        if(animation.isRunning) return
                         view.visibility = View.INVISIBLE
+                    }
+                })
+        }
+    }
+
+    // Animates the given view to fade in and out.
+    private fun fadeInOutView(view: View, duration: Long) {
+        view.apply {
+            alpha = 0f
+            visibility = View.VISIBLE
+
+            animate()
+                .alpha(1f)
+                .setDuration(duration/2)
+                .setListener(object : AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(animation: Animator) {
+                        fadeOutView(view, duration/2)
                     }
                 })
         }
@@ -153,13 +203,13 @@ class MainActivity : AppCompatActivity() {
             View.INVISIBLE -> {
                 if (checkViewsVisible()) return
                 upgradesListView.isClickable = true
-                fadeInView(upgradesListView)
-                fadeOutView(petImage)
+                fadeInView(upgradesListView, MENU_FADE_ANIMATION_DURATION)
+                fadeOutView(petImage, MENU_FADE_ANIMATION_DURATION)
             }
             View.VISIBLE -> {
                 upgradesListView.isClickable = false
-                fadeOutView(upgradesListView)
-                fadeInView(petImage)
+                fadeOutView(upgradesListView, MENU_FADE_ANIMATION_DURATION)
+                fadeInView(petImage, MENU_FADE_ANIMATION_DURATION)
             }
             else -> Log.e(TAG, "Error: onUpgradeBtnPress encountered unexpected visibility")
         }
@@ -170,13 +220,13 @@ class MainActivity : AppCompatActivity() {
             View.INVISIBLE -> {
                 if (checkViewsVisible()) return
                 actionsListView.isClickable = true
-                fadeInView(actionsListView)
-                fadeOutView(petImage)
+                fadeInView(actionsListView, MENU_FADE_ANIMATION_DURATION)
+                fadeOutView(petImage, MENU_FADE_ANIMATION_DURATION)
             }
             View.VISIBLE -> {
                 actionsListView.isClickable = false
-                fadeOutView(actionsListView)
-                fadeInView(petImage)
+                fadeOutView(actionsListView, MENU_FADE_ANIMATION_DURATION)
+                fadeInView(petImage, MENU_FADE_ANIMATION_DURATION)
             }
             else -> Log.e(TAG, "Error: onActionBtnPress encountered unexpected visibility")
         }
