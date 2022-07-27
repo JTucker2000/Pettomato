@@ -28,14 +28,44 @@ import com.example.pettomato.workers.PetStatusUpdateWorker
 import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
+    private val mainViewModel: MainViewModel by viewModels()
+
+    // Constants
     private val TAG: String = "MainActivityTag"
     private val FADE_ANIMATION_DURATION: Long = 150
     private val PROGRESSBAR_ANIMATION_DURATION: Long = 300
-    private val mainViewModel: MainViewModel by viewModels()
+
+    // View variables
+    private lateinit var upgradesListView: ListView
+    private lateinit var actionsListView: ListView
+    private lateinit var hungerUpdateText: TextView
+    private lateinit var thirstUpdateText: TextView
+    private lateinit var happyUpdateText: TextView
+    private lateinit var fitnessUpdateText: TextView
+    private lateinit var moneyAmountText: TextView
+    private lateinit var petImage: ImageView
+    private lateinit var hungerProgressBar: ProgressBar
+    private lateinit var thirstProgressBar: ProgressBar
+    private lateinit var happinessProgressBar: ProgressBar
+    private lateinit var fitnessProgressBar: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        // Set up view variables
+        upgradesListView = findViewById<ListView>(R.id.upgrades_listView)
+        actionsListView = findViewById<ListView>(R.id.actions_listView)
+        hungerUpdateText = findViewById<TextView>(R.id.hunger_update_text)
+        thirstUpdateText = findViewById<TextView>(R.id.thirst_update_text)
+        happyUpdateText = findViewById<TextView>(R.id.happy_update_text)
+        fitnessUpdateText = findViewById<TextView>(R.id.fitness_update_text)
+        moneyAmountText = findViewById<TextView>(R.id.money_amount_text)
+        petImage = findViewById<ImageView>(R.id.pet_image)
+        hungerProgressBar = findViewById<ProgressBar>(R.id.hunger_progressBar)
+        thirstProgressBar = findViewById<ProgressBar>(R.id.thirst_progressBar)
+        happinessProgressBar = findViewById<ProgressBar>(R.id.happy_progressBar)
+        fitnessProgressBar = findViewById<ProgressBar>(R.id.fitness_progressBar)
 
         // Set up observer(s)
         // ---- FIRST RUN, FOR TESTING ONLY ----
@@ -46,7 +76,6 @@ class MainActivity : AppCompatActivity() {
             updateFromPet(currentPetList[0])
         })
         mainViewModel.playerLive.observe(this, Observer<PlayerEntity>{ currentPlayer ->
-            val moneyAmountText = findViewById<TextView>(R.id.money_amount_text)
             moneyAmountText.text = currentPlayer.money_amount.toString()
         })
 
@@ -61,27 +90,25 @@ class MainActivity : AppCompatActivity() {
             )
 
         // Set up view(s)
-        val upgradesListView = findViewById<ListView>(R.id.upgrades_listView)
         upgradesListView.adapter = UpgradesListViewAdapter(this)
         upgradesListView.visibility = View.INVISIBLE
         upgradesListView.isClickable = false
 
-        val actionsListView = findViewById<ListView>(R.id.actions_listView)
         actionsListView.adapter = ActionsListViewAdapter(this)
         actionsListView.visibility = View.INVISIBLE
         actionsListView.isClickable = false
+
+        hungerUpdateText.visibility = View.INVISIBLE
+        thirstUpdateText.visibility = View.INVISIBLE
+        happyUpdateText.visibility = View.INVISIBLE
+        fitnessUpdateText.visibility = View.INVISIBLE
     }
 
     private fun updateFromPet(pet: PetEntity) {
-        // Set up pet image
-        val petImage = findViewById<ImageView>(R.id.pet_image)
+        // Pet image
         petImage.setImageResource(pet.image_id)
 
-        // Set up progress bars
-        val hungerProgressBar = findViewById<ProgressBar>(R.id.hunger_progressBar)
-        val thirstProgressBar = findViewById<ProgressBar>(R.id.thirst_progressBar)
-        val happinessProgressBar = findViewById<ProgressBar>(R.id.happy_progressBar)
-        val fitnessProgressBar = findViewById<ProgressBar>(R.id.fitness_progressBar)
+        // Progress bars
         ObjectAnimator.ofInt(hungerProgressBar, "progress", pet.hunger_level).setDuration(PROGRESSBAR_ANIMATION_DURATION).start()
         ObjectAnimator.ofInt(thirstProgressBar, "progress", pet.thirst_level).setDuration(PROGRESSBAR_ANIMATION_DURATION).start()
         ObjectAnimator.ofInt(happinessProgressBar, "progress", pet.happiness_level).setDuration(PROGRESSBAR_ANIMATION_DURATION).start()
@@ -90,9 +117,6 @@ class MainActivity : AppCompatActivity() {
 
     // Returns true if any of the views in the activity are currently visible, false otherwise.
     private fun checkViewsVisible(): Boolean {
-        val upgradesListView = findViewById<ListView>(R.id.upgrades_listView)
-        val actionsListView = findViewById<ListView>(R.id.actions_listView)
-
         return upgradesListView.visibility == View.VISIBLE ||
                 actionsListView.visibility == View.VISIBLE
     }
@@ -125,9 +149,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onUpgradeBtnPress(view: View) {
-        val petImage = findViewById<ImageView>(R.id.pet_image)
-        val upgradesListView = findViewById<ListView>(R.id.upgrades_listView)
-
         when (upgradesListView.visibility){
             View.INVISIBLE -> {
                 if (checkViewsVisible()) return
@@ -145,9 +166,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onActionBtnPress(view: View) {
-        val petImage = findViewById<ImageView>(R.id.pet_image)
-        val actionsListView = findViewById<ListView>(R.id.actions_listView)
-
         when (actionsListView.visibility){
             View.INVISIBLE -> {
                 if (checkViewsVisible()) return
@@ -165,7 +183,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onActionListBtnPress(view: View) {
-        val actionsListView = findViewById<ListView>(R.id.actions_listView)
         when (actionsListView.getPositionForView(view)){
             0 -> mainViewModel.onFeedBtnPress()
             1 -> mainViewModel.onGiveWaterBtnPress()

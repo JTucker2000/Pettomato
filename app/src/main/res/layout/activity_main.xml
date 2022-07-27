@@ -192,26 +192,77 @@
         android:id="@+id/money_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="3dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
         android:fontFamily="@font/press_start_2p"
-        android:text="Money"
+        android:text="Money:"
         android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="@+id/hunger_progressBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/hunger_progressBar"
-        app:layout_constraintTop_toTopOf="@+id/hunger_progressBar" />
+        app:layout_constraintEnd_toStartOf="@+id/money_amount_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fitness_text" />
 
     <TextView
         android:id="@+id/money_amount_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
+        android:layout_marginStart="8dp"
         android:fontFamily="@font/press_start_2p"
         android:text="Error"
         android:textSize="10sp"
+        app:layout_constraintStart_toEndOf="@+id/money_text"
+        app:layout_constraintTop_toTopOf="@+id/money_text" />
+
+    <TextView
+        android:id="@+id/hunger_update_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/press_start_2p"
+        android:text="+0"
+        android:textColor="#EDD70C"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/hunger_progressBar"
+        app:layout_constraintStart_toEndOf="@+id/hunger_progressBar"
+        app:layout_constraintTop_toTopOf="@+id/hunger_progressBar" />
+
+    <TextView
+        android:id="@+id/thirst_update_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/press_start_2p"
+        android:text="+0"
+        android:textColor="#EDD70C"
+        android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="@+id/thirst_progressBar"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/thirst_progressBar"
         app:layout_constraintTop_toTopOf="@+id/thirst_progressBar" />
+
+    <TextView
+        android:id="@+id/happy_update_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/press_start_2p"
+        android:text="+0"
+        android:textColor="#EDD70C"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/happy_progressBar"
+        app:layout_constraintStart_toEndOf="@+id/happy_progressBar"
+        app:layout_constraintTop_toTopOf="@+id/happy_progressBar" />
+
+    <TextView
+        android:id="@+id/fitness_update_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/press_start_2p"
+        android:text="+0"
+        android:textColor="#EDD70C"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/fitness_progressBar"
+        app:layout_constraintStart_toEndOf="@+id/fitness_progressBar"
+        app:layout_constraintTop_toTopOf="@+id/fitness_progressBar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

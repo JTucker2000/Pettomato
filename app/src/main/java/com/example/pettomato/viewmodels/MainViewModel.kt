@@ -6,7 +6,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.example.pettomato.AppDatabase
 import com.example.pettomato.repositories.PlayerRepository
-import com.example.pettomato.roomdaos.PlayerDao
 import com.example.pettomato.roomentities.PetEntity
 import com.example.pettomato.roomentities.PlayerEntity
 import kotlinx.coroutines.Dispatchers
