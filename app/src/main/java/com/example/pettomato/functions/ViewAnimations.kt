@@ -2,7 +2,9 @@ package com.example.pettomato.functions
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import android.animation.ObjectAnimator
 import android.graphics.Color
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 
@@ -10,46 +12,54 @@ import android.widget.TextView
 
 // Animates the given view to fade in.
 fun fadeInView(view: View, duration: Long) {
-    view.apply {
-        alpha = 0f
-        visibility = View.VISIBLE
+    // Preconditions
+    view.clearAnimation()
+    view.visibility = View.VISIBLE
+    view.alpha = 0f
 
-        animate()
-            .alpha(1f)
-            .setDuration(duration)
-            .setListener(null)
-    }
+    // Animation
+    view.animate()
+        .alpha(1f)
+        .setDuration(duration)
+        .setListener(null)
 }
 
 // Animates the given view to fade out.
 fun fadeOutView(view: View, duration: Long) {
-    view.apply {
-        animate()
-            .alpha(0f)
-            .setDuration(duration)
-            .setListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationEnd(animation: Animator) {
-                    view.visibility = View.INVISIBLE
-                }
-            })
-    }
+    view.clearAnimation()
+    view.visibility = View.VISIBLE
+    view.alpha = 1f
+
+    view.animate()
+        .alpha(0f)
+        .setDuration(duration)
+        .setListener(object : AnimatorListenerAdapter() {
+            var isCancelled: Boolean = false
+
+            override fun onAnimationCancel(animation: Animator?) {
+                isCancelled = true
+            }
+
+            override fun onAnimationEnd(animation: Animator) {
+                if(!isCancelled) view.visibility = View.INVISIBLE
+            }
+        })
 }
 
 // Animates the given view to fade in and out.
 fun fadeInOutView(view: View, duration: Long) {
-    view.apply {
-        alpha = 0f
-        visibility = View.VISIBLE
+    view.clearAnimation()
+    view.visibility = View.VISIBLE
+    view.alpha = 0f
 
-        animate()
-            .alpha(1f)
-            .setDuration(duration/2)
-            .setListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationEnd(animation: Animator) {
-                    fadeOutView(view, duration/2)
-                }
-            })
-    }
+    view.animate()
+        .alpha(1f)
+        .setDuration(duration/2)
+        .setListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationEnd(animation: Animator) {
+                fadeOutView(view, duration/2)
+            }
+        })
 }
 
 // Animates the given textview to fade in and out while displaying a green or red
