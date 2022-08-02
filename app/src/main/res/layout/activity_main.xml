@@ -208,7 +208,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:fontFamily="@font/press_start_2p"
-        android:text="Error"
+        android:text="0"
+        android:textColor="#00FF00"
         android:textSize="10sp"
         app:layout_constraintStart_toEndOf="@+id/money_text"
         app:layout_constraintTop_toTopOf="@+id/money_text" />
@@ -264,5 +265,18 @@
         app:layout_constraintBottom_toBottomOf="@+id/fitness_progressBar"
         app:layout_constraintStart_toEndOf="@+id/fitness_progressBar"
         app:layout_constraintTop_toTopOf="@+id/fitness_progressBar" />
+
+    <TextView
+        android:id="@+id/money_update_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/press_start_2p"
+        android:text="+0"
+        android:textColor="#EDD70C"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/money_amount_text"
+        app:layout_constraintStart_toEndOf="@+id/money_amount_text"
+        app:layout_constraintTop_toTopOf="@+id/money_amount_text" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

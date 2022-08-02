@@ -43,6 +43,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var thirstUpdateText: TextView
     private lateinit var happyUpdateText: TextView
     private lateinit var fitnessUpdateText: TextView
+    private lateinit var moneyUpdateText: TextView
     private lateinit var moneyAmountText: TextView
     private lateinit var petImage: ImageView
     private lateinit var hungerProgressBar: ProgressBar
@@ -61,6 +62,7 @@ class MainActivity : AppCompatActivity() {
         thirstUpdateText = findViewById<TextView>(R.id.thirst_update_text)
         happyUpdateText = findViewById<TextView>(R.id.happy_update_text)
         fitnessUpdateText = findViewById<TextView>(R.id.fitness_update_text)
+        moneyUpdateText = findViewById<TextView>(R.id.money_update_text)
         moneyAmountText = findViewById<TextView>(R.id.money_amount_text)
         petImage = findViewById<ImageView>(R.id.pet_image)
         hungerProgressBar = findViewById<ProgressBar>(R.id.hunger_progressBar)
@@ -74,10 +76,10 @@ class MainActivity : AppCompatActivity() {
         //mainViewModel.addPlayer(PlayerEntity("Jtuck", 1000, 1))
         // ---- END FIRST RUN ----
         mainViewModel.petListLive.observe(this, Observer<List<PetEntity>>{ currentPetList ->
-            updateFromPet(currentPetList[0])
+            updateUIFromPet(currentPetList[0])
         })
         mainViewModel.playerLive.observe(this, Observer<PlayerEntity>{ currentPlayer ->
-            moneyAmountText.text = currentPlayer.money_amount.toString()
+            updateUIFromPlayer(currentPlayer)
         })
 
         // Set up worker(s)
@@ -103,9 +105,10 @@ class MainActivity : AppCompatActivity() {
         thirstUpdateText.visibility = View.INVISIBLE
         happyUpdateText.visibility = View.INVISIBLE
         fitnessUpdateText.visibility = View.INVISIBLE
+        moneyUpdateText.visibility = View.INVISIBLE
     }
 
-    private fun updateFromPet(pet: PetEntity) {
+    private fun updateUIFromPet(pet: PetEntity) {
         // Pet image
         petImage.setImageResource(pet.image_id)
 
@@ -120,6 +123,14 @@ class MainActivity : AppCompatActivity() {
         ObjectAnimator.ofInt(thirstProgressBar, "progress", pet.thirst_level).setDuration(PROGRESSBAR_ANIMATION_DURATION).start()
         ObjectAnimator.ofInt(happinessProgressBar, "progress", pet.happiness_level).setDuration(PROGRESSBAR_ANIMATION_DURATION).start()
         ObjectAnimator.ofInt(fitnessProgressBar, "progress", pet.fitness_level).setDuration(PROGRESSBAR_ANIMATION_DURATION).start()
+    }
+
+    private fun updateUIFromPlayer(player: PlayerEntity) {
+        // Money update text
+        animateStatusUpdateText(moneyUpdateText, player.money_amount - moneyAmountText.text.toString().toInt(), UPDATE_TEXT_FADE_DURATION)
+
+        // Money amount text
+        moneyAmountText.text = player.money_amount.toString()
     }
 
     // Returns true if any of the views in the activity are currently visible, false otherwise.
