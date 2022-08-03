@@ -12,6 +12,7 @@ import com.example.pettomato.repositories.PlayerRepository
 import com.example.pettomato.roomentities.PetEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class PetArenaViewModel(application: Application) : AndroidViewModel(application) {
     private val playerRepository: PlayerRepository
@@ -30,10 +31,15 @@ class PetArenaViewModel(application: Application) : AndroidViewModel(application
         // Set the starting enemy based on players arena level
         viewModelScope.launch(Dispatchers.IO) {
             val curPlayer = playerRepository.getPlayerByUsername("Jtuck")
-            when (curPlayer.arena_level){
-                1 -> _enemyLive.value = Enemy("angrycorgi", R.drawable.corgiface1, 1, 10, 10)
-                2 -> _enemyLive.value = Enemy("angrygershepard", R.drawable.germanshepard1, 10, 100, 100)
-                else -> _enemyLive.value = Enemy("error", R.drawable.testpet1, 0, 0, 0)
+
+            val tempEnemy = when (curPlayer.arena_level) {
+                1 -> Enemy("angrycorgi", R.drawable.corgiface1, 1, 10, 10)
+                2 -> Enemy("angrygershepard", R.drawable.germanshepard1, 10, 100, 100)
+                else -> Enemy("error", R.drawable.testpet1, 0, 0, 0)
+            }
+
+            withContext(Dispatchers.Main) {
+                _enemyLive.value = tempEnemy
             }
         }
     }

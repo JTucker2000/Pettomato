@@ -13,6 +13,7 @@
         android:layout_height="150dp"
         android:layout_marginBottom="128dp"
         android:src="@drawable/corgiface1"
+        android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.15"
@@ -24,6 +25,7 @@
         android:layout_height="150dp"
         android:layout_marginBottom="128dp"
         android:src="@drawable/germanshepard1"
+        android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.85"
@@ -67,7 +69,7 @@
         app:layout_constraintTop_toTopOf="@+id/items_btn" />
 
     <ProgressBar
-        android:id="@+id/player_healthBar"
+        android:id="@+id/playerHealth_progressBar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="225dp"
         android:layout_height="25dp"
@@ -78,15 +80,15 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ProgressBar
-        android:id="@+id/enemy_healthBar"
+        android:id="@+id/enemyHealth_progressBar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="225dp"
         android:layout_height="25dp"
         android:layout_marginTop="16dp"
         android:progressDrawable="@drawable/pet_status_progressbar"
-        app:layout_constraintEnd_toEndOf="@+id/player_healthBar"
-        app:layout_constraintStart_toStartOf="@+id/player_healthBar"
-        app:layout_constraintTop_toBottomOf="@+id/player_healthBar" />
+        app:layout_constraintEnd_toEndOf="@+id/playerHealth_progressBar"
+        app:layout_constraintStart_toStartOf="@+id/playerHealth_progressBar"
+        app:layout_constraintTop_toBottomOf="@+id/playerHealth_progressBar" />
 
     <TextView
         android:id="@+id/playerHealth_text"
@@ -96,9 +98,9 @@
         android:fontFamily="@font/press_start_2p"
         android:text="Health:"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/player_healthBar"
+        app:layout_constraintBottom_toBottomOf="@+id/playerHealth_progressBar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/player_healthBar" />
+        app:layout_constraintTop_toTopOf="@+id/playerHealth_progressBar" />
 
     <TextView
         android:id="@+id/enemyHealth_text"
@@ -107,10 +109,10 @@
         android:fontFamily="@font/press_start_2p"
         android:text="Enemy:"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/enemy_healthBar"
+        app:layout_constraintBottom_toBottomOf="@+id/enemyHealth_progressBar"
         app:layout_constraintEnd_toEndOf="@+id/playerHealth_text"
         app:layout_constraintStart_toStartOf="@+id/playerHealth_text"
-        app:layout_constraintTop_toTopOf="@+id/enemy_healthBar" />
+        app:layout_constraintTop_toTopOf="@+id/enemyHealth_progressBar" />
 
     <TextView
         android:id="@+id/playerHealthNum_text"
@@ -119,10 +121,10 @@
         android:layout_marginTop="8dp"
         android:fontFamily="@font/press_start_2p"
         android:text="0/0"
-        app:layout_constraintBottom_toBottomOf="@+id/player_healthBar"
-        app:layout_constraintEnd_toEndOf="@+id/player_healthBar"
-        app:layout_constraintStart_toStartOf="@+id/player_healthBar"
-        app:layout_constraintTop_toTopOf="@+id/player_healthBar" />
+        app:layout_constraintBottom_toBottomOf="@+id/playerHealth_progressBar"
+        app:layout_constraintEnd_toEndOf="@+id/playerHealth_progressBar"
+        app:layout_constraintStart_toStartOf="@+id/playerHealth_progressBar"
+        app:layout_constraintTop_toTopOf="@+id/playerHealth_progressBar" />
 
     <TextView
         android:id="@+id/enemyHealthNum_text"
@@ -131,10 +133,10 @@
         android:layout_marginTop="8dp"
         android:fontFamily="@font/press_start_2p"
         android:text="0/0"
-        app:layout_constraintBottom_toBottomOf="@+id/enemy_healthBar"
-        app:layout_constraintEnd_toEndOf="@+id/enemy_healthBar"
-        app:layout_constraintStart_toStartOf="@+id/enemy_healthBar"
-        app:layout_constraintTop_toTopOf="@+id/enemy_healthBar" />
+        app:layout_constraintBottom_toBottomOf="@+id/enemyHealth_progressBar"
+        app:layout_constraintEnd_toEndOf="@+id/enemyHealth_progressBar"
+        app:layout_constraintStart_toStartOf="@+id/enemyHealth_progressBar"
+        app:layout_constraintTop_toTopOf="@+id/enemyHealth_progressBar" />
 
     <Button
         android:id="@+id/quit_btn"
