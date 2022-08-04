@@ -184,5 +184,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun onShopListBtnPress(view: View) {
+        // Do stuff based on what item was clicked in the shop
+    }
+
     fun onArenaBtnPress(view: View) = startActivity(Intent(this, PetArenaActivity::class.java))
 }
