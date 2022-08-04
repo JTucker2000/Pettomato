@@ -23,7 +23,7 @@ import com.example.pettomato.functions.fadeOutView
 import com.example.pettomato.roomentities.PetEntity
 import com.example.pettomato.roomentities.PlayerEntity
 import com.example.pettomato.viewadapters.ActionsListViewAdapter
-import com.example.pettomato.viewadapters.UpgradesListViewAdapter
+import com.example.pettomato.viewadapters.ShopListViewAdapter
 import com.example.pettomato.workers.PetStatusUpdateWorker
 import java.util.concurrent.TimeUnit
 
@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
     private val UPDATE_TEXT_FADE_DURATION: Long = 2000
 
     // View variables
-    private lateinit var upgradesListView: ListView
+    private lateinit var shopListView: ListView
     private lateinit var actionsListView: ListView
     private lateinit var hungerUpdateText: TextView
     private lateinit var thirstUpdateText: TextView
@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // Set up view variables
-        upgradesListView = findViewById<ListView>(R.id.upgrades_listView)
+        shopListView = findViewById<ListView>(R.id.shop_listView)
         actionsListView = findViewById<ListView>(R.id.actions_listView)
         hungerUpdateText = findViewById<TextView>(R.id.hunger_update_text)
         thirstUpdateText = findViewById<TextView>(R.id.thirst_update_text)
@@ -93,9 +93,9 @@ class MainActivity : AppCompatActivity() {
             )
 
         // Set up view(s)
-        upgradesListView.adapter = UpgradesListViewAdapter(this)
-        upgradesListView.visibility = View.INVISIBLE
-        upgradesListView.isClickable = false
+        shopListView.adapter = ShopListViewAdapter(this)
+        shopListView.visibility = View.INVISIBLE
+        shopListView.isClickable = false
 
         actionsListView.adapter = ActionsListViewAdapter(this)
         actionsListView.visibility = View.INVISIBLE
@@ -135,21 +135,21 @@ class MainActivity : AppCompatActivity() {
 
     // Returns true if any of the views in the activity are currently visible, false otherwise.
     private fun checkViewsVisible(): Boolean {
-        return upgradesListView.visibility == View.VISIBLE ||
+        return shopListView.visibility == View.VISIBLE ||
                 actionsListView.visibility == View.VISIBLE
     }
 
-    fun onUpgradeBtnPress(view: View) {
-        when (upgradesListView.visibility){
+    fun onShopBtnPress(view: View) {
+        when (shopListView.visibility){
             View.INVISIBLE -> {
                 if (checkViewsVisible()) return
-                upgradesListView.isClickable = true
-                fadeInView(upgradesListView, MENU_FADE_ANIMATION_DURATION)
+                shopListView.isClickable = true
+                fadeInView(shopListView, MENU_FADE_ANIMATION_DURATION)
                 fadeOutView(petImage, MENU_FADE_ANIMATION_DURATION)
             }
             View.VISIBLE -> {
-                upgradesListView.isClickable = false
-                fadeOutView(upgradesListView, MENU_FADE_ANIMATION_DURATION)
+                shopListView.isClickable = false
+                fadeOutView(shopListView, MENU_FADE_ANIMATION_DURATION)
                 fadeInView(petImage, MENU_FADE_ANIMATION_DURATION)
             }
             else -> Log.e(TAG, "Error: onUpgradeBtnPress encountered unexpected visibility")

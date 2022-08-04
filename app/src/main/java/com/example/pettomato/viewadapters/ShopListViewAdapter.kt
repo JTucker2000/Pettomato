@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import com.example.pettomato.R
 
-class UpgradesListViewAdapter(context: Context): BaseAdapter() {
+class ShopListViewAdapter(context: Context): BaseAdapter() {
     private val curContext: Context
 
     init {
@@ -28,6 +28,6 @@ class UpgradesListViewAdapter(context: Context): BaseAdapter() {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val layoutInflater = LayoutInflater.from(curContext)
-        return layoutInflater.inflate(R.layout.upgrade_list_view_item, parent, false)
+        return layoutInflater.inflate(R.layout.shop_list_view_item, parent, false)
     }
 }

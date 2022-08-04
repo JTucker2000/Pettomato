@@ -36,18 +36,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/upgrades_listView" />
+        app:layout_constraintTop_toBottomOf="@+id/shop_listView" />
 
     <Button
-        android:id="@+id/upgrades_btn"
+        android:id="@+id/shop_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginRight="8dp"
         android:fontFamily="@font/press_start_2p"
-        android:onClick="onUpgradeBtnPress"
-        android:text="Upgrades"
-        android:textSize="8sp"
+        android:onClick="onShopBtnPress"
+        android:text="Shop"
+        android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="@+id/actions_btn"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -157,7 +157,7 @@
         app:layout_constraintTop_toTopOf="@+id/fitness_progressBar" />
 
     <ListView
-        android:id="@+id/upgrades_listView"
+        android:id="@+id/shop_listView"
         android:layout_width="300dp"
         android:layout_height="300dp"
         app:layout_constraintBottom_toBottomOf="parent"
