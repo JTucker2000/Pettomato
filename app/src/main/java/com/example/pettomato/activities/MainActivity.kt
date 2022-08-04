@@ -93,7 +93,8 @@ class MainActivity : AppCompatActivity() {
             )
 
         // Set up view(s)
-        shopListView.adapter = ShopListViewAdapter(this)
+        shopListView.adapter = ShopListViewAdapter(this, arrayOf(4, 3, 2)) // Placeholder, change to data from viewmodel
+        // once playerEntity has been set up to carry that data.
         shopListView.visibility = View.INVISIBLE
         shopListView.isClickable = false
 
