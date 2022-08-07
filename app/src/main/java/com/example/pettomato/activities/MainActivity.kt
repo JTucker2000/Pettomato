@@ -51,6 +51,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var happinessProgressBar: ProgressBar
     private lateinit var fitnessProgressBar: ProgressBar
 
+    // Adapter variables
+    private lateinit var shopListViewAdapter: ShopListViewAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -73,7 +76,7 @@ class MainActivity : AppCompatActivity() {
         // Set up observer(s)
         // ---- FIRST RUN, FOR TESTING ONLY ----
         //mainViewModel.addPet(PetEntity(0, "Corgi", R.drawable.corgiface1, 1, 100, 100, 88, 55, 90, 80))
-        //mainViewModel.addPlayer(PlayerEntity("Jtuck", 1000, 1))
+        //mainViewModel.addPlayer(PlayerEntity("Jtuck", 1000, 1, 0, 0, 0))
         // ---- END FIRST RUN ----
         mainViewModel.petListLive.observe(this, Observer<List<PetEntity>>{ currentPetList ->
             updateUIFromPet(currentPetList[0])
@@ -93,8 +96,8 @@ class MainActivity : AppCompatActivity() {
             )
 
         // Set up view(s)
-        shopListView.adapter = ShopListViewAdapter(this, arrayOf(4, 3, 2)) // Placeholder, change to data from viewmodel
-        // once playerEntity has been set up to carry that data.
+        shopListViewAdapter = ShopListViewAdapter(this, arrayOf(0, 0, 0))
+        shopListView.adapter = shopListViewAdapter
         shopListView.visibility = View.INVISIBLE
         shopListView.isClickable = false
 
@@ -132,6 +135,9 @@ class MainActivity : AppCompatActivity() {
 
         // Money amount text
         moneyAmountText.text = player.money_amount.toString()
+
+        // Update num shop items owned
+        shopListViewAdapter.updateNumOwned(arrayOf(player.num_bandages, player.num_firstaid, player.num_ironpaw))
     }
 
     // Returns true if any of the views in the activity are currently visible, false otherwise.
@@ -186,7 +192,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onShopListBtnPress(view: View) {
-        // Do stuff based on what item was clicked in the shop
+        when (shopListView.getPositionForView(view)){
+            0 -> mainViewModel.onBuyBandagesBtnPress()
+            1 -> mainViewModel.onBuyFirstAidBtnPress()
+            2 -> mainViewModel.onBuyIronPawsBtnPress()
+            else -> Log.e(TAG, "Error: onShopListBtnPress encountered unexpected position")
+        }
     }
 
     fun onArenaBtnPress(view: View) = startActivity(Intent(this, PetArenaActivity::class.java))

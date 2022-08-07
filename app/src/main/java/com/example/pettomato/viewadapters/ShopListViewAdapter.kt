@@ -9,7 +9,7 @@ import android.widget.Button
 import android.widget.TextView
 import com.example.pettomato.R
 
-class ShopListViewAdapter(context: Context, private val numOwned: Array<Int>): BaseAdapter() {
+class ShopListViewAdapter(context: Context, private var numOwned: Array<Int>): BaseAdapter() {
     private val curContext: Context
     private val shopOptions = arrayOf("Bandage", "First-aid Kit", "Iron Paws")
     private val buyButtonText = arrayOf("-30 Coins", "-100 Coins", "-50 Coins")
@@ -46,5 +46,8 @@ class ShopListViewAdapter(context: Context, private val numOwned: Array<Int>): B
         return layout
     }
 
-    // TODO: Create a function that updates the value of numOwned. Parameter should be Array<Int>
+    fun updateNumOwned(arrNumOwned: Array<Int>) {
+        numOwned = arrNumOwned
+        notifyDataSetChanged()
+    }
 }

@@ -114,4 +114,46 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             playerRepository.updatePet(curPet)
         }
     }
+
+    // Handles when buy bandages button is pressed in shop listview.
+    fun onBuyBandagesBtnPress() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val curPlayer = playerRepository.getPlayerByUsername("Jtuck")
+
+            if(curPlayer.money_amount >= 30) {
+                curPlayer.money_amount -= 30
+                curPlayer.num_bandages += 1
+            }
+
+            playerRepository.updatePlayer(curPlayer)
+        }
+    }
+
+    // Handles when buy firstaid button is pressed in shop listview.
+    fun onBuyFirstAidBtnPress() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val curPlayer = playerRepository.getPlayerByUsername("Jtuck")
+
+            if(curPlayer.money_amount >= 100) {
+                curPlayer.money_amount -= 100
+                curPlayer.num_firstaid += 1
+            }
+
+            playerRepository.updatePlayer(curPlayer)
+        }
+    }
+
+    // Handles when buy iron paws button is pressed in shop listview.
+    fun onBuyIronPawsBtnPress() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val curPlayer = playerRepository.getPlayerByUsername("Jtuck")
+
+            if(curPlayer.money_amount >= 50) {
+                curPlayer.money_amount -= 50
+                curPlayer.num_ironpaw += 1
+            }
+
+            playerRepository.updatePlayer(curPlayer)
+        }
+    }
 }
