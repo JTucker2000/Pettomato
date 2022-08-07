@@ -158,7 +158,7 @@
 
     <ListView
         android:id="@+id/shop_listView"
-        android:layout_width="300dp"
+        android:layout_width="350dp"
         android:layout_height="300dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -170,7 +170,7 @@
 
     <ListView
         android:id="@+id/actions_listView"
-        android:layout_width="300dp"
+        android:layout_width="350dp"
         android:layout_height="300dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
