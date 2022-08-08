@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity() {
     private val MENU_FADE_ANIMATION_DURATION: Long = 150
     private val PROGRESSBAR_ANIMATION_DURATION: Long = 300
     private val UPDATE_TEXT_FADE_DURATION: Long = 2000
+    private val PREVIOUS_VAL_UNINITIALIZED: Int = -1
 
     // View variables
     private lateinit var shopListView: ListView
@@ -53,6 +54,13 @@ class MainActivity : AppCompatActivity() {
 
     // Adapter variables
     private lateinit var shopListViewAdapter: ShopListViewAdapter
+
+    // UI update variables
+    private var previousHungerLevel: Int = PREVIOUS_VAL_UNINITIALIZED
+    private var previousThirstLevel: Int = PREVIOUS_VAL_UNINITIALIZED
+    private var previousHappyLevel: Int = PREVIOUS_VAL_UNINITIALIZED
+    private var previousFitnessLevel: Int = PREVIOUS_VAL_UNINITIALIZED
+    private var previousMoneyAmount: Int = PREVIOUS_VAL_UNINITIALIZED
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,9 +88,17 @@ class MainActivity : AppCompatActivity() {
 
         // Set up observer(s)
         mainViewModel.petListLive.observe(this, Observer<List<PetEntity>>{ currentPetList ->
+            if(previousHungerLevel == PREVIOUS_VAL_UNINITIALIZED) {
+                initializeUIFromPet(currentPetList[0])
+            }
+
             updateUIFromPet(currentPetList[0])
         })
         mainViewModel.playerLive.observe(this, Observer<PlayerEntity>{ currentPlayer ->
+            if(previousMoneyAmount == PREVIOUS_VAL_UNINITIALIZED) {
+                initializeUIFromPlayer(currentPlayer)
+            }
+
             updateUIFromPlayer(currentPlayer)
         })
 
@@ -113,32 +129,63 @@ class MainActivity : AppCompatActivity() {
         moneyUpdateText.visibility = View.INVISIBLE
     }
 
+    private fun initializeUIFromPet(pet: PetEntity) {
+        // Initialize 'previous' UI values
+        previousHungerLevel = pet.hunger_level
+        previousThirstLevel = pet.thirst_level
+        previousHappyLevel = pet.happiness_level
+        previousFitnessLevel = pet.fitness_level
+
+        // Initialize progress bars
+        hungerProgressBar.progress = pet.hunger_level
+        thirstProgressBar.progress = pet.thirst_level
+        happinessProgressBar.progress = pet.happiness_level
+        fitnessProgressBar.progress = pet.fitness_level
+    }
+
     private fun updateUIFromPet(pet: PetEntity) {
         // Pet image
         petImage.setImageResource(pet.image_id)
 
         // Status update texts
-        animateStatusUpdateText(hungerUpdateText, pet.hunger_level - hungerProgressBar.progress, UPDATE_TEXT_FADE_DURATION)
-        animateStatusUpdateText(thirstUpdateText, pet.thirst_level - thirstProgressBar.progress, UPDATE_TEXT_FADE_DURATION)
-        animateStatusUpdateText(happyUpdateText, pet.happiness_level - happinessProgressBar.progress, UPDATE_TEXT_FADE_DURATION)
-        animateStatusUpdateText(fitnessUpdateText, pet.fitness_level - fitnessProgressBar.progress, UPDATE_TEXT_FADE_DURATION)
+        animateStatusUpdateText(hungerUpdateText, pet.hunger_level - previousHungerLevel, UPDATE_TEXT_FADE_DURATION)
+        animateStatusUpdateText(thirstUpdateText, pet.thirst_level - previousThirstLevel, UPDATE_TEXT_FADE_DURATION)
+        animateStatusUpdateText(happyUpdateText, pet.happiness_level - previousHappyLevel, UPDATE_TEXT_FADE_DURATION)
+        animateStatusUpdateText(fitnessUpdateText, pet.fitness_level - previousFitnessLevel, UPDATE_TEXT_FADE_DURATION)
 
         // Progress bars
         ObjectAnimator.ofInt(hungerProgressBar, "progress", pet.hunger_level).setDuration(PROGRESSBAR_ANIMATION_DURATION).start()
         ObjectAnimator.ofInt(thirstProgressBar, "progress", pet.thirst_level).setDuration(PROGRESSBAR_ANIMATION_DURATION).start()
         ObjectAnimator.ofInt(happinessProgressBar, "progress", pet.happiness_level).setDuration(PROGRESSBAR_ANIMATION_DURATION).start()
         ObjectAnimator.ofInt(fitnessProgressBar, "progress", pet.fitness_level).setDuration(PROGRESSBAR_ANIMATION_DURATION).start()
+
+        // Update 'previous' UI values
+        previousHungerLevel = pet.hunger_level
+        previousThirstLevel = pet.thirst_level
+        previousHappyLevel = pet.happiness_level
+        previousFitnessLevel = pet.fitness_level
+    }
+
+    private fun initializeUIFromPlayer(player: PlayerEntity) {
+        // Initialize 'previous' UI values
+        previousMoneyAmount = player.money_amount
+
+        // Initialize money amount text
+        moneyAmountText.text = player.money_amount.toString()
     }
 
     private fun updateUIFromPlayer(player: PlayerEntity) {
         // Money update text
-        animateStatusUpdateText(moneyUpdateText, player.money_amount - moneyAmountText.text.toString().toInt(), UPDATE_TEXT_FADE_DURATION)
+        animateStatusUpdateText(moneyUpdateText, player.money_amount - previousMoneyAmount, UPDATE_TEXT_FADE_DURATION)
 
         // Money amount text
         moneyAmountText.text = player.money_amount.toString()
 
         // Update num shop items owned
         shopListViewAdapter.updateNumOwned(arrayOf(player.num_bandages, player.num_firstaid, player.num_ironpaw))
+
+        // Update 'previous' UI values
+        previousMoneyAmount = player.money_amount
     }
 
     // Returns true if any of the views in the activity are currently visible, false otherwise.
