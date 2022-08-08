@@ -14,7 +14,7 @@ import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.example.pettomato.viewmodels.PetArenaViewModel
 import com.example.pettomato.R
-import com.example.pettomato.dataclasses.Enemy
+import com.example.pettomato.roomentities.EnemyEntity
 import com.example.pettomato.roomentities.PetEntity
 
 class PetArenaActivity : AppCompatActivity() {
@@ -49,11 +49,16 @@ class PetArenaActivity : AppCompatActivity() {
         playerPetImage = findViewById<ImageView>(R.id.player_petImage)
         enemyPetImage = findViewById<ImageView>(R.id.enemy_petImage)
 
+        // ---- FIRST RUN, FOR PREPOPULATING DATABASE ----
+        //petArenaViewModel.addEnemy(EnemyEntity(0, "AngryCorgi", R.drawable.corgiface1, 1, 10, 10))
+        //petArenaViewModel.addEnemy(EnemyEntity(0, "AngryShepard", R.drawable.germanshepard1, 5, 40, 40))
+        // ---- END FIRST RUN ----
+
         // Set up observer(s)
         petArenaViewModel.petListLive.observe(this, Observer<List<PetEntity>>{ currentPetList ->
             updateUIFromPet(currentPetList[0])
         })
-        petArenaViewModel.enemyLive.observe(this, Observer<Enemy>{ currentEnemy ->
+        petArenaViewModel.enemyLive.observe(this, Observer<EnemyEntity>{ currentEnemy ->
             updateUIFromEnemy(currentEnemy)
         })
     }
@@ -73,7 +78,7 @@ class PetArenaActivity : AppCompatActivity() {
         ObjectAnimator.ofInt(playerHealthProgressBar, "progress", pet.pet_health).setDuration(PROGRESSBAR_ANIMATION_DURATION).start()
     }
 
-    private fun updateUIFromEnemy(enemy: Enemy) {
+    private fun updateUIFromEnemy(enemy: EnemyEntity) {
         // Pet image
         enemyPetImage.setImageResource(enemy.image_id)
 

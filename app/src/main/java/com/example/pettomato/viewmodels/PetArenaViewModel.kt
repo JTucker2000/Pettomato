@@ -3,44 +3,35 @@ package com.example.pettomato.viewmodels
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.pettomato.AppDatabase
-import com.example.pettomato.R
-import com.example.pettomato.dataclasses.Enemy
+import com.example.pettomato.repositories.EnemyRepository
 import com.example.pettomato.repositories.PlayerRepository
+import com.example.pettomato.roomentities.EnemyEntity
 import com.example.pettomato.roomentities.PetEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class PetArenaViewModel(application: Application) : AndroidViewModel(application) {
     private val playerRepository: PlayerRepository
-    private var _enemyLive: MutableLiveData<Enemy> = MutableLiveData()
-        val enemyLive: LiveData<Enemy>
-            get() = _enemyLive
+    private val enemyRepository: EnemyRepository
+    val enemyLive: LiveData<EnemyEntity>
     val petListLive: LiveData<List<PetEntity>>
 
     init {
         val database = AppDatabase.getDatabase(application)
         val petDao = database.petDao()
         val playerDao = database.playerDao()
+        val enemyDao = database.enemyDao()
         playerRepository = PlayerRepository(petDao, playerDao)
+        enemyRepository = EnemyRepository(enemyDao, playerDao)
+        enemyLive = enemyRepository.enemyLive
         petListLive = playerRepository.petListLive
+    }
 
-        // Set the starting enemy based on players arena level
+    fun addEnemy(enemyEntity: EnemyEntity) {
         viewModelScope.launch(Dispatchers.IO) {
-            val curPlayer = playerRepository.getPlayerByUsername("Jtuck")
-
-            val tempEnemy = when (curPlayer.arena_level) {
-                1 -> Enemy("angrycorgi", R.drawable.corgiface1, 1, 10, 10)
-                2 -> Enemy("angrygershepard", R.drawable.germanshepard1, 10, 100, 100)
-                else -> Enemy("error", R.drawable.testpet1, 0, 0, 0)
-            }
-
-            withContext(Dispatchers.Main) {
-                _enemyLive.value = tempEnemy
-            }
+            enemyRepository.addEnemy(enemyEntity)
         }
     }
 

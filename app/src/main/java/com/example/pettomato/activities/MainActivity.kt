@@ -73,11 +73,12 @@ class MainActivity : AppCompatActivity() {
         happinessProgressBar = findViewById<ProgressBar>(R.id.happy_progressBar)
         fitnessProgressBar = findViewById<ProgressBar>(R.id.fitness_progressBar)
 
-        // Set up observer(s)
-        // ---- FIRST RUN, FOR TESTING ONLY ----
+        // ---- FIRST RUN, FOR PREPOPULATING DATABASE ----
         //mainViewModel.addPet(PetEntity(0, "Corgi", R.drawable.corgiface1, 1, 100, 100, 88, 55, 90, 80))
         //mainViewModel.addPlayer(PlayerEntity("Jtuck", 1000, 1, 0, 0, 0))
         // ---- END FIRST RUN ----
+
+        // Set up observer(s)
         mainViewModel.petListLive.observe(this, Observer<List<PetEntity>>{ currentPetList ->
             updateUIFromPet(currentPetList[0])
         })
