@@ -16,6 +16,7 @@ import com.example.pettomato.viewmodels.PetArenaViewModel
 import com.example.pettomato.R
 import com.example.pettomato.roomentities.EnemyEntity
 import com.example.pettomato.roomentities.PetEntity
+import com.example.pettomato.roomentities.PlayerEntity
 
 class PetArenaActivity : AppCompatActivity() {
     private val petArenaViewModel: PetArenaViewModel by viewModels()
@@ -61,9 +62,14 @@ class PetArenaActivity : AppCompatActivity() {
         petArenaViewModel.enemyLive.observe(this, Observer<EnemyEntity>{ currentEnemy ->
             updateUIFromEnemy(currentEnemy)
         })
+        petArenaViewModel.playerLive.observe(this, Observer<PlayerEntity>{ currentPlayer ->
+            updateUIFromPlayer(currentPlayer)
+        })
     }
 
     private fun updateUIFromPet(pet: PetEntity) {
+        // TODO: Check HERE to see if the player has been defeated and respond
+
         // Pet image
         playerPetImage.setImageResource(pet.image_id)
 
@@ -79,6 +85,8 @@ class PetArenaActivity : AppCompatActivity() {
     }
 
     private fun updateUIFromEnemy(enemy: EnemyEntity) {
+        // TODO: Check HERE to see if the enemy has been defeated and respond
+
         // Pet image
         enemyPetImage.setImageResource(enemy.image_id)
 
@@ -91,6 +99,10 @@ class PetArenaActivity : AppCompatActivity() {
         // Progress bars
         enemyHealthProgressBar.max = enemy.enemy_maxhp
         ObjectAnimator.ofInt(enemyHealthProgressBar, "progress", enemy.enemy_health).setDuration(PROGRESSBAR_ANIMATION_DURATION).start()
+    }
+
+    private fun updateUIFromPlayer(player: PlayerEntity) {
+        // TODO: Play animation for earning money, that's all it needs to do here.
     }
 
     fun onAttackBtnPress(view: View) {

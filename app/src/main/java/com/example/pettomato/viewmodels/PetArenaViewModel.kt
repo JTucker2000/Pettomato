@@ -9,6 +9,7 @@ import com.example.pettomato.repositories.EnemyRepository
 import com.example.pettomato.repositories.PlayerRepository
 import com.example.pettomato.roomentities.EnemyEntity
 import com.example.pettomato.roomentities.PetEntity
+import com.example.pettomato.roomentities.PlayerEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -17,6 +18,7 @@ class PetArenaViewModel(application: Application) : AndroidViewModel(application
     private val enemyRepository: EnemyRepository
     val enemyLive: LiveData<EnemyEntity>
     val petListLive: LiveData<List<PetEntity>>
+    val playerLive: LiveData<PlayerEntity>
 
     init {
         val database = AppDatabase.getDatabase(application)
@@ -27,6 +29,7 @@ class PetArenaViewModel(application: Application) : AndroidViewModel(application
         enemyRepository = EnemyRepository(enemyDao, playerDao)
         enemyLive = enemyRepository.enemyLive
         petListLive = playerRepository.petListLive
+        playerLive = playerRepository.playerLive
     }
 
     fun addEnemy(enemyEntity: EnemyEntity) {
@@ -36,6 +39,39 @@ class PetArenaViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun onAttackBtnPress() {
-        // Update pet and enemy data
+        viewModelScope.launch(Dispatchers.IO) {
+            val curPet = playerRepository.getPetById(1)
+            val curEnemy = enemyRepository.getEnemyById(1)
+
+            // Update pet values
+            val enemyDamage = curEnemy.enemy_level * 2
+            if(curPet.pet_health >= enemyDamage) curPet.pet_health -= enemyDamage
+            else curPet.pet_health = 0
+
+            // Update enemy values
+            val playerDamage = curPet.pet_level * 2
+            if(curEnemy.enemy_health >= playerDamage) curEnemy.enemy_health -= playerDamage
+            else curEnemy.enemy_health = 0
+
+            playerRepository.updatePet(curPet)
+            enemyRepository.updateEnemy(curEnemy)
+        }
+    }
+
+    // TODO: Finish and use this function
+    // Rewards the player for defeating the opponent and changes to the next enemy.
+    // The next enemy is determined by the player's arena level.
+    fun onEnemyDefeat() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val curPlayer = playerRepository.getPlayerByUsername("Jtuck")
+            val curEnemy = enemyRepository.getEnemyById(1)
+
+            // Reward the player
+
+            // Change the enemy to new enemy
+
+            playerRepository.updatePlayer(curPlayer)
+            enemyRepository.updateEnemy(curEnemy)
+        }
     }
 }
