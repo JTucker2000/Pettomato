@@ -43,4 +43,8 @@ class PetArenaViewModel(application: Application) : AndroidViewModel(application
             }
         }
     }
+
+    fun onAttackBtnPress() {
+        // Update pet and enemy data
+    }
 }

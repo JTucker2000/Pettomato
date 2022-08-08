@@ -36,6 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/press_start_2p"
+        android:onClick="onAttackBtnPress"
         android:text="Attack"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/items_btn"
@@ -73,9 +74,10 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="225dp"
         android:layout_height="25dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:progressDrawable="@drawable/pet_status_progressbar"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.08"
         app:layout_constraintStart_toEndOf="@+id/playerHealth_text"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -94,7 +96,7 @@
         android:id="@+id/playerHealth_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="16dp"
         android:fontFamily="@font/press_start_2p"
         android:text="Health:"
         android:textColor="@color/white"
@@ -149,5 +151,29 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/playerLevel_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/press_start_2p"
+        android:text="LVL 0"
+        android:textColor="#2FFF00"
+        app:layout_constraintBottom_toTopOf="@+id/player_petImage"
+        app:layout_constraintEnd_toEndOf="@+id/player_petImage"
+        app:layout_constraintStart_toStartOf="@+id/player_petImage" />
+
+    <TextView
+        android:id="@+id/enemyLevel_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/press_start_2p"
+        android:text="LVL 0"
+        android:textColor="#FF0000"
+        app:layout_constraintBottom_toTopOf="@+id/enemy_petImage"
+        app:layout_constraintEnd_toEndOf="@+id/enemy_petImage"
+        app:layout_constraintStart_toStartOf="@+id/enemy_petImage" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

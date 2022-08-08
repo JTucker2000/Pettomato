@@ -1,5 +1,7 @@
 package com.example.pettomato.activities
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -18,6 +20,8 @@ import com.example.pettomato.roomentities.PetEntity
 class PetArenaActivity : AppCompatActivity() {
     private val petArenaViewModel: PetArenaViewModel by viewModels()
 
+    private var attackIsOngoing: Boolean = false
+
     // Constants
     private val PROGRESSBAR_ANIMATION_DURATION: Long = 300
 
@@ -26,6 +30,8 @@ class PetArenaActivity : AppCompatActivity() {
     private lateinit var enemyHealthProgressBar: ProgressBar
     private lateinit var playerHealthNumText: TextView
     private lateinit var enemyHealthNumText: TextView
+    private lateinit var playerLevelText: TextView
+    private lateinit var enemyLevelText: TextView
     private lateinit var playerPetImage: ImageView
     private lateinit var enemyPetImage: ImageView
 
@@ -38,6 +44,8 @@ class PetArenaActivity : AppCompatActivity() {
         enemyHealthProgressBar = findViewById<ProgressBar>(R.id.enemyHealth_progressBar)
         playerHealthNumText = findViewById<TextView>(R.id.playerHealthNum_text)
         enemyHealthNumText = findViewById<TextView>(R.id.enemyHealthNum_text)
+        playerLevelText = findViewById<TextView>(R.id.playerLevel_text)
+        enemyLevelText = findViewById<TextView>(R.id.enemyLevel_text)
         playerPetImage = findViewById<ImageView>(R.id.player_petImage)
         enemyPetImage = findViewById<ImageView>(R.id.enemy_petImage)
 
@@ -57,6 +65,9 @@ class PetArenaActivity : AppCompatActivity() {
         // Health text
         playerHealthNumText.text = "${pet.pet_health}/${pet.pet_maxhp}"
 
+        // Level text
+        playerLevelText.text = "LVL ${pet.pet_level}"
+
         // Progress bars
         playerHealthProgressBar.max = pet.pet_maxhp
         ObjectAnimator.ofInt(playerHealthProgressBar, "progress", pet.pet_health).setDuration(PROGRESSBAR_ANIMATION_DURATION).start()
@@ -69,9 +80,53 @@ class PetArenaActivity : AppCompatActivity() {
         // Health text
         enemyHealthNumText.text = "${enemy.enemy_health}/${enemy.enemy_maxhp}"
 
+        // Level text
+        enemyLevelText.text = "LVL ${enemy.enemy_level}"
+
         // Progress bars
         enemyHealthProgressBar.max = enemy.enemy_maxhp
         ObjectAnimator.ofInt(enemyHealthProgressBar, "progress", enemy.enemy_health).setDuration(PROGRESSBAR_ANIMATION_DURATION).start()
+    }
+
+    fun onAttackBtnPress(view: View) {
+        if(!attackIsOngoing) {
+            // Prevents multiple attacks until animation has finished
+            attackIsOngoing = true
+
+            // Do animations for the player's attack
+            playerPetImage.animate()
+                .translationX(100f)
+                .setDuration(100)
+                .setListener(object : AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(animation: Animator) {
+                        playerPetImage.animate()
+                            .translationX(0f)
+                            .setDuration(600)
+                            .setListener(null)
+                    }
+                })
+
+            // Do animations for the enemy's attack
+            enemyPetImage.animate()
+                .translationX(-100f)
+                .setDuration(100)
+                .setListener(object : AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(animation: Animator) {
+                        enemyPetImage.animate()
+                            .translationX(0f)
+                            .setDuration(600)
+                            .setListener(object : AnimatorListenerAdapter() {
+                                override fun onAnimationEnd(animation: Animator) {
+                                    // Animation is over, player can attack again
+                                    attackIsOngoing = false
+                                }
+                            })
+                    }
+                })
+
+            // Modify data in viewmodel
+            petArenaViewModel.onAttackBtnPress()
+        }
     }
 
     fun onQuitBtnPress(view: View) = startActivity(Intent(this, MainActivity::class.java))
