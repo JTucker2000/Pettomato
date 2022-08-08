@@ -43,11 +43,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             val curPlayer = playerRepository.getPlayerByUsername("Jtuck")
             val curPet = playerRepository.getPetById(1)
 
-            // Update pet values
-            if(curPlayer.money_amount < 10) curPlayer.money_amount = 0
-            else curPlayer.money_amount -= 10
-            if(curPet.hunger_level > 75) curPet.hunger_level = 100
-            else curPet.hunger_level += 25
+            if(curPet.hunger_level < 100) {
+                // Update pet values
+                if(curPet.hunger_level > 75) curPet.hunger_level = 100
+                else curPet.hunger_level += 25
+                if(curPlayer.money_amount < 10) curPlayer.money_amount = 0
+                else curPlayer.money_amount -= 10
+            }
 
             playerRepository.updatePlayer(curPlayer)
             playerRepository.updatePet(curPet)
@@ -60,11 +62,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             val curPlayer = playerRepository.getPlayerByUsername("Jtuck")
             val curPet = playerRepository.getPetById(1)
 
-            // Update pet values
-            if(curPlayer.money_amount < 5) curPlayer.money_amount = 0
-            else curPlayer.money_amount -= 5
-            if(curPet.thirst_level > 75) curPet.thirst_level = 100
-            else curPet.thirst_level += 25
+            if(curPet.thirst_level < 100) {
+                // Update pet values
+                if(curPlayer.money_amount < 5) curPlayer.money_amount = 0
+                else curPlayer.money_amount -= 5
+                if(curPet.thirst_level > 75) curPet.thirst_level = 100
+                else curPet.thirst_level += 25
+            }
 
             playerRepository.updatePlayer(curPlayer)
             playerRepository.updatePet(curPet)
@@ -76,9 +80,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch(Dispatchers.IO) {
             val curPet = playerRepository.getPetById(1)
 
-            // Update pet values
-            if(curPet.happiness_level > 75) curPet.happiness_level = 100
-            else curPet.happiness_level += 25
+            if(curPet.happiness_level < 100) {
+                // Update pet values
+                if(curPet.happiness_level > 75) curPet.happiness_level = 100
+                else curPet.happiness_level += 25
+            }
 
             playerRepository.updatePet(curPet)
         }
@@ -89,11 +95,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch(Dispatchers.IO) {
             val curPet = playerRepository.getPetById(1)
 
-            // Update pet values
-            if(curPet.happiness_level > 90) curPet.happiness_level = 100
-            else curPet.happiness_level += 10
-            if(curPet.fitness_level > 75) curPet.fitness_level = 100
-            else curPet.fitness_level += 25
+            if((curPet.happiness_level < 100) || (curPet.fitness_level < 100)) {
+                // Update pet values
+                if(curPet.happiness_level > 90) curPet.happiness_level = 100
+                else curPet.happiness_level += 10
+                if(curPet.fitness_level > 75) curPet.fitness_level = 100
+                else curPet.fitness_level += 25
+            }
 
             playerRepository.updatePet(curPet)
         }
@@ -105,10 +113,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             val curPlayer = playerRepository.getPlayerByUsername("Jtuck")
             val curPet = playerRepository.getPetById(1)
 
-            // Update pet values
-            curPlayer.money_amount += 100
-            if(curPet.happiness_level < 10) curPet.happiness_level = 0
-            else curPet.happiness_level -= 10
+            if(curPet.happiness_level > 0) {
+                // Update pet values
+                curPlayer.money_amount += 100
+                if(curPet.happiness_level < 10) curPet.happiness_level = 0
+                else curPet.happiness_level -= 10
+            }
 
             playerRepository.updatePlayer(curPlayer)
             playerRepository.updatePet(curPet)
