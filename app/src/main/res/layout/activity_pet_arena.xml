@@ -176,4 +176,18 @@
         app:layout_constraintEnd_toEndOf="@+id/enemy_petImage"
         app:layout_constraintStart_toStartOf="@+id/enemy_petImage" />
 
+    <TextView
+        android:id="@+id/playerReward_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/press_start_2p"
+        android:text="Reward Here"
+        android:textAlignment="center"
+        android:textColor="#FFB521"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/playerLevel_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enemyHealth_text" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.example.pettomato.AppDatabase
+import com.example.pettomato.R
 import com.example.pettomato.repositories.EnemyRepository
 import com.example.pettomato.repositories.PlayerRepository
 import com.example.pettomato.roomentities.EnemyEntity
@@ -58,7 +59,6 @@ class PetArenaViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
-    // TODO: Finish and use this function
     // Rewards the player for defeating the opponent and changes to the next enemy.
     // The next enemy is determined by the player's arena level.
     fun onEnemyDefeat() {
@@ -67,11 +67,17 @@ class PetArenaViewModel(application: Application) : AndroidViewModel(application
             val curEnemy = enemyRepository.getEnemyById(1)
 
             // Reward the player
+            curPlayer.money_amount += 100 * curEnemy.enemy_level
+            curPlayer.arena_level += 1
 
             // Change the enemy to new enemy
+            when (curPlayer.arena_level) {
+                1 -> enemyRepository.updateEnemy(EnemyEntity(1, "AngryCorgi", R.drawable.corgiface1, 1, 10, 10))
+                2 -> enemyRepository.updateEnemy(EnemyEntity(1, "AngryShepard", R.drawable.germanshepard1, 3, 35, 35))
+                else -> enemyRepository.updateEnemy(EnemyEntity(1, "MegaAngryCorgi", R.drawable.corgiface1, 100, 1000, 1000))
+            }
 
             playerRepository.updatePlayer(curPlayer)
-            enemyRepository.updateEnemy(curEnemy)
         }
     }
 }

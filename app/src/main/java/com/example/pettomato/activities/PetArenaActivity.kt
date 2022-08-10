@@ -14,6 +14,7 @@ import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.example.pettomato.viewmodels.PetArenaViewModel
 import com.example.pettomato.R
+import com.example.pettomato.functions.fadeInOutView
 import com.example.pettomato.roomentities.EnemyEntity
 import com.example.pettomato.roomentities.PetEntity
 import com.example.pettomato.roomentities.PlayerEntity
@@ -25,6 +26,8 @@ class PetArenaActivity : AppCompatActivity() {
 
     // Constants
     private val PROGRESSBAR_ANIMATION_DURATION: Long = 300
+    private val REWARD_ANIMATION_DURATION: Long = 3000
+    private val PREVIOUS_VAL_UNINITIALIZED: Int = -1
 
     // View variables
     private lateinit var playerHealthProgressBar: ProgressBar
@@ -33,8 +36,12 @@ class PetArenaActivity : AppCompatActivity() {
     private lateinit var enemyHealthNumText: TextView
     private lateinit var playerLevelText: TextView
     private lateinit var enemyLevelText: TextView
+    private lateinit var playerRewardText: TextView
     private lateinit var playerPetImage: ImageView
     private lateinit var enemyPetImage: ImageView
+
+    // UI update variables
+    private var previousMoneyAmount: Int = PREVIOUS_VAL_UNINITIALIZED
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,12 +54,12 @@ class PetArenaActivity : AppCompatActivity() {
         enemyHealthNumText = findViewById<TextView>(R.id.enemyHealthNum_text)
         playerLevelText = findViewById<TextView>(R.id.playerLevel_text)
         enemyLevelText = findViewById<TextView>(R.id.enemyLevel_text)
+        playerRewardText = findViewById<TextView>(R.id.playerReward_text)
         playerPetImage = findViewById<ImageView>(R.id.player_petImage)
         enemyPetImage = findViewById<ImageView>(R.id.enemy_petImage)
 
         // ---- FIRST RUN, FOR PREPOPULATING DATABASE ----
         //petArenaViewModel.addEnemy(EnemyEntity(0, "AngryCorgi", R.drawable.corgiface1, 1, 10, 10))
-        //petArenaViewModel.addEnemy(EnemyEntity(0, "AngryShepard", R.drawable.germanshepard1, 5, 40, 40))
         // ---- END FIRST RUN ----
 
         // Set up observer(s)
@@ -63,8 +70,15 @@ class PetArenaActivity : AppCompatActivity() {
             updateUIFromEnemy(currentEnemy)
         })
         petArenaViewModel.playerLive.observe(this, Observer<PlayerEntity>{ currentPlayer ->
+            if(previousMoneyAmount == PREVIOUS_VAL_UNINITIALIZED) {
+                initializeUIFromPlayer(currentPlayer)
+            }
+
             updateUIFromPlayer(currentPlayer)
         })
+
+        // Set up view(s)
+        playerRewardText.visibility = View.INVISIBLE
     }
 
     private fun updateUIFromPet(pet: PetEntity) {
@@ -85,7 +99,8 @@ class PetArenaActivity : AppCompatActivity() {
     }
 
     private fun updateUIFromEnemy(enemy: EnemyEntity) {
-        // TODO: Check HERE to see if the enemy has been defeated and respond
+        // Check to see if enemy has been defeated
+        if(enemy.enemy_health <= 0) petArenaViewModel.onEnemyDefeat()
 
         // Pet image
         enemyPetImage.setImageResource(enemy.image_id)
@@ -101,8 +116,21 @@ class PetArenaActivity : AppCompatActivity() {
         ObjectAnimator.ofInt(enemyHealthProgressBar, "progress", enemy.enemy_health).setDuration(PROGRESSBAR_ANIMATION_DURATION).start()
     }
 
+    private fun initializeUIFromPlayer(player: PlayerEntity) {
+        // Initialize 'previous' UI values
+        previousMoneyAmount = player.money_amount
+    }
+
     private fun updateUIFromPlayer(player: PlayerEntity) {
-        // TODO: Play animation for earning money, that's all it needs to do here.
+        // Play animation for earning money
+        val changeAmount = player.money_amount - previousMoneyAmount
+        if(changeAmount > 0) {
+            playerRewardText.text = "Enemy Defeated!\n+${changeAmount} Coins"
+            fadeInOutView(playerRewardText, REWARD_ANIMATION_DURATION)
+        }
+
+        // Update 'previous' UI values
+        previousMoneyAmount = player.money_amount
     }
 
     fun onAttackBtnPress(view: View) {
