@@ -82,7 +82,12 @@ class PetArenaActivity : AppCompatActivity() {
     }
 
     private fun updateUIFromPet(pet: PetEntity) {
-        // TODO: Check HERE to see if the player has been defeated and respond
+        // Check to see if player has been defeated
+        if(pet.pet_health <= 0) {
+            petArenaViewModel.onPlayerDefeat()
+            startActivity(Intent(this, GameOverActivity::class.java))
+            return
+        }
 
         // Pet image
         playerPetImage.setImageResource(pet.image_id)

@@ -25,12 +25,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         playerLive = playerRepository.playerLive
     }
 
+    // FOR PREPOPULATING DATABASE IN TESTING
     fun addPet(petEntity: PetEntity) {
         viewModelScope.launch(Dispatchers.IO) {
             playerRepository.addPet(petEntity)
         }
     }
 
+    // FOR PREPOPULATING DATABASE IN TESTING
     fun addPlayer(playerEntity: PlayerEntity) {
         viewModelScope.launch(Dispatchers.IO) {
             playerRepository.addPlayer(playerEntity)

@@ -33,6 +33,18 @@ class PetArenaViewModel(application: Application) : AndroidViewModel(application
         playerLive = playerRepository.playerLive
     }
 
+    // Changes the current enemy based on the given arena level.
+    private fun setEnemy(arenaLevel: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            when (arenaLevel) {
+                1 -> enemyRepository.updateEnemy(EnemyEntity(1, "AngryCorgi", R.drawable.corgiface1, 1, 10, 10))
+                2 -> enemyRepository.updateEnemy(EnemyEntity(1, "AngryShepard", R.drawable.germanshepard1, 3, 35, 35))
+                else -> enemyRepository.updateEnemy(EnemyEntity(1, "MegaAngryCorgi", R.drawable.corgiface1, 100, 1000, 1000))
+            }
+        }
+    }
+
+    // FOR PREPOPULATING DATABASE IN TESTING
     fun addEnemy(enemyEntity: EnemyEntity) {
         viewModelScope.launch(Dispatchers.IO) {
             enemyRepository.addEnemy(enemyEntity)
@@ -59,6 +71,26 @@ class PetArenaViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
+    // Resets player / enemy health and reduces pet's statuses.
+    fun onPlayerDefeat() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val curPlayer = playerRepository.getPlayerByUsername("Jtuck")
+            val curPet = playerRepository.getPetById(1)
+
+            // Change pet status
+            curPet.pet_health = curPet.pet_maxhp
+            if(curPet.hunger_level > 25) curPet.hunger_level = 25
+            if(curPet.thirst_level > 25) curPet.thirst_level = 25
+            if(curPet.happiness_level > 25) curPet.happiness_level = 25
+            if(curPet.fitness_level > 25) curPet.fitness_level = 25
+
+            // Reset the enemy
+            setEnemy(curPlayer.arena_level)
+
+            playerRepository.updatePet(curPet)
+        }
+    }
+
     // Rewards the player for defeating the opponent and changes to the next enemy.
     // The next enemy is determined by the player's arena level.
     fun onEnemyDefeat() {
@@ -71,11 +103,7 @@ class PetArenaViewModel(application: Application) : AndroidViewModel(application
             curPlayer.arena_level += 1
 
             // Change the enemy to new enemy
-            when (curPlayer.arena_level) {
-                1 -> enemyRepository.updateEnemy(EnemyEntity(1, "AngryCorgi", R.drawable.corgiface1, 1, 10, 10))
-                2 -> enemyRepository.updateEnemy(EnemyEntity(1, "AngryShepard", R.drawable.germanshepard1, 3, 35, 35))
-                else -> enemyRepository.updateEnemy(EnemyEntity(1, "MegaAngryCorgi", R.drawable.corgiface1, 100, 1000, 1000))
-            }
+            setEnemy(curPlayer.arena_level)
 
             playerRepository.updatePlayer(curPlayer)
         }
