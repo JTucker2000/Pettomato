@@ -188,16 +188,16 @@ class MainActivity : AppCompatActivity() {
         previousMoneyAmount = player.money_amount
     }
 
-    // Returns true if any of the views in the activity are currently visible, false otherwise.
-    private fun checkViewsVisible(): Boolean {
+    // Returns true if any of the list views in the activity are currently visible, false otherwise.
+    private fun checkListViewsVisible(): Boolean {
         return shopListView.visibility == View.VISIBLE ||
                 actionsListView.visibility == View.VISIBLE
     }
 
     fun onShopBtnPress(view: View) {
-        when (shopListView.visibility){
+        when (shopListView.visibility) {
             View.INVISIBLE -> {
-                if (checkViewsVisible()) return
+                if (checkListViewsVisible()) return
                 shopListView.isClickable = true
                 fadeInView(shopListView, MENU_FADE_ANIMATION_DURATION)
                 fadeOutView(petImage, MENU_FADE_ANIMATION_DURATION)
@@ -207,14 +207,14 @@ class MainActivity : AppCompatActivity() {
                 fadeOutView(shopListView, MENU_FADE_ANIMATION_DURATION)
                 fadeInView(petImage, MENU_FADE_ANIMATION_DURATION)
             }
-            else -> Log.e(TAG, "Error: onUpgradeBtnPress encountered unexpected visibility")
+            else -> Log.e(TAG, "Error: onShopBtnPress encountered unexpected visibility")
         }
     }
 
     fun onActionBtnPress(view: View) {
-        when (actionsListView.visibility){
+        when (actionsListView.visibility) {
             View.INVISIBLE -> {
-                if (checkViewsVisible()) return
+                if (checkListViewsVisible()) return
                 actionsListView.isClickable = true
                 fadeInView(actionsListView, MENU_FADE_ANIMATION_DURATION)
                 fadeOutView(petImage, MENU_FADE_ANIMATION_DURATION)
@@ -229,7 +229,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onActionListBtnPress(view: View) {
-        when (actionsListView.getPositionForView(view)){
+        when (actionsListView.getPositionForView(view)) {
             0 -> mainViewModel.onFeedBtnPress()
             1 -> mainViewModel.onGiveWaterBtnPress()
             2 -> mainViewModel.onPetBtnPress()
@@ -240,7 +240,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onShopListBtnPress(view: View) {
-        when (shopListView.getPositionForView(view)){
+        when (shopListView.getPositionForView(view)) {
             0 -> mainViewModel.onBuyBandagesBtnPress()
             1 -> mainViewModel.onBuyFirstAidBtnPress()
             2 -> mainViewModel.onBuyIronPawsBtnPress()

@@ -164,9 +164,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="DuplicateClickableBoundsCheck">
-
-    </ListView>
+        tools:ignore="DuplicateClickableBoundsCheck" />
 
     <ListView
         android:id="@+id/actions_listView"

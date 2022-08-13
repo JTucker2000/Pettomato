@@ -49,6 +49,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/press_start_2p"
+        android:onClick="onItemsBtnPress"
         android:text="Items"
         android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@+id/quit_btn"
@@ -176,6 +177,17 @@
         app:layout_constraintEnd_toEndOf="@+id/enemy_petImage"
         app:layout_constraintStart_toStartOf="@+id/enemy_petImage" />
 
+    <ListView
+        android:id="@+id/items_listView"
+        android:layout_width="350dp"
+        android:layout_height="200dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.37"
+        tools:ignore="DuplicateClickableBoundsCheck" />
+
     <TextView
         android:id="@+id/playerReward_text"
         android:layout_width="wrap_content"
@@ -188,6 +200,6 @@
         app:layout_constraintBottom_toTopOf="@+id/playerLevel_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enemyHealth_text" />
-
+        app:layout_constraintTop_toBottomOf="@+id/enemyHealth_text"
+        app:layout_constraintVertical_bias="0.13999999" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,8 +6,10 @@ import android.animation.ObjectAnimator
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import android.widget.ListView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.activity.viewModels
@@ -15,9 +17,13 @@ import androidx.lifecycle.Observer
 import com.example.pettomato.viewmodels.PetArenaViewModel
 import com.example.pettomato.R
 import com.example.pettomato.functions.fadeInOutView
+import com.example.pettomato.functions.fadeInView
+import com.example.pettomato.functions.fadeOutView
 import com.example.pettomato.roomentities.EnemyEntity
 import com.example.pettomato.roomentities.PetEntity
 import com.example.pettomato.roomentities.PlayerEntity
+import com.example.pettomato.viewadapters.ItemsListViewAdapter
+import com.example.pettomato.viewadapters.ShopListViewAdapter
 
 class PetArenaActivity : AppCompatActivity() {
     private val petArenaViewModel: PetArenaViewModel by viewModels()
@@ -25,11 +31,14 @@ class PetArenaActivity : AppCompatActivity() {
     private var attackIsOngoing: Boolean = false
 
     // Constants
+    private val TAG: String = "PetArenaActivityTag"
+    private val MENU_FADE_ANIMATION_DURATION: Long = 150
     private val PROGRESSBAR_ANIMATION_DURATION: Long = 300
     private val REWARD_ANIMATION_DURATION: Long = 3000
     private val PREVIOUS_VAL_UNINITIALIZED: Int = -1
 
     // View variables
+    private  lateinit var itemsListView: ListView
     private lateinit var playerHealthProgressBar: ProgressBar
     private lateinit var enemyHealthProgressBar: ProgressBar
     private lateinit var playerHealthNumText: TextView
@@ -40,6 +49,9 @@ class PetArenaActivity : AppCompatActivity() {
     private lateinit var playerPetImage: ImageView
     private lateinit var enemyPetImage: ImageView
 
+    // Adapter variables
+    private lateinit var itemsListViewAdapter: ItemsListViewAdapter
+
     // UI update variables
     private var previousMoneyAmount: Int = PREVIOUS_VAL_UNINITIALIZED
 
@@ -48,6 +60,7 @@ class PetArenaActivity : AppCompatActivity() {
         setContentView(R.layout.activity_pet_arena)
 
         // Set up view variables
+        itemsListView = findViewById<ListView>(R.id.items_listView)
         playerHealthProgressBar = findViewById<ProgressBar>(R.id.playerHealth_progressBar)
         enemyHealthProgressBar = findViewById<ProgressBar>(R.id.enemyHealth_progressBar)
         playerHealthNumText = findViewById<TextView>(R.id.playerHealthNum_text)
@@ -78,6 +91,11 @@ class PetArenaActivity : AppCompatActivity() {
         })
 
         // Set up view(s)
+        itemsListViewAdapter = ItemsListViewAdapter(this, arrayOf(0, 0, 0))
+        itemsListView.adapter = itemsListViewAdapter
+        itemsListView.visibility = View.INVISIBLE
+        itemsListView.isClickable = false
+
         playerRewardText.visibility = View.INVISIBLE
     }
 
@@ -134,6 +152,9 @@ class PetArenaActivity : AppCompatActivity() {
             fadeInOutView(playerRewardText, REWARD_ANIMATION_DURATION)
         }
 
+        // Update num items owned
+        itemsListViewAdapter.updateNumOwned(arrayOf(player.num_bandages, player.num_firstaid, player.num_ironpaw))
+
         // Update 'previous' UI values
         previousMoneyAmount = player.money_amount
     }
@@ -176,6 +197,29 @@ class PetArenaActivity : AppCompatActivity() {
 
             // Modify data in viewmodel
             petArenaViewModel.onAttackBtnPress()
+        }
+    }
+
+    fun onItemsBtnPress(view: View) {
+        when (itemsListView.visibility) {
+            View.INVISIBLE -> {
+                itemsListView.isClickable = true
+                fadeInView(itemsListView, MENU_FADE_ANIMATION_DURATION)
+            }
+            View.VISIBLE -> {
+                itemsListView.isClickable = false
+                fadeOutView(itemsListView, MENU_FADE_ANIMATION_DURATION)
+            }
+            else -> Log.e(TAG, "Error: onItemsBtnPress encountered unexpected visibility")
+        }
+    }
+
+    fun onItemsListBtnPress(view: View) {
+        when (itemsListView.getPositionForView(view)) {
+            0 -> petArenaViewModel.onUseBandagesBtnPress()
+            1 -> petArenaViewModel.onUseFirstAidBtnPress()
+            2 -> petArenaViewModel.onUseIronPawsBtnPress()
+            else -> Log.e(TAG, "Error: onItemsListBtnPress encountered unexpected position")
         }
     }
 

@@ -108,4 +108,54 @@ class PetArenaViewModel(application: Application) : AndroidViewModel(application
             playerRepository.updatePlayer(curPlayer)
         }
     }
+
+    // Handles when use bandages button is pressed in items listview.
+    fun onUseBandagesBtnPress() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val curPlayer = playerRepository.getPlayerByUsername("Jtuck")
+            val curPet = playerRepository.getPetById(1)
+
+            if(curPlayer.num_bandages > 0) {
+                curPlayer.num_bandages -= 1
+                curPet.pet_health += (curPet.pet_maxhp / 10)
+                if(curPet.pet_health > curPet.pet_maxhp) curPet.pet_health = curPet.pet_maxhp
+            }
+
+            playerRepository.updatePlayer(curPlayer)
+            playerRepository.updatePet(curPet)
+        }
+    }
+
+    // Handles when use firstaid button is pressed in items listview.
+    fun onUseFirstAidBtnPress() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val curPlayer = playerRepository.getPlayerByUsername("Jtuck")
+            val curPet = playerRepository.getPetById(1)
+
+            if(curPlayer.num_firstaid > 0) {
+                curPlayer.num_firstaid -= 1
+                curPet.pet_health += (curPet.pet_maxhp / 2)
+                if(curPet.pet_health > curPet.pet_maxhp) curPet.pet_health = curPet.pet_maxhp
+            }
+
+            playerRepository.updatePlayer(curPlayer)
+            playerRepository.updatePet(curPet)
+        }
+    }
+
+    // Handles when use iron paws button is pressed in items listview.
+    fun onUseIronPawsBtnPress() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val curPlayer = playerRepository.getPlayerByUsername("Jtuck")
+            val curEnemy = enemyRepository.getEnemyById(1)
+
+            if(curPlayer.num_ironpaw > 0) {
+                curPlayer.num_ironpaw -= 1
+                curEnemy.enemy_health -= (curEnemy.enemy_maxhp / 4)
+            }
+
+            playerRepository.updatePlayer(curPlayer)
+            enemyRepository.updateEnemy(curEnemy)
+        }
+    }
 }
