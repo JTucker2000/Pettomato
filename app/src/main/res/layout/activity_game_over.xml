@@ -45,4 +45,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/defeat_text"
         app:layout_constraintVertical_bias="0.83" />
+
+    <ImageView
+        android:id="@+id/gameOverPet_image"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@android:drawable/ic_delete"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/home_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/defeat_text" />
 </androidx.constraintlayout.widget.ConstraintLayout>
