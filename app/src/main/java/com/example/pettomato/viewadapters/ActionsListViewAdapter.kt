@@ -8,11 +8,11 @@ import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.TextView
 import com.example.pettomato.R
+import com.example.pettomato.actionOptions
+import com.example.pettomato.actionPrices
 
 class ActionsListViewAdapter(context: Context): BaseAdapter() {
     private val curContext: Context
-    private val actionOptions = arrayOf("Feed", "Give water", "Pet", "Go for a walk", "Go to work")
-    private val actionButtonText = arrayOf("-10 Coins", "-5 Coins", "Free", "Free", "+100 Coins")
 
     init {
         curContext = context
@@ -38,7 +38,7 @@ class ActionsListViewAdapter(context: Context): BaseAdapter() {
         actionNameTextView.text = actionOptions[position]
 
         val actionButton = layout.findViewById<Button>(R.id.action_button)
-        actionButton.text = actionButtonText[position]
+        actionButton.text = actionPrices[position]
 
         return layout
     }

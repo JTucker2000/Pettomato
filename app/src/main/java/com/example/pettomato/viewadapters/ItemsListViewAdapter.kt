@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import com.example.pettomato.R
+import com.example.pettomato.itemOptions
 
 class ItemsListViewAdapter(context: Context, private var numOwned: Array<Int>): BaseAdapter() {
     private val curContext: Context
-    private val itemOptions = arrayOf("Bandage", "First-aid Kit", "Iron Paws")
 
     init {
         curContext = context

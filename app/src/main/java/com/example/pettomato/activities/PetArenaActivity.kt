@@ -14,6 +14,9 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
+import com.example.pettomato.MENU_FADE_ANIMATION_DURATION
+import com.example.pettomato.PREVIOUS_VAL_UNINITIALIZED
+import com.example.pettomato.PROGRESSBAR_ANIMATION_DURATION
 import com.example.pettomato.viewmodels.PetArenaViewModel
 import com.example.pettomato.R
 import com.example.pettomato.functions.fadeInOutView
@@ -23,19 +26,15 @@ import com.example.pettomato.roomentities.EnemyEntity
 import com.example.pettomato.roomentities.PetEntity
 import com.example.pettomato.roomentities.PlayerEntity
 import com.example.pettomato.viewadapters.ItemsListViewAdapter
-import com.example.pettomato.viewadapters.ShopListViewAdapter
 
 class PetArenaActivity : AppCompatActivity() {
     private val petArenaViewModel: PetArenaViewModel by viewModels()
 
     private var attackIsOngoing: Boolean = false
 
-    // Constants
+    // Local constants
     private val TAG: String = "PetArenaActivityTag"
-    private val MENU_FADE_ANIMATION_DURATION: Long = 150
-    private val PROGRESSBAR_ANIMATION_DURATION: Long = 300
     private val REWARD_ANIMATION_DURATION: Long = 3000
-    private val PREVIOUS_VAL_UNINITIALIZED: Int = -1
 
     // View variables
     private  lateinit var itemsListView: ListView
