@@ -107,7 +107,7 @@ class PetArenaActivity : AppCompatActivity() {
         }
 
         // Pet image
-        playerPetImage.setImageResource(pet.image_id)
+        pet.setImageFromPet(playerPetImage)
 
         // Health text
         playerHealthNumText.text = "${pet.pet_health}/${pet.pet_maxhp}"

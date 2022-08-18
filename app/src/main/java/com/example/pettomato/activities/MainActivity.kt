@@ -82,8 +82,9 @@ class MainActivity : AppCompatActivity() {
         fitnessProgressBar = findViewById<ProgressBar>(R.id.fitness_progressBar)
 
         // ---- FIRST RUN, FOR PREPOPULATING DATABASE ----
-        //mainViewModel.addPet(PetEntity(0, "Corgi", R.drawable.corgiface1, 1, 100, 100, 88, 55, 90, 80))
-        //mainViewModel.addPlayer(PlayerEntity("Jtuck", 1000, 1, 0, 0, 0))
+        /*mainViewModel.addPet(PetEntity(0, "Cat 1", R.drawable.normalcat1, R.drawable.happycat1, R.drawable.sadcat1,
+            R.drawable.angrycat1, 1, 100, 100, 100, 100, 100, 100))
+        mainViewModel.addPlayer(PlayerEntity("Jtuck", 1000, 1, 0, 0, 0))*/
         // ---- END FIRST RUN ----
 
         // Set up observer(s)
@@ -145,7 +146,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateUIFromPet(pet: PetEntity) {
         // Pet image
-        petImage.setImageResource(pet.image_id)
+        pet.setImageFromPet(petImage)
 
         // Status update texts
         animateStatusUpdateText(hungerUpdateText, pet.hunger_level - previousHungerLevel, UPDATE_TEXT_FADE_DURATION)

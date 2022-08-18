@@ -33,8 +33,8 @@ class GameOverActivity : AppCompatActivity() {
     }
 
     fun animateDeathFromPet(pet: PetEntity) {
-        // Set image
-        gameOverPetImage.setImageResource(pet.image_id)
+        // Set image, always set image to be sad
+        gameOverPetImage.setImageResource(pet.sad_image_id)
 
         // Play death animation
         gameOverPetImage.animate()
