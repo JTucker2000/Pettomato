@@ -75,47 +75,43 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="225dp"
         android:layout_height="25dp"
-        android:layout_marginTop="24dp"
         android:progressDrawable="@drawable/pet_status_progressbar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.08"
-        app:layout_constraintStart_toEndOf="@+id/playerHealth_text"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/playerHealth_text"
+        app:layout_constraintTop_toBottomOf="@+id/playerHealth_text" />
 
     <ProgressBar
         android:id="@+id/enemyHealth_progressBar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="225dp"
         android:layout_height="25dp"
-        android:layout_marginTop="16dp"
         android:progressDrawable="@drawable/pet_status_progressbar"
-        app:layout_constraintEnd_toEndOf="@+id/playerHealth_progressBar"
-        app:layout_constraintStart_toStartOf="@+id/playerHealth_progressBar"
-        app:layout_constraintTop_toBottomOf="@+id/playerHealth_progressBar" />
+        app:layout_constraintStart_toStartOf="@+id/enemyHealth_text"
+        app:layout_constraintTop_toBottomOf="@+id/enemyHealth_text" />
 
     <TextView
         android:id="@+id/playerHealth_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
         android:fontFamily="@font/press_start_2p"
-        android:text="Health:"
+        android:text="Health"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/playerHealth_progressBar"
+        android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/playerHealth_progressBar" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/enemyHealth_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/press_start_2p"
-        android:text="Enemy:"
+        android:text="Enemy"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/enemyHealth_progressBar"
-        app:layout_constraintEnd_toEndOf="@+id/playerHealth_text"
-        app:layout_constraintStart_toStartOf="@+id/playerHealth_text"
-        app:layout_constraintTop_toTopOf="@+id/enemyHealth_progressBar" />
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/playerHealth_progressBar"
+        app:layout_constraintTop_toBottomOf="@+id/playerHealth_progressBar" />
 
     <TextView
         android:id="@+id/playerHealthNum_text"
@@ -185,7 +181,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.37"
+        app:layout_constraintVertical_bias="0.39"
         tools:ignore="DuplicateClickableBoundsCheck" />
 
     <TextView
@@ -201,5 +197,31 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/enemyHealth_text"
-        app:layout_constraintVertical_bias="0.13999999" />
+        app:layout_constraintVertical_bias="0.16000003" />
+
+    <TextView
+        android:id="@+id/playerHealth_update_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/press_start_2p"
+        android:text="+0"
+        android:textColor="#EDD70C"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/playerHealth_progressBar"
+        app:layout_constraintStart_toEndOf="@+id/playerHealth_progressBar"
+        app:layout_constraintTop_toTopOf="@+id/playerHealth_progressBar" />
+
+    <TextView
+        android:id="@+id/enemyHealth_update_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/press_start_2p"
+        android:text="+0"
+        android:textColor="#EDD70C"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/enemyHealthNum_text"
+        app:layout_constraintStart_toEndOf="@+id/enemyHealth_progressBar"
+        app:layout_constraintTop_toTopOf="@+id/enemyHealth_progressBar" />
 </androidx.constraintlayout.widget.ConstraintLayout>

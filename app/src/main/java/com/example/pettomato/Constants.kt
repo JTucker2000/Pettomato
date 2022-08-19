@@ -5,6 +5,7 @@ package com.example.pettomato
 // Animation constants
 val MENU_FADE_ANIMATION_DURATION: Long = 150
 val PROGRESSBAR_ANIMATION_DURATION: Long = 300
+val UPDATE_TEXT_FADE_DURATION: Long = 2000
 
 // Item constants
 val itemOptions: Array<String> = arrayOf("Bandage", "First-aid Kit", "Iron Paws")

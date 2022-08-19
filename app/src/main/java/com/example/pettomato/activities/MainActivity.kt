@@ -15,11 +15,8 @@ import androidx.lifecycle.Observer
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
-import com.example.pettomato.MENU_FADE_ANIMATION_DURATION
-import com.example.pettomato.PREVIOUS_VAL_UNINITIALIZED
-import com.example.pettomato.PROGRESSBAR_ANIMATION_DURATION
+import com.example.pettomato.*
 import com.example.pettomato.viewmodels.MainViewModel
-import com.example.pettomato.R
 import com.example.pettomato.functions.animateStatusUpdateText
 import com.example.pettomato.functions.fadeInView
 import com.example.pettomato.functions.fadeOutView
@@ -35,7 +32,6 @@ class MainActivity : AppCompatActivity() {
 
     // Local constants
     private val TAG: String = "MainActivityTag"
-    private val UPDATE_TEXT_FADE_DURATION: Long = 2000
 
     // View variables
     private lateinit var shopListView: ListView

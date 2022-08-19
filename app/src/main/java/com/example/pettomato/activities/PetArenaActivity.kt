@@ -14,11 +14,9 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
-import com.example.pettomato.MENU_FADE_ANIMATION_DURATION
-import com.example.pettomato.PREVIOUS_VAL_UNINITIALIZED
-import com.example.pettomato.PROGRESSBAR_ANIMATION_DURATION
+import com.example.pettomato.*
 import com.example.pettomato.viewmodels.PetArenaViewModel
-import com.example.pettomato.R
+import com.example.pettomato.functions.animateStatusUpdateText
 import com.example.pettomato.functions.fadeInOutView
 import com.example.pettomato.functions.fadeInView
 import com.example.pettomato.functions.fadeOutView
@@ -42,6 +40,8 @@ class PetArenaActivity : AppCompatActivity() {
     private lateinit var enemyHealthProgressBar: ProgressBar
     private lateinit var playerHealthNumText: TextView
     private lateinit var enemyHealthNumText: TextView
+    private lateinit var playerHealthUpdateText: TextView
+    private lateinit var enemyHealthUpdateText: TextView
     private lateinit var playerLevelText: TextView
     private lateinit var enemyLevelText: TextView
     private lateinit var playerRewardText: TextView
@@ -52,6 +52,8 @@ class PetArenaActivity : AppCompatActivity() {
     private lateinit var itemsListViewAdapter: ItemsListViewAdapter
 
     // UI update variables
+    private var previousPlayerHealth: Int = PREVIOUS_VAL_UNINITIALIZED
+    private var previousEnemyHealth: Int = PREVIOUS_VAL_UNINITIALIZED
     private var previousMoneyAmount: Int = PREVIOUS_VAL_UNINITIALIZED
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,6 +66,8 @@ class PetArenaActivity : AppCompatActivity() {
         enemyHealthProgressBar = findViewById<ProgressBar>(R.id.enemyHealth_progressBar)
         playerHealthNumText = findViewById<TextView>(R.id.playerHealthNum_text)
         enemyHealthNumText = findViewById<TextView>(R.id.enemyHealthNum_text)
+        playerHealthUpdateText = findViewById<TextView>(R.id.playerHealth_update_text)
+        enemyHealthUpdateText = findViewById<TextView>(R.id.enemyHealth_update_text)
         playerLevelText = findViewById<TextView>(R.id.playerLevel_text)
         enemyLevelText = findViewById<TextView>(R.id.enemyLevel_text)
         playerRewardText = findViewById<TextView>(R.id.playerReward_text)
@@ -76,9 +80,17 @@ class PetArenaActivity : AppCompatActivity() {
 
         // Set up observer(s)
         petArenaViewModel.petListLive.observe(this, Observer<List<PetEntity>>{ currentPetList ->
+            if(previousPlayerHealth == PREVIOUS_VAL_UNINITIALIZED) {
+                initializeUIFromPet(currentPetList[0])
+            }
+
             updateUIFromPet(currentPetList[0])
         })
         petArenaViewModel.enemyLive.observe(this, Observer<EnemyEntity>{ currentEnemy ->
+            if(previousEnemyHealth == PREVIOUS_VAL_UNINITIALIZED) {
+                initializeUIFromEnemy(currentEnemy)
+            }
+
             updateUIFromEnemy(currentEnemy)
         })
         petArenaViewModel.playerLive.observe(this, Observer<PlayerEntity>{ currentPlayer ->
@@ -95,7 +107,14 @@ class PetArenaActivity : AppCompatActivity() {
         itemsListView.visibility = View.INVISIBLE
         itemsListView.isClickable = false
 
+        playerHealthUpdateText.visibility = View.INVISIBLE
+        enemyHealthUpdateText.visibility = View.INVISIBLE
         playerRewardText.visibility = View.INVISIBLE
+    }
+
+    private fun initializeUIFromPet(pet: PetEntity) {
+        // Initialize 'previous' UI values
+        previousPlayerHealth = pet.pet_health
     }
 
     private fun updateUIFromPet(pet: PetEntity) {
@@ -109,6 +128,9 @@ class PetArenaActivity : AppCompatActivity() {
         // Pet image
         pet.setImageFromPet(playerPetImage)
 
+        // Status update texts
+        animateStatusUpdateText(playerHealthUpdateText, pet.pet_health - previousPlayerHealth, UPDATE_TEXT_FADE_DURATION)
+
         // Health text
         playerHealthNumText.text = "${pet.pet_health}/${pet.pet_maxhp}"
 
@@ -118,14 +140,25 @@ class PetArenaActivity : AppCompatActivity() {
         // Progress bars
         playerHealthProgressBar.max = pet.pet_maxhp
         ObjectAnimator.ofInt(playerHealthProgressBar, "progress", pet.pet_health).setDuration(PROGRESSBAR_ANIMATION_DURATION).start()
+
+        // Update 'previous' UI values
+        previousPlayerHealth = pet.pet_health
+    }
+
+    private fun initializeUIFromEnemy(enemy: EnemyEntity) {
+        // Initialize 'previous' UI values
+        previousEnemyHealth = enemy.enemy_health
     }
 
     private fun updateUIFromEnemy(enemy: EnemyEntity) {
         // Check to see if enemy has been defeated
         if(enemy.enemy_health <= 0) petArenaViewModel.onEnemyDefeat()
 
-        // Pet image
+        // Enemy image
         enemyPetImage.setImageResource(enemy.image_id)
+
+        // Status update texts
+        animateStatusUpdateText(enemyHealthUpdateText, enemy.enemy_health - previousEnemyHealth, UPDATE_TEXT_FADE_DURATION)
 
         // Health text
         enemyHealthNumText.text = "${enemy.enemy_health}/${enemy.enemy_maxhp}"
@@ -136,6 +169,9 @@ class PetArenaActivity : AppCompatActivity() {
         // Progress bars
         enemyHealthProgressBar.max = enemy.enemy_maxhp
         ObjectAnimator.ofInt(enemyHealthProgressBar, "progress", enemy.enemy_health).setDuration(PROGRESSBAR_ANIMATION_DURATION).start()
+
+        // Update 'previous' UI values
+        previousEnemyHealth = enemy.enemy_health
     }
 
     private fun initializeUIFromPlayer(player: PlayerEntity) {
