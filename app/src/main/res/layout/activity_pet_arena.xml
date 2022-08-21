@@ -76,8 +76,8 @@
         android:layout_width="225dp"
         android:layout_height="25dp"
         android:progressDrawable="@drawable/pet_status_progressbar"
-        app:layout_constraintStart_toStartOf="@+id/playerHealth_text"
-        app:layout_constraintTop_toBottomOf="@+id/playerHealth_text" />
+        app:layout_constraintStart_toStartOf="@+id/playerName_text"
+        app:layout_constraintTop_toBottomOf="@+id/playerName_text" />
 
     <ProgressBar
         android:id="@+id/enemyHealth_progressBar"
@@ -85,24 +85,24 @@
         android:layout_width="225dp"
         android:layout_height="25dp"
         android:progressDrawable="@drawable/pet_status_progressbar"
-        app:layout_constraintStart_toStartOf="@+id/enemyHealth_text"
-        app:layout_constraintTop_toBottomOf="@+id/enemyHealth_text" />
+        app:layout_constraintStart_toStartOf="@+id/enemyName_text"
+        app:layout_constraintTop_toBottomOf="@+id/enemyName_text" />
 
     <TextView
-        android:id="@+id/playerHealth_text"
+        android:id="@+id/playerName_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:fontFamily="@font/press_start_2p"
-        android:text="Health"
+        android:text="Player"
         android:textColor="@color/white"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/enemyHealth_text"
+        android:id="@+id/enemyName_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -196,7 +196,7 @@
         app:layout_constraintBottom_toTopOf="@+id/playerLevel_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enemyHealth_text"
+        app:layout_constraintTop_toBottomOf="@+id/enemyName_text"
         app:layout_constraintVertical_bias="0.16000003" />
 
     <TextView

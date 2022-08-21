@@ -37,9 +37,9 @@ class PetArenaViewModel(application: Application) : AndroidViewModel(application
     private fun setEnemy(arenaLevel: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             when (arenaLevel) {
-                1 -> enemyRepository.updateEnemy(EnemyEntity(1, "AngryCorgi", R.drawable.corgiface1, 1, 10, 10))
-                2 -> enemyRepository.updateEnemy(EnemyEntity(1, "AngryShepard", R.drawable.germanshepard1, 3, 35, 35))
-                else -> enemyRepository.updateEnemy(EnemyEntity(1, "MegaAngryCorgi", R.drawable.corgiface1, 100, 1000, 1000))
+                1 -> enemyRepository.updateEnemy(EnemyEntity(1, "Angry Corgi", R.drawable.corgiface1, 1, 10, 10))
+                2 -> enemyRepository.updateEnemy(EnemyEntity(1, "Angry Shepard", R.drawable.germanshepard1, 3, 35, 35))
+                else -> enemyRepository.updateEnemy(EnemyEntity(1, "Mega Angry Corgi", R.drawable.corgiface1, 100, 1000, 1000))
             }
         }
     }

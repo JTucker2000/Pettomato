@@ -38,6 +38,8 @@ class PetArenaActivity : AppCompatActivity() {
     private  lateinit var itemsListView: ListView
     private lateinit var playerHealthProgressBar: ProgressBar
     private lateinit var enemyHealthProgressBar: ProgressBar
+    private lateinit var playerNameText: TextView
+    private lateinit var enemyNameText: TextView
     private lateinit var playerHealthNumText: TextView
     private lateinit var enemyHealthNumText: TextView
     private lateinit var playerHealthUpdateText: TextView
@@ -64,6 +66,8 @@ class PetArenaActivity : AppCompatActivity() {
         itemsListView = findViewById<ListView>(R.id.items_listView)
         playerHealthProgressBar = findViewById<ProgressBar>(R.id.playerHealth_progressBar)
         enemyHealthProgressBar = findViewById<ProgressBar>(R.id.enemyHealth_progressBar)
+        playerNameText = findViewById<TextView>(R.id.playerName_text)
+        enemyNameText = findViewById<TextView>(R.id.enemyName_text)
         playerHealthNumText = findViewById<TextView>(R.id.playerHealthNum_text)
         enemyHealthNumText = findViewById<TextView>(R.id.enemyHealthNum_text)
         playerHealthUpdateText = findViewById<TextView>(R.id.playerHealth_update_text)
@@ -75,7 +79,7 @@ class PetArenaActivity : AppCompatActivity() {
         enemyPetImage = findViewById<ImageView>(R.id.enemy_petImage)
 
         // ---- FIRST RUN, FOR PREPOPULATING DATABASE ----
-        //petArenaViewModel.addEnemy(EnemyEntity(0, "AngryCorgi", R.drawable.corgiface1, 1, 10, 10))
+        //petArenaViewModel.addEnemy(EnemyEntity(0, "Angry Corgi", R.drawable.corgiface1, 1, 10, 10))
         // ---- END FIRST RUN ----
 
         // Set up observer(s)
@@ -131,6 +135,9 @@ class PetArenaActivity : AppCompatActivity() {
         // Status update texts
         animateStatusUpdateText(playerHealthUpdateText, pet.pet_health - previousPlayerHealth, UPDATE_TEXT_FADE_DURATION)
 
+        // Name text
+        playerNameText.text = pet.pet_name
+
         // Health text
         playerHealthNumText.text = "${pet.pet_health}/${pet.pet_maxhp}"
 
@@ -159,6 +166,9 @@ class PetArenaActivity : AppCompatActivity() {
 
         // Status update texts
         animateStatusUpdateText(enemyHealthUpdateText, enemy.enemy_health - previousEnemyHealth, UPDATE_TEXT_FADE_DURATION)
+
+        // Name text
+        enemyNameText.text = enemy.enemy_name
 
         // Health text
         enemyHealthNumText.text = "${enemy.enemy_health}/${enemy.enemy_maxhp}"

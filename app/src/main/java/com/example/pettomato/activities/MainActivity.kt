@@ -78,7 +78,7 @@ class MainActivity : AppCompatActivity() {
         fitnessProgressBar = findViewById<ProgressBar>(R.id.fitness_progressBar)
 
         // ---- FIRST RUN, FOR PREPOPULATING DATABASE ----
-        /*mainViewModel.addPet(PetEntity(0, "Cat 1", R.drawable.normalcat1, R.drawable.happycat1, R.drawable.sadcat1,
+        /*mainViewModel.addPet(PetEntity(0, "Orange Cat", R.drawable.normalcat1, R.drawable.happycat1, R.drawable.sadcat1,
             R.drawable.angrycat1, 1, 100, 100, 100, 100, 100, 100))
         mainViewModel.addPlayer(PlayerEntity("Jtuck", 1000, 1, 0, 0, 0))*/
         // ---- END FIRST RUN ----
