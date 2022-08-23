@@ -63,6 +63,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/press_start_2p"
+        android:onClick="onStatsBtnPress"
         android:text="Stats"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/items_btn"
@@ -224,4 +225,18 @@
         app:layout_constraintBottom_toBottomOf="@+id/enemyHealthNum_text"
         app:layout_constraintStart_toEndOf="@+id/enemyHealth_progressBar"
         app:layout_constraintTop_toTopOf="@+id/enemyHealth_progressBar" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/arena_stats_fragmentContainerView"
+        android:name="com.example.pettomato.fragments.ArenaStatsFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/items_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enemyHealth_progressBar" />
 </androidx.constraintlayout.widget.ConstraintLayout>

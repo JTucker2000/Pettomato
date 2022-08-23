@@ -13,6 +13,7 @@ import android.widget.ListView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.activity.viewModels
+import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.Observer
 import com.example.pettomato.*
 import com.example.pettomato.viewmodels.PetArenaViewModel
@@ -49,6 +50,7 @@ class PetArenaActivity : AppCompatActivity() {
     private lateinit var playerRewardText: TextView
     private lateinit var playerPetImage: ImageView
     private lateinit var enemyPetImage: ImageView
+    private lateinit var statsFragmentContainerView: FragmentContainerView
 
     // Adapter variables
     private lateinit var itemsListViewAdapter: ItemsListViewAdapter
@@ -77,6 +79,7 @@ class PetArenaActivity : AppCompatActivity() {
         playerRewardText = findViewById<TextView>(R.id.playerReward_text)
         playerPetImage = findViewById<ImageView>(R.id.player_petImage)
         enemyPetImage = findViewById<ImageView>(R.id.enemy_petImage)
+        statsFragmentContainerView = findViewById<FragmentContainerView>(R.id.arena_stats_fragmentContainerView)
 
         // ---- FIRST RUN, FOR PREPOPULATING DATABASE ----
         //petArenaViewModel.addEnemy(EnemyEntity(0, "Angry Corgi", R.drawable.corgiface1, 1, 10, 10))
@@ -114,6 +117,9 @@ class PetArenaActivity : AppCompatActivity() {
         playerHealthUpdateText.visibility = View.INVISIBLE
         enemyHealthUpdateText.visibility = View.INVISIBLE
         playerRewardText.visibility = View.INVISIBLE
+
+        statsFragmentContainerView.visibility = View.INVISIBLE
+        statsFragmentContainerView.isClickable = false
     }
 
     private fun initializeUIFromPet(pet: PetEntity) {
@@ -204,8 +210,15 @@ class PetArenaActivity : AppCompatActivity() {
         previousMoneyAmount = player.money_amount
     }
 
+    // Returns true if an attack is ongoing or if either menu is open, false otherwise.
+    private fun isScreenBusy(): Boolean {
+        return attackIsOngoing ||
+                itemsListView.visibility == View.VISIBLE ||
+                statsFragmentContainerView.visibility == View.VISIBLE
+    }
+
     fun onAttackBtnPress(view: View) {
-        if(!attackIsOngoing) {
+        if(!isScreenBusy()) {
             // Prevents multiple attacks until animation has finished
             attackIsOngoing = true
 
@@ -248,6 +261,7 @@ class PetArenaActivity : AppCompatActivity() {
     fun onItemsBtnPress(view: View) {
         when (itemsListView.visibility) {
             View.INVISIBLE -> {
+                if(isScreenBusy()) return
                 itemsListView.isClickable = true
                 fadeInView(itemsListView, MENU_FADE_ANIMATION_DURATION)
             }
@@ -265,6 +279,21 @@ class PetArenaActivity : AppCompatActivity() {
             1 -> petArenaViewModel.onUseFirstAidBtnPress()
             2 -> petArenaViewModel.onUseIronPawsBtnPress()
             else -> Log.e(TAG, "Error: onItemsListBtnPress encountered unexpected position")
+        }
+    }
+
+    fun onStatsBtnPress(view: View) {
+        when (statsFragmentContainerView.visibility) {
+            View.INVISIBLE -> {
+                if(isScreenBusy()) return
+                statsFragmentContainerView.isClickable = true
+                fadeInView(statsFragmentContainerView, MENU_FADE_ANIMATION_DURATION)
+            }
+            View.VISIBLE -> {
+                statsFragmentContainerView.isClickable = false
+                fadeOutView(statsFragmentContainerView, MENU_FADE_ANIMATION_DURATION)
+            }
+            else -> Log.e(TAG, "Error: onStatsBtnPress encountered unexpected visibility")
         }
     }
 
