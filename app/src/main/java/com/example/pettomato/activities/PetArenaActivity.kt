@@ -36,7 +36,7 @@ class PetArenaActivity : AppCompatActivity() {
     private val REWARD_ANIMATION_DURATION: Long = 3000
 
     // View variables
-    private  lateinit var itemsListView: ListView
+    private lateinit var itemsListView: ListView
     private lateinit var playerHealthProgressBar: ProgressBar
     private lateinit var enemyHealthProgressBar: ProgressBar
     private lateinit var playerNameText: TextView

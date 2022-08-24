@@ -21,7 +21,11 @@ class ArenaStatsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_arena_stats, container, false)
+        val view = inflater.inflate(R.layout.fragment_arena_stats, container, false)
+
+
+
+        return view
     }
 
     companion object {
