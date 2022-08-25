@@ -54,6 +54,7 @@ class PetArenaViewModel(application: Application) : AndroidViewModel(application
     fun onAttackBtnPress() {
         viewModelScope.launch(Dispatchers.IO) {
             val curPet = playerRepository.getPetById(1)
+            val curPlayer = playerRepository.getPlayerByUsername("Jtuck")
             val curEnemy = enemyRepository.getEnemyById(1)
 
             // Update pet values
@@ -66,7 +67,12 @@ class PetArenaViewModel(application: Application) : AndroidViewModel(application
             if(curEnemy.enemy_health >= playerDamage) curEnemy.enemy_health -= playerDamage
             else curEnemy.enemy_health = 0
 
+            // Record damage statistics
+            curPlayer.num_damagedealt += playerDamage
+            curPlayer.num_damagetaken += enemyDamage
+
             playerRepository.updatePet(curPet)
+            playerRepository.updatePlayer(curPlayer)
             enemyRepository.updateEnemy(curEnemy)
         }
     }
@@ -84,10 +90,14 @@ class PetArenaViewModel(application: Application) : AndroidViewModel(application
             if(curPet.happiness_level > 25) curPet.happiness_level = 25
             if(curPet.fitness_level > 25) curPet.fitness_level = 25
 
+            // Record lost fight
+            curPlayer.num_fightslost += 1
+
             // Reset the enemy
             setEnemy(curPlayer.arena_level)
 
             playerRepository.updatePet(curPet)
+            playerRepository.updatePlayer(curPlayer)
         }
     }
 
@@ -99,7 +109,10 @@ class PetArenaViewModel(application: Application) : AndroidViewModel(application
             val curEnemy = enemyRepository.getEnemyById(1)
 
             // Reward the player
-            curPlayer.money_amount += 100 * curEnemy.enemy_level
+            val moneyEarned = 100 * curEnemy.enemy_level
+            curPlayer.money_amount += moneyEarned
+            curPlayer.num_arenacoinsearned += moneyEarned
+            curPlayer.num_fightswon += 1
             curPlayer.arena_level += 1
 
             // Change the enemy to new enemy
@@ -117,6 +130,7 @@ class PetArenaViewModel(application: Application) : AndroidViewModel(application
 
             if(curPlayer.num_bandages > 0) {
                 curPlayer.num_bandages -= 1
+                curPlayer.num_bandagesused += 1
                 curPet.pet_health += (curPet.pet_maxhp / 10)
                 if(curPet.pet_health > curPet.pet_maxhp) curPet.pet_health = curPet.pet_maxhp
             }
@@ -134,6 +148,7 @@ class PetArenaViewModel(application: Application) : AndroidViewModel(application
 
             if(curPlayer.num_firstaid > 0) {
                 curPlayer.num_firstaid -= 1
+                curPlayer.num_firstaidused += 1
                 curPet.pet_health += (curPet.pet_maxhp / 2)
                 if(curPet.pet_health > curPet.pet_maxhp) curPet.pet_health = curPet.pet_maxhp
             }
@@ -151,11 +166,58 @@ class PetArenaViewModel(application: Application) : AndroidViewModel(application
 
             if(curPlayer.num_ironpaw > 0) {
                 curPlayer.num_ironpaw -= 1
+                curPlayer.num_ironpawsused += 1
                 curEnemy.enemy_health -= (curEnemy.enemy_maxhp / 4)
             }
 
             playerRepository.updatePlayer(curPlayer)
             enemyRepository.updateEnemy(curEnemy)
+        }
+    }
+
+    // Checks to see if any goals have been completed and updates player information if needed.
+    fun checkGoals() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val curPlayer = playerRepository.getPlayerByUsername("Jtuck")
+            var totalReward: Int = 0
+
+            // Check each goal and reward the player.
+            if(curPlayer.toFightsWonGoal <= 0) {
+                totalReward += curPlayer.fightsWonGoalReward
+                curPlayer.fightswongoal *= 10
+            }
+            if(curPlayer.toFightsLostGoal <= 0) {
+                totalReward += curPlayer.fightsLostGoalReward
+                curPlayer.fightslostgoal *= 10
+            }
+            if(curPlayer.toCoinsEarnedGoal <= 0) {
+                totalReward += curPlayer.coinsEarnedGoalReward
+                curPlayer.coinsearnedgoal *= 100
+            }
+            if(curPlayer.toBandagesUsedGoal <= 0) {
+                totalReward += curPlayer.bandagesUsedGoalReward
+                curPlayer.bandagesusedgoal *= 10
+            }
+            if(curPlayer.toFirstAidUsedGoal <= 0) {
+                totalReward += curPlayer.firstAidUsedGoalReward
+                curPlayer.firstaidusedgoal *= 10
+            }
+            if(curPlayer.toIronPawsUsedGoal <= 0) {
+                totalReward += curPlayer.ironPawsUsedGoalReward
+                curPlayer.ironpawsusedgoal *= 10
+            }
+            if(curPlayer.toDamageDealtGoal <= 0) {
+                totalReward += curPlayer.damageDealtGoalReward
+                curPlayer.damagedealtgoal *= 10
+            }
+            if(curPlayer.toDamageTakenGoal <= 0) {
+                totalReward += curPlayer.damageTakenGoalReward
+                curPlayer.damagetakengoal *= 10
+            }
+
+            curPlayer.money_amount += totalReward
+
+            playerRepository.updatePlayer(curPlayer)
         }
     }
 }

@@ -286,6 +286,7 @@ class PetArenaActivity : AppCompatActivity() {
         when (statsFragmentContainerView.visibility) {
             View.INVISIBLE -> {
                 if(isScreenBusy()) return
+                petArenaViewModel.checkGoals()
                 statsFragmentContainerView.isClickable = true
                 fadeInView(statsFragmentContainerView, MENU_FADE_ANIMATION_DURATION)
             }
