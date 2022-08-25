@@ -10,6 +10,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.example.pettomato.R
+import com.example.pettomato.functions.animatePetDeath
 import com.example.pettomato.roomentities.PetEntity
 import com.example.pettomato.viewmodels.GameOverViewModel
 
@@ -37,20 +38,7 @@ class GameOverActivity : AppCompatActivity() {
         gameOverPetImage.setImageResource(pet.sad_image_id)
 
         // Play death animation
-        gameOverPetImage.animate()
-            .translationXBy(0f) // Wait before playing animation
-            .setDuration(700)
-            .setListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationEnd(animation: Animator) {
-                    gameOverPetImage.animate() // Play actual animation
-                        .rotationBy(1080f)
-                        .alpha(0f)
-                        .scaleX(0.01f)
-                        .scaleY(0.01f)
-                        .setDuration(2000)
-                        .setListener(null)
-                }
-            })
+        animatePetDeath(gameOverPetImage)
     }
 
     fun onHomeBtnPress(view: View) = startActivity(Intent(this, MainActivity::class.java))

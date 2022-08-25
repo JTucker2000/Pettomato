@@ -6,6 +6,7 @@ import android.animation.ObjectAnimator
 import android.graphics.Color
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 
 // This file contains top level functions relating to the animation of view objects.
@@ -84,4 +85,23 @@ fun animateStatusUpdateText(curTextView: TextView, changeAmount: Int, duration: 
     }
 
     fadeInOutView(curTextView, duration)
+}
+
+// Animates the given imageview to spin, become smaller, and fade out at the same time.
+// Waits 700 milliseconds before playing death animation for 2 seconds.
+fun animatePetDeath(curImageView: ImageView) {
+    curImageView.animate()
+        .translationXBy(0f) // Wait before playing animation
+        .setDuration(700)
+        .setListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationEnd(animation: Animator) {
+                curImageView.animate() // Play actual animation
+                    .rotationBy(1080f)
+                    .alpha(0f)
+                    .scaleX(0.01f)
+                    .scaleY(0.01f)
+                    .setDuration(2000)
+                    .setListener(null)
+            }
+        })
 }

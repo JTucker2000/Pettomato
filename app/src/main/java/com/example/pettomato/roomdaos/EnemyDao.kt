@@ -18,9 +18,6 @@ interface EnemyDao {
     @Query("SELECT * FROM enemies WHERE id=(:enemy_id)")
     fun getByIdLive(enemy_id: Int): LiveData<EnemyEntity>
 
-    @Query("SELECT COUNT(*) FROM enemies")
-    fun getNumEnemies(): Int
-
     @Insert
     fun insert(vararg enemies: EnemyEntity)
 

@@ -19,7 +19,6 @@ class ArenaStatsFragment : Fragment() {
     private val petArenaViewModel: PetArenaViewModel by viewModels()
 
     // View variables
-    // TODO: Use viewholder pattern for all fragments and activities
     private lateinit var fightsWonNumText: TextView
     private lateinit var fightsLostNumText: TextView
     private lateinit var coinsEarnedNumText: TextView
@@ -65,7 +64,6 @@ class ArenaStatsFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_arena_stats, container, false)
 
         // Set up view variables
-        // TODO: Use viewholder pattern for all fragments and activities
         fightsWonNumText = view.findViewById<TextView>(R.id.fightsWonNum_text)
         fightsLostNumText = view.findViewById<TextView>(R.id.fightsLostNum_text)
         coinsEarnedNumText = view.findViewById<TextView>(R.id.coinsEarnedNum_text)

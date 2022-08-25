@@ -19,6 +19,4 @@ class EnemyRepository(private val enemyDao: EnemyDao, private val playerDao: Pla
     suspend fun updateEnemy(enemyEntity: EnemyEntity) {
         enemyDao.update(enemyEntity)
     }
-
-    suspend fun getNumEnemies(): Int = enemyDao.getNumEnemies()
 }
