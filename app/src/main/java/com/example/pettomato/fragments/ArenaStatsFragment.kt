@@ -105,36 +105,49 @@ class ArenaStatsFragment : Fragment() {
         return view
     }
 
+    // Returns an abbreviated string version of the given amount.
+    // 500 = "500", 1324 = "1.3k", 1200000 = "1.2m", etc.
+    // Only abbreviates up to the trillions.
+    private fun getNumAbbreviation(amount: Int): String {
+        return when {
+            amount >= 1000000000000 -> "${amount / 1000000000000}.${(amount % 1000000000000) / 100000000000}t"
+            amount >= 1000000000 -> "${amount / 1000000000}.${(amount % 1000000000) / 100000000}b"
+            amount >= 1000000 -> "${amount / 1000000}.${(amount % 1000000) / 100000}m"
+            amount >= 1000 -> "${amount / 1000}.${(amount % 1000) / 100}k"
+            else -> "$amount"
+        }
+    }
+
     private fun updateUIFromPlayer(player: PlayerEntity) {
         // Set raw statistic number textviews
-        fightsWonNumText.text = player.num_fightswon.toString()
-        fightsLostNumText.text = player.num_fightslost.toString()
-        coinsEarnedNumText.text = player.num_arenacoinsearned.toString()
-        bandagesUsedNumText.text = player.num_bandagesused.toString()
-        firstAidUsedNumText.text = player.num_firstaidused.toString()
-        ironPawsUsedNumText.text = player.num_ironpawsused.toString()
-        damageDealtNumText.text = player.num_damagedealt.toString()
-        damageTakenNumText.text = player.num_damagetaken.toString()
+        fightsWonNumText.text = getNumAbbreviation(player.num_fightswon)
+        fightsLostNumText.text = getNumAbbreviation(player.num_fightslost)
+        coinsEarnedNumText.text = getNumAbbreviation(player.num_arenacoinsearned)
+        bandagesUsedNumText.text = getNumAbbreviation(player.num_bandagesused)
+        firstAidUsedNumText.text = getNumAbbreviation(player.num_firstaidused)
+        ironPawsUsedNumText.text = getNumAbbreviation(player.num_ironpawsused)
+        damageDealtNumText.text = getNumAbbreviation(player.num_damagedealt)
+        damageTakenNumText.text = getNumAbbreviation(player.num_damagetaken)
 
         // Set number to goal textviews
-        fightsWonGoalText.text = "${player.toFightsWonGoal} to next goal"
-        fightsLostGoalText.text = "${player.toFightsLostGoal} to next goal"
-        coinsEarnedGoalText.text = "${player.toCoinsEarnedGoal} to next goal"
-        bandagesUsedGoalText.text = "${player.toBandagesUsedGoal} to next goal"
-        firstAidUsedGoalText.text = "${player.toFirstAidUsedGoal} to next goal"
-        ironPawsUsedGoalText.text = "${player.toIronPawsUsedGoal} to next goal"
-        damageDealtGoalText.text = "${player.toDamageDealtGoal} to next goal"
-        damageTakenGoalText.text = "${player.toDamageTakenGoal} to next goal"
+        fightsWonGoalText.text = "${getNumAbbreviation(player.toFightsWonGoal)} to next goal"
+        fightsLostGoalText.text = "${getNumAbbreviation(player.toFightsLostGoal)} to next goal"
+        coinsEarnedGoalText.text = "${getNumAbbreviation(player.toCoinsEarnedGoal)} to next goal"
+        bandagesUsedGoalText.text = "${getNumAbbreviation(player.toBandagesUsedGoal)} to next goal"
+        firstAidUsedGoalText.text = "${getNumAbbreviation(player.toFirstAidUsedGoal)} to next goal"
+        ironPawsUsedGoalText.text = "${getNumAbbreviation(player.toIronPawsUsedGoal)} to next goal"
+        damageDealtGoalText.text = "${getNumAbbreviation(player.toDamageDealtGoal)} to next goal"
+        damageTakenGoalText.text = "${getNumAbbreviation(player.toDamageTakenGoal)} to next goal"
 
         // Set goal reward textviews
-        fightsWonGoalRewardText.text = "+${player.fightsWonGoalReward} Coins"
-        fightsLostGoalRewardText.text = "+${player.fightsLostGoalReward} Coins"
-        coinsEarnedGoalRewardText.text = "+${player.coinsEarnedGoalReward} Coins"
-        bandagesUsedGoalRewardText.text = "+${player.bandagesUsedGoalReward} Coins"
-        firstAidUsedGoalRewardText.text = "+${player.firstAidUsedGoalReward} Coins"
-        ironPawsUsedGoalRewardText.text = "+${player.ironPawsUsedGoalReward} Coins"
-        damageDealtGoalRewardText.text = "+${player.damageDealtGoalReward} Coins"
-        damageTakenGoalRewardText.text = "+${player.damageTakenGoalReward} Coins"
+        fightsWonGoalRewardText.text = "+${getNumAbbreviation(player.fightsWonGoalReward)}"
+        fightsLostGoalRewardText.text = "+${getNumAbbreviation(player.fightsLostGoalReward)}"
+        coinsEarnedGoalRewardText.text = "+${getNumAbbreviation(player.coinsEarnedGoalReward)}"
+        bandagesUsedGoalRewardText.text = "+${getNumAbbreviation(player.bandagesUsedGoalReward)}"
+        firstAidUsedGoalRewardText.text = "+${getNumAbbreviation(player.firstAidUsedGoalReward)}"
+        ironPawsUsedGoalRewardText.text = "+${getNumAbbreviation(player.ironPawsUsedGoalReward)}"
+        damageDealtGoalRewardText.text = "+${getNumAbbreviation(player.damageDealtGoalReward)}"
+        damageTakenGoalRewardText.text = "+${getNumAbbreviation(player.damageTakenGoalReward)}"
 
         // Set goal progressbars
         fightsWonGoalProgressBar.max = player.fightswongoal
