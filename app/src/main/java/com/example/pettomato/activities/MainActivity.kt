@@ -231,7 +231,6 @@ class MainActivity : AppCompatActivity() {
             1 -> mainViewModel.onGiveWaterBtnPress()
             2 -> mainViewModel.onPetBtnPress()
             3 -> mainViewModel.onWalkBtnPress()
-            4 -> mainViewModel.onWorkBtnPress()
             else -> Log.e(TAG, "Error: onActionListBtnPress encountered unexpected position")
         }
     }

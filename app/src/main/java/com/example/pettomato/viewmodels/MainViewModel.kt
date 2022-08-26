@@ -109,24 +109,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    // Handles when go to work button is pressed in actions listview.
-    fun onWorkBtnPress() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val curPlayer = playerRepository.getPlayerByUsername("Jtuck")
-            val curPet = playerRepository.getPetById(1)
-
-            if(curPet.happiness_level > 0) {
-                // Update pet values
-                curPlayer.money_amount += 100
-                if(curPet.happiness_level < 10) curPet.happiness_level = 0
-                else curPet.happiness_level -= 10
-            }
-
-            playerRepository.updatePlayer(curPlayer)
-            playerRepository.updatePet(curPet)
-        }
-    }
-
     // Handles when buy bandages button is pressed in shop listview.
     fun onBuyBandagesBtnPress() {
         viewModelScope.launch(Dispatchers.IO) {
