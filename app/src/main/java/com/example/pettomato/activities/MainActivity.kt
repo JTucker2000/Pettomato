@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity() {
         // ---- FIRST RUN, FOR PREPOPULATING DATABASE ----
         /*mainViewModel.addPet(PetEntity(0, "Orange Cat", R.drawable.normalcat1, R.drawable.happycat1, R.drawable.sadcat1,
             R.drawable.angrycat1, 1, 100, 100, 100, 100, 100, 100))
-        mainViewModel.addPlayer(PlayerEntity("Jtuck", 1000, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 10, 10, 10, 10, 10))*/
+        mainViewModel.addPlayer(PlayerEntity("Jtuck", 100, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 10, 10, 10, 10, 10))*/
         // ---- END FIRST RUN ----
 
         // Set up observer(s)

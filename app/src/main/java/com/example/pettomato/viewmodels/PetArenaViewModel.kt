@@ -37,9 +37,28 @@ class PetArenaViewModel(application: Application) : AndroidViewModel(application
     private fun setEnemy(arenaLevel: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             when (arenaLevel) {
-                1 -> enemyRepository.updateEnemy(EnemyEntity(1, "Angry Corgi", R.drawable.corgiface1, 1, 10, 10))
-                2 -> enemyRepository.updateEnemy(EnemyEntity(1, "Angry Shepard", R.drawable.germanshepard1, 3, 35, 35))
-                else -> enemyRepository.updateEnemy(EnemyEntity(1, "Mega Angry Corgi", R.drawable.corgiface1, 100, 1000, 1000))
+                // Each one of these is a level for the player to complete in the pet arena.
+                1 -> enemyRepository.updateEnemy(EnemyEntity(1, "Angry Mouse", R.drawable.angrymouse1, 1, 10, 10))
+                2 -> enemyRepository.updateEnemy(EnemyEntity(1, "Bored Doggo", R.drawable.normaldog1, 2, 15, 15))
+                3 -> enemyRepository.updateEnemy(EnemyEntity(1, "Injured Cat", R.drawable.sadcat2, 5, 15, 40))
+                4 -> enemyRepository.updateEnemy(EnemyEntity(1, "Happy Husky", R.drawable.happydog2, 3, 20, 20))
+                5 -> enemyRepository.updateEnemy(EnemyEntity(1, "Angry Lab Mouse", R.drawable.angrymouse2, 4, 25, 25))
+                6 -> enemyRepository.updateEnemy(EnemyEntity(1, "Indifferent Cat", R.drawable.normalcat1, 4, 35, 35))
+                7 -> enemyRepository.updateEnemy(EnemyEntity(1, "Angry Shiba", R.drawable.angrydog3, 6, 40, 40))
+                8 -> enemyRepository.updateEnemy(EnemyEntity(1, "Mr.Whiskers", R.drawable.happycat2, 7, 50, 50))
+                9 -> enemyRepository.updateEnemy(EnemyEntity(1, "Elated Lab Mouse", R.drawable.happymouse2, 8, 50, 50))
+                10 -> enemyRepository.updateEnemy(EnemyEntity(1, "Whining Shiba", R.drawable.saddog3, 10, 65, 65))
+                11 -> enemyRepository.updateEnemy(EnemyEntity(1, "Fat Cat", R.drawable.happycat1, 10, 80, 80))
+                12 -> enemyRepository.updateEnemy(EnemyEntity(1, "Hungry Mouse", R.drawable.normalmouse1, 12, 70, 70))
+                13 -> enemyRepository.updateEnemy(EnemyEntity(1, "Well Fed Husky", R.drawable.happydog2, 13, 100, 100))
+                14 -> enemyRepository.updateEnemy(EnemyEntity(1, "THICC Cat", R.drawable.happycat2, 14, 110, 110))
+                15 -> enemyRepository.updateEnemy(EnemyEntity(1, "Forgotten Lab Mouse", R.drawable.sadmouse2, 15, 100, 100))
+                16 -> enemyRepository.updateEnemy(EnemyEntity(1, "Silly Shiba", R.drawable.normaldog3, 17, 120, 120))
+                17 -> enemyRepository.updateEnemy(EnemyEntity(1, "Bored Cat", R.drawable.normalcat3, 18, 125, 125))
+                18 -> enemyRepository.updateEnemy(EnemyEntity(1, "Sad Wolf", R.drawable.saddog1, 20, 140, 140))
+                19 -> enemyRepository.updateEnemy(EnemyEntity(1, "HUSKY Husky", R.drawable.normaldog2, 21, 150, 150))
+                20 -> enemyRepository.updateEnemy(EnemyEntity(1, "Injured Shiba", R.drawable.saddog3, 23, 100, 150))
+                else -> enemyRepository.updateEnemy(EnemyEntity(1, "Mega Angry Shiba", R.drawable.angrydog3, 100, 1000, 1000))
             }
         }
     }

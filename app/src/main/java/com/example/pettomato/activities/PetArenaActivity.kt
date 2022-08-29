@@ -82,7 +82,7 @@ class PetArenaActivity : AppCompatActivity() {
         statsFragmentContainerView = findViewById<FragmentContainerView>(R.id.arena_stats_fragmentContainerView)
 
         // ---- FIRST RUN, FOR PREPOPULATING DATABASE ----
-        //petArenaViewModel.addEnemy(EnemyEntity(0, "Angry Corgi", R.drawable.corgiface1, 1, 10, 10))
+        //petArenaViewModel.addEnemy(EnemyEntity(0, "Angry Mouse", R.drawable.angrymouse1, 1, 10, 10))
         // ---- END FIRST RUN ----
 
         // Set up observer(s)
