@@ -63,6 +63,50 @@ class PetArenaViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
+    // Checks to see if any goals have been completed and updates player information if needed.
+    // Should be used after any action that may cause a goal to be reached.
+    private suspend fun checkGoals(curPlayer: PlayerEntity) {
+        var totalReward: Int = 0
+
+        // Check each goal and reward the player.
+        if(curPlayer.toFightsWonGoal <= 0) {
+            totalReward += curPlayer.fightsWonGoalReward
+            curPlayer.fightswongoal *= 10
+        }
+        if(curPlayer.toFightsLostGoal <= 0) {
+            totalReward += curPlayer.fightsLostGoalReward
+            curPlayer.fightslostgoal *= 10
+        }
+        if(curPlayer.toCoinsEarnedGoal <= 0) {
+            totalReward += curPlayer.coinsEarnedGoalReward
+            curPlayer.coinsearnedgoal *= 100
+        }
+        if(curPlayer.toBandagesUsedGoal <= 0) {
+            totalReward += curPlayer.bandagesUsedGoalReward
+            curPlayer.bandagesusedgoal *= 10
+        }
+        if(curPlayer.toFirstAidUsedGoal <= 0) {
+            totalReward += curPlayer.firstAidUsedGoalReward
+            curPlayer.firstaidusedgoal *= 10
+        }
+        if(curPlayer.toIronPawsUsedGoal <= 0) {
+            totalReward += curPlayer.ironPawsUsedGoalReward
+            curPlayer.ironpawsusedgoal *= 10
+        }
+        if(curPlayer.toDamageDealtGoal <= 0) {
+            totalReward += curPlayer.damageDealtGoalReward
+            curPlayer.damagedealtgoal *= 10
+        }
+        if(curPlayer.toDamageTakenGoal <= 0) {
+            totalReward += curPlayer.damageTakenGoalReward
+            curPlayer.damagetakengoal *= 10
+        }
+
+        curPlayer.money_amount += totalReward
+
+        playerRepository.updatePlayer(curPlayer)
+    }
+
     // FOR PREPOPULATING DATABASE IN TESTING
     fun addEnemy(enemyEntity: EnemyEntity) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -93,6 +137,8 @@ class PetArenaViewModel(application: Application) : AndroidViewModel(application
             playerRepository.updatePet(curPet)
             playerRepository.updatePlayer(curPlayer)
             enemyRepository.updateEnemy(curEnemy)
+
+            checkGoals(curPlayer)
         }
     }
 
@@ -118,6 +164,8 @@ class PetArenaViewModel(application: Application) : AndroidViewModel(application
 
             playerRepository.updatePet(curPet)
             playerRepository.updatePlayer(curPlayer)
+
+            checkGoals(curPlayer)
         }
     }
 
@@ -142,6 +190,8 @@ class PetArenaViewModel(application: Application) : AndroidViewModel(application
 
             playerRepository.updatePet(curPet)
             playerRepository.updatePlayer(curPlayer)
+
+            checkGoals(curPlayer)
         }
     }
 
@@ -160,6 +210,8 @@ class PetArenaViewModel(application: Application) : AndroidViewModel(application
 
             playerRepository.updatePlayer(curPlayer)
             playerRepository.updatePet(curPet)
+
+            checkGoals(curPlayer)
         }
     }
 
@@ -178,6 +230,8 @@ class PetArenaViewModel(application: Application) : AndroidViewModel(application
 
             playerRepository.updatePlayer(curPlayer)
             playerRepository.updatePet(curPet)
+
+            checkGoals(curPlayer)
         }
     }
 
@@ -190,57 +244,15 @@ class PetArenaViewModel(application: Application) : AndroidViewModel(application
             if(curPlayer.num_ironpaw > 0) {
                 curPlayer.num_ironpaw -= 1
                 curPlayer.num_ironpawsused += 1
-                curEnemy.enemy_health -= (curEnemy.enemy_maxhp / 4)
+                val damageDealt = curEnemy.enemy_maxhp / 4
+                curEnemy.enemy_health -= damageDealt
+                curPlayer.num_damagedealt += damageDealt
             }
 
             playerRepository.updatePlayer(curPlayer)
             enemyRepository.updateEnemy(curEnemy)
-        }
-    }
 
-    // Checks to see if any goals have been completed and updates player information if needed.
-    fun checkGoals() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val curPlayer = playerRepository.getPlayerByUsername("Jtuck")
-            var totalReward: Int = 0
-
-            // Check each goal and reward the player.
-            if(curPlayer.toFightsWonGoal <= 0) {
-                totalReward += curPlayer.fightsWonGoalReward
-                curPlayer.fightswongoal *= 10
-            }
-            if(curPlayer.toFightsLostGoal <= 0) {
-                totalReward += curPlayer.fightsLostGoalReward
-                curPlayer.fightslostgoal *= 10
-            }
-            if(curPlayer.toCoinsEarnedGoal <= 0) {
-                totalReward += curPlayer.coinsEarnedGoalReward
-                curPlayer.coinsearnedgoal *= 100
-            }
-            if(curPlayer.toBandagesUsedGoal <= 0) {
-                totalReward += curPlayer.bandagesUsedGoalReward
-                curPlayer.bandagesusedgoal *= 10
-            }
-            if(curPlayer.toFirstAidUsedGoal <= 0) {
-                totalReward += curPlayer.firstAidUsedGoalReward
-                curPlayer.firstaidusedgoal *= 10
-            }
-            if(curPlayer.toIronPawsUsedGoal <= 0) {
-                totalReward += curPlayer.ironPawsUsedGoalReward
-                curPlayer.ironpawsusedgoal *= 10
-            }
-            if(curPlayer.toDamageDealtGoal <= 0) {
-                totalReward += curPlayer.damageDealtGoalReward
-                curPlayer.damagedealtgoal *= 10
-            }
-            if(curPlayer.toDamageTakenGoal <= 0) {
-                totalReward += curPlayer.damageTakenGoalReward
-                curPlayer.damagetakengoal *= 10
-            }
-
-            curPlayer.money_amount += totalReward
-
-            playerRepository.updatePlayer(curPlayer)
+            checkGoals(curPlayer)
         }
     }
 }

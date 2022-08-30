@@ -199,7 +199,7 @@ class PetArenaActivity : AppCompatActivity() {
         // Play animation for earning money
         val changeAmount = player.money_amount - previousMoneyAmount
         if(changeAmount > 0) {
-            playerRewardText.text = "Enemy Defeated!\n+${changeAmount} Coins"
+            playerRewardText.text = "Reward Earned!\n+${changeAmount} Coins"
             fadeInOutView(playerRewardText, REWARD_ANIMATION_DURATION)
         }
 
@@ -286,7 +286,6 @@ class PetArenaActivity : AppCompatActivity() {
         when (statsFragmentContainerView.visibility) {
             View.INVISIBLE -> {
                 if(isScreenBusy()) return
-                petArenaViewModel.checkGoals()
                 statsFragmentContainerView.isClickable = true
                 fadeInView(statsFragmentContainerView, MENU_FADE_ANIMATION_DURATION)
             }
