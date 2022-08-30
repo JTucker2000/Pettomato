@@ -111,6 +111,7 @@ class PetArenaViewModel(application: Application) : AndroidViewModel(application
 
             // Record lost fight
             curPlayer.num_fightslost += 1
+            if(curPlayer.arena_level > 1) curPlayer.arena_level--
 
             // Reset the enemy
             setEnemy(curPlayer.arena_level)
@@ -125,6 +126,7 @@ class PetArenaViewModel(application: Application) : AndroidViewModel(application
     fun onEnemyDefeat() {
         viewModelScope.launch(Dispatchers.IO) {
             val curPlayer = playerRepository.getPlayerByUsername("Jtuck")
+            val curPet = playerRepository.getPetById(1)
             val curEnemy = enemyRepository.getEnemyById(1)
 
             // Reward the player
@@ -133,10 +135,12 @@ class PetArenaViewModel(application: Application) : AndroidViewModel(application
             curPlayer.num_arenacoinsearned += moneyEarned
             curPlayer.num_fightswon += 1
             curPlayer.arena_level += 1
+            curPet.pet_health = curPet.pet_maxhp
 
             // Change the enemy to new enemy
             setEnemy(curPlayer.arena_level)
 
+            playerRepository.updatePet(curPet)
             playerRepository.updatePlayer(curPlayer)
         }
     }
