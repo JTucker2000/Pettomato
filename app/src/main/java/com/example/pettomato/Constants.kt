@@ -9,11 +9,19 @@ val UPDATE_TEXT_FADE_DURATION: Long = 2000
 
 // Item constants
 val itemOptions: Array<String> = arrayOf("Bandage", "First-aid Kit", "Iron Paws")
-val itemPrices: Array<String> = arrayOf("-30 Coins", "-100 Coins", "-50 Coins")
+val BANDAGE_PRICE: Int = 80
+val FIRSTAID_PRICE: Int = 200
+val IRONPAW_PRICE: Int = 500
+val itemPrices: Array<String> = arrayOf("-$BANDAGE_PRICE Coins", "-$FIRSTAID_PRICE Coins", "-$IRONPAW_PRICE Coins")
+
 
 // Action constants
 val actionOptions: Array<String> = arrayOf("Feed", "Give water", "Pet", "Go for a walk")
-val actionPrices: Array<String> = arrayOf("-10 Coins", "-5 Coins", "Free", "Free")
+val FEED_PRICE: Int = 50
+val GIVEWATER_PRICE: Int = 30
+val PETACTION_PRICE: Int = 0 // Unused
+val WALK_PRICE: Int = 0 // Unused
+val actionPrices: Array<String> = arrayOf("-$FEED_PRICE Coins", "-$GIVEWATER_PRICE Coins", "Free", "Free")
 
 // Misc. constants
 val PREVIOUS_VAL_UNINITIALIZED: Int = -1

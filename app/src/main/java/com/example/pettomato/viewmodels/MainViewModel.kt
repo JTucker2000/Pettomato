@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import com.example.pettomato.AppDatabase
+import com.example.pettomato.*
 import com.example.pettomato.repositories.PlayerRepository
 import com.example.pettomato.roomentities.PetEntity
 import com.example.pettomato.roomentities.PlayerEntity
@@ -45,12 +45,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             val curPlayer = playerRepository.getPlayerByUsername("Jtuck")
             val curPet = playerRepository.getPetById(1)
 
-            if(curPet.hunger_level < 100) {
+            if(curPet.hunger_level < 100 && curPlayer.money_amount >= FEED_PRICE) {
                 // Update pet values
+                curPlayer.money_amount -= FEED_PRICE
                 if(curPet.hunger_level > 75) curPet.hunger_level = 100
                 else curPet.hunger_level += 25
-                if(curPlayer.money_amount < 10) curPlayer.money_amount = 0
-                else curPlayer.money_amount -= 10
             }
 
             playerRepository.updatePlayer(curPlayer)
@@ -64,10 +63,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             val curPlayer = playerRepository.getPlayerByUsername("Jtuck")
             val curPet = playerRepository.getPetById(1)
 
-            if(curPet.thirst_level < 100) {
-                // Update pet values
-                if(curPlayer.money_amount < 5) curPlayer.money_amount = 0
-                else curPlayer.money_amount -= 5
+            if(curPet.thirst_level < 100 && curPlayer.money_amount >= GIVEWATER_PRICE) {
+                // Update values
+                curPlayer.money_amount -= GIVEWATER_PRICE
                 if(curPet.thirst_level > 75) curPet.thirst_level = 100
                 else curPet.thirst_level += 25
             }
@@ -114,8 +112,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch(Dispatchers.IO) {
             val curPlayer = playerRepository.getPlayerByUsername("Jtuck")
 
-            if(curPlayer.money_amount >= 30) {
-                curPlayer.money_amount -= 30
+            if(curPlayer.money_amount >= BANDAGE_PRICE) {
+                curPlayer.money_amount -= BANDAGE_PRICE
                 curPlayer.num_bandages += 1
             }
 
@@ -128,8 +126,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch(Dispatchers.IO) {
             val curPlayer = playerRepository.getPlayerByUsername("Jtuck")
 
-            if(curPlayer.money_amount >= 100) {
-                curPlayer.money_amount -= 100
+            if(curPlayer.money_amount >= FIRSTAID_PRICE) {
+                curPlayer.money_amount -= FIRSTAID_PRICE
                 curPlayer.num_firstaid += 1
             }
 
@@ -142,8 +140,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch(Dispatchers.IO) {
             val curPlayer = playerRepository.getPlayerByUsername("Jtuck")
 
-            if(curPlayer.money_amount >= 50) {
-                curPlayer.money_amount -= 50
+            if(curPlayer.money_amount >= IRONPAW_PRICE) {
+                curPlayer.money_amount -= IRONPAW_PRICE
                 curPlayer.num_ironpaw += 1
             }
 
