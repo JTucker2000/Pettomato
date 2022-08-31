@@ -50,8 +50,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:fontFamily="@font/press_start_2p"
-            android:text="Cost: xxxx Coins"
+            android:text="Cost: xxxx"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.44"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/levelUpPet_image" />
 
@@ -102,5 +103,15 @@
             app:layout_constraintBottom_toTopOf="@+id/levelUpPet_image"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/levelUpCoin_image"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="3dp"
+            android:src="@drawable/coin_image"
+            app:layout_constraintBottom_toBottomOf="@+id/levelUpCost_text"
+            app:layout_constraintStart_toEndOf="@+id/levelUpCost_text" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

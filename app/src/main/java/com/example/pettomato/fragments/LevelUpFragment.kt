@@ -57,7 +57,7 @@ class LevelUpFragment : Fragment() {
         // Set textviews
         levelUpPetNameText.text = pet.pet_name
         levelUpPetLevelText.text = "Level ${pet.pet_level}"
-        levelUpCostText.text = "Cost: ${pet.levelUpCost} Coins"
+        levelUpCostText.text = "Cost: ${pet.levelUpCost}"
     }
 
     companion object {
