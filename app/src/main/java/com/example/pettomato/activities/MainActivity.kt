@@ -11,6 +11,7 @@ import android.widget.ListView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.activity.viewModels
+import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.Observer
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
@@ -47,6 +48,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var thirstProgressBar: ProgressBar
     private lateinit var happinessProgressBar: ProgressBar
     private lateinit var fitnessProgressBar: ProgressBar
+    private lateinit var levelUpFragmentContainerView: FragmentContainerView
 
     // Adapter variables
     private lateinit var shopListViewAdapter: ShopListViewAdapter
@@ -76,10 +78,11 @@ class MainActivity : AppCompatActivity() {
         thirstProgressBar = findViewById<ProgressBar>(R.id.thirst_progressBar)
         happinessProgressBar = findViewById<ProgressBar>(R.id.happy_progressBar)
         fitnessProgressBar = findViewById<ProgressBar>(R.id.fitness_progressBar)
+        levelUpFragmentContainerView = findViewById<FragmentContainerView>(R.id.levelUp_fragmentContainerView)
 
         // ---- FIRST RUN, FOR PREPOPULATING DATABASE ----
         /*mainViewModel.addPet(PetEntity(0, "Orange Cat", R.drawable.normalcat1, R.drawable.happycat1, R.drawable.sadcat1,
-            R.drawable.angrycat1, 1, 100, 100, 100, 100, 100, 100))
+            R.drawable.angrycat1, 1, 20, 100, 100, 100, 100))
         mainViewModel.addPlayer(PlayerEntity("Jtuck", 100, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 10, 10, 10, 10, 10))*/
         // ---- END FIRST RUN ----
 
@@ -124,6 +127,9 @@ class MainActivity : AppCompatActivity() {
         happyUpdateText.visibility = View.INVISIBLE
         fitnessUpdateText.visibility = View.INVISIBLE
         moneyUpdateText.visibility = View.INVISIBLE
+
+        levelUpFragmentContainerView.visibility = View.INVISIBLE
+        levelUpFragmentContainerView.isClickable = false
     }
 
     private fun initializeUIFromPet(pet: PetEntity) {
@@ -185,16 +191,17 @@ class MainActivity : AppCompatActivity() {
         previousMoneyAmount = player.money_amount
     }
 
-    // Returns true if any of the list views in the activity are currently visible, false otherwise.
-    private fun checkListViewsVisible(): Boolean {
+    // Returns true if any of the menu views in the activity are currently visible, false otherwise.
+    private fun checkMenuViewsVisible(): Boolean {
         return shopListView.visibility == View.VISIBLE ||
-                actionsListView.visibility == View.VISIBLE
+                actionsListView.visibility == View.VISIBLE ||
+                levelUpFragmentContainerView.visibility == View.VISIBLE
     }
 
     fun onShopBtnPress(view: View) {
         when (shopListView.visibility) {
             View.INVISIBLE -> {
-                if (checkListViewsVisible()) return
+                if (checkMenuViewsVisible()) return
                 shopListView.isClickable = true
                 fadeInView(shopListView, MENU_FADE_ANIMATION_DURATION)
                 fadeOutView(petImage, MENU_FADE_ANIMATION_DURATION)
@@ -211,7 +218,7 @@ class MainActivity : AppCompatActivity() {
     fun onActionBtnPress(view: View) {
         when (actionsListView.visibility) {
             View.INVISIBLE -> {
-                if (checkListViewsVisible()) return
+                if (checkMenuViewsVisible()) return
                 actionsListView.isClickable = true
                 fadeInView(actionsListView, MENU_FADE_ANIMATION_DURATION)
                 fadeOutView(petImage, MENU_FADE_ANIMATION_DURATION)
@@ -245,4 +252,33 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onArenaBtnPress(view: View) = startActivity(Intent(this, PetArenaActivity::class.java))
+
+    fun onLevelUpBtnPress(view: View) {
+        when (levelUpFragmentContainerView.visibility) {
+            View.INVISIBLE -> {
+                if (checkMenuViewsVisible()) return
+                levelUpFragmentContainerView.isClickable = true
+                fadeInView(levelUpFragmentContainerView, MENU_FADE_ANIMATION_DURATION)
+                fadeOutView(petImage, MENU_FADE_ANIMATION_DURATION)
+            }
+            View.VISIBLE -> {
+                levelUpFragmentContainerView.isClickable = false
+                fadeOutView(levelUpFragmentContainerView, MENU_FADE_ANIMATION_DURATION)
+                fadeInView(petImage, MENU_FADE_ANIMATION_DURATION)
+            }
+            else -> Log.e(TAG, "Error: onLevelUpBtnPress encountered unexpected visibility")
+        }
+    }
+
+    fun onConfirmLevelUpBtnPress(view: View) {
+        // Level up the player
+        mainViewModel.onConfirmLevelUpBtnPress()
+    }
+
+    fun onCancelLevelUpBtnPress(view: View) {
+        // Close the level up menu
+        levelUpFragmentContainerView.isClickable = false
+        fadeOutView(levelUpFragmentContainerView, MENU_FADE_ANIMATION_DURATION)
+        fadeInView(petImage, MENU_FADE_ANIMATION_DURATION)
+    }
 }

@@ -14,12 +14,17 @@ data class PetEntity(
     var angry_image_id: Int,
     var pet_level: Int,
     var pet_health: Int,
-    val pet_maxhp: Int,
     var hunger_level: Int,
     var thirst_level: Int,
     var happiness_level: Int,
     var fitness_level: Int
 ) {
+    // Calculated values
+    val petMaxHp: Int
+        get() = pet_level * 20
+    val levelUpCost: Int
+        get() = pet_level * 250
+
     // Sets the image resource of 'imageView' to a pet image from this pet.
     // Image is different depending on the pet's mood.
     fun setImageFromPet(imageView: ImageView) {

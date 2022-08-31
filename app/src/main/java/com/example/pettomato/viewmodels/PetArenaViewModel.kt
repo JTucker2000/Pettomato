@@ -149,7 +149,7 @@ class PetArenaViewModel(application: Application) : AndroidViewModel(application
             val curPet = playerRepository.getPetById(1)
 
             // Change pet status
-            curPet.pet_health = curPet.pet_maxhp
+            curPet.pet_health = curPet.petMaxHp
             if(curPet.hunger_level > 25) curPet.hunger_level = 25
             if(curPet.thirst_level > 25) curPet.thirst_level = 25
             if(curPet.happiness_level > 25) curPet.happiness_level = 25
@@ -183,7 +183,7 @@ class PetArenaViewModel(application: Application) : AndroidViewModel(application
             curPlayer.num_arenacoinsearned += moneyEarned
             curPlayer.num_fightswon += 1
             curPlayer.arena_level += 1
-            curPet.pet_health = curPet.pet_maxhp
+            curPet.pet_health = curPet.petMaxHp
 
             // Change the enemy to new enemy
             setEnemy(curPlayer.arena_level)
@@ -204,8 +204,8 @@ class PetArenaViewModel(application: Application) : AndroidViewModel(application
             if(curPlayer.num_bandages > 0) {
                 curPlayer.num_bandages -= 1
                 curPlayer.num_bandagesused += 1
-                curPet.pet_health += (curPet.pet_maxhp / 10)
-                if(curPet.pet_health > curPet.pet_maxhp) curPet.pet_health = curPet.pet_maxhp
+                curPet.pet_health += (curPet.petMaxHp / 10)
+                if(curPet.pet_health > curPet.petMaxHp) curPet.pet_health = curPet.petMaxHp
             }
 
             playerRepository.updatePlayer(curPlayer)
@@ -224,8 +224,8 @@ class PetArenaViewModel(application: Application) : AndroidViewModel(application
             if(curPlayer.num_firstaid > 0) {
                 curPlayer.num_firstaid -= 1
                 curPlayer.num_firstaidused += 1
-                curPet.pet_health += (curPet.pet_maxhp / 2)
-                if(curPet.pet_health > curPet.pet_maxhp) curPet.pet_health = curPet.pet_maxhp
+                curPet.pet_health += (curPet.petMaxHp / 2)
+                if(curPet.pet_health > curPet.petMaxHp) curPet.pet_health = curPet.petMaxHp
             }
 
             playerRepository.updatePlayer(curPlayer)

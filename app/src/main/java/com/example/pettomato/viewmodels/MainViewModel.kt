@@ -148,4 +148,20 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             playerRepository.updatePlayer(curPlayer)
         }
     }
+
+    // Handles when confirm level up button has been pressed.
+    fun onConfirmLevelUpBtnPress() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val curPet = playerRepository.getPetById(1)
+            val curPlayer = playerRepository.getPlayerByUsername("Jtuck")
+
+            if(curPlayer.money_amount >= curPet.levelUpCost) {
+                curPlayer.money_amount -= curPet.levelUpCost
+                curPet.pet_level++
+            }
+
+            playerRepository.updatePet(curPet)
+            playerRepository.updatePlayer(curPlayer)
+        }
+    }
 }

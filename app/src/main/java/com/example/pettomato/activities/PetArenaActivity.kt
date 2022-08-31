@@ -145,13 +145,13 @@ class PetArenaActivity : AppCompatActivity() {
         playerNameText.text = pet.pet_name
 
         // Health text
-        playerHealthNumText.text = "${pet.pet_health}/${pet.pet_maxhp}"
+        playerHealthNumText.text = "${pet.pet_health}/${pet.petMaxHp}"
 
         // Level text
         playerLevelText.text = "LVL ${pet.pet_level}"
 
         // Progress bars
-        playerHealthProgressBar.max = pet.pet_maxhp
+        playerHealthProgressBar.max = pet.petMaxHp
         ObjectAnimator.ofInt(playerHealthProgressBar, "progress", pet.pet_health).setDuration(PROGRESSBAR_ANIMATION_DURATION).start()
 
         // Update 'previous' UI values
