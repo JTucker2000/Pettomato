@@ -103,6 +103,7 @@ class PetArenaViewModel(application: Application) : AndroidViewModel(application
         }
 
         curPlayer.money_amount += totalReward
+        curPlayer.num_arenacoinsearned += totalReward
 
         playerRepository.updatePlayer(curPlayer)
     }

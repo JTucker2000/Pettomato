@@ -125,6 +125,10 @@ class PetArenaActivity : AppCompatActivity() {
     private fun initializeUIFromPet(pet: PetEntity) {
         // Initialize 'previous' UI values
         previousPlayerHealth = pet.pet_health
+
+        // Initialize progress bar
+        playerHealthProgressBar.max = pet.petMaxHp
+        playerHealthProgressBar.progress = pet.pet_health
     }
 
     private fun updateUIFromPet(pet: PetEntity) {
@@ -161,6 +165,10 @@ class PetArenaActivity : AppCompatActivity() {
     private fun initializeUIFromEnemy(enemy: EnemyEntity) {
         // Initialize 'previous' UI values
         previousEnemyHealth = enemy.enemy_health
+
+        // Initialize progress bar
+        enemyHealthProgressBar.max = enemy.enemy_maxhp
+        enemyHealthProgressBar.progress = enemy.enemy_health
     }
 
     private fun updateUIFromEnemy(enemy: EnemyEntity) {
