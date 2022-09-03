@@ -28,8 +28,8 @@ class GameOverActivity : AppCompatActivity() {
         gameOverPetImage = findViewById<ImageView>(R.id.gameOverPet_image)
 
         // Set up observer(s)
-        gameOverViewModel.petListLive.observe(this, Observer<List<PetEntity>>{ currentPetList ->
-            animateDeathFromPet(currentPetList[0])
+        gameOverViewModel.petLive.observe(this, Observer<PetEntity>{ currentPet ->
+            animateDeathFromPet(currentPet)
         })
     }
 

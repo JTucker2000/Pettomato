@@ -23,5 +23,10 @@ val PETACTION_PRICE: Int = 0 // Unused
 val WALK_PRICE: Int = 0 // Unused
 val actionPrices: Array<String> = arrayOf("-$FEED_PRICE Coins", "-$GIVEWATER_PRICE Coins", "Free", "Free")
 
+// The ID of the currently selected pet/enemy.
+val CURRENT_PET_ID: Int = 1
+val CURRENT_ENEMY_ID: Int = 1
+
 // Misc. constants
+val PLAYER_USERNAME: String = "Jtuck"
 val PREVIOUS_VAL_UNINITIALIZED: Int = -1

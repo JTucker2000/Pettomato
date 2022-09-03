@@ -87,12 +87,12 @@ class MainActivity : AppCompatActivity() {
         // ---- END FIRST RUN ----
 
         // Set up observer(s)
-        mainViewModel.petListLive.observe(this, Observer<List<PetEntity>>{ currentPetList ->
+        mainViewModel.petLive.observe(this, Observer<PetEntity>{ currentPet ->
             if(previousHungerLevel == PREVIOUS_VAL_UNINITIALIZED) {
-                initializeUIFromPet(currentPetList[0])
+                initializeUIFromPet(currentPet)
             }
 
-            updateUIFromPet(currentPetList[0])
+            updateUIFromPet(currentPet)
         })
         mainViewModel.playerLive.observe(this, Observer<PlayerEntity>{ currentPlayer ->
             if(previousMoneyAmount == PREVIOUS_VAL_UNINITIALIZED) {

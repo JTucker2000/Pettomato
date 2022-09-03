@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val playerRepository: PlayerRepository
-    val petListLive: LiveData<List<PetEntity>>
+    val petLive: LiveData<PetEntity>
     val playerLive: LiveData<PlayerEntity>
 
     // Animation variables
@@ -24,7 +24,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         val petDao = database.petDao()
         val playerDao = database.playerDao()
         playerRepository = PlayerRepository(petDao, playerDao)
-        petListLive = playerRepository.petListLive
+        petLive = playerRepository.petLive
         playerLive = playerRepository.playerLive
     }
 
@@ -45,8 +45,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     // Handles when feed button is pressed in actions listview.
     fun onFeedBtnPress() {
         viewModelScope.launch(Dispatchers.IO) {
-            val curPlayer = playerRepository.getPlayerByUsername("Jtuck")
-            val curPet = playerRepository.getPetById(1)
+            val curPlayer = playerRepository.getPlayerByUsername(PLAYER_USERNAME)
+            val curPet = playerRepository.getPetById(CURRENT_PET_ID)
 
             if(curPet.hunger_level < 100 && curPlayer.money_amount >= FEED_PRICE) {
                 // Update pet values
@@ -63,8 +63,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     // Handles when give water button is pressed in actions listview.
     fun onGiveWaterBtnPress() {
         viewModelScope.launch(Dispatchers.IO) {
-            val curPlayer = playerRepository.getPlayerByUsername("Jtuck")
-            val curPet = playerRepository.getPetById(1)
+            val curPlayer = playerRepository.getPlayerByUsername(PLAYER_USERNAME)
+            val curPet = playerRepository.getPetById(CURRENT_PET_ID)
 
             if(curPet.thirst_level < 100 && curPlayer.money_amount >= GIVEWATER_PRICE) {
                 // Update values
@@ -81,7 +81,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     // Handles when pet button is pressed in actions listview.
     fun onPetBtnPress() {
         viewModelScope.launch(Dispatchers.IO) {
-            val curPet = playerRepository.getPetById(1)
+            val curPet = playerRepository.getPetById(CURRENT_PET_ID)
 
             if(curPet.happiness_level < 100) {
                 // Update pet values
@@ -96,7 +96,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     // Handles when walk button is pressed in actions listview.
     fun onWalkBtnPress() {
         viewModelScope.launch(Dispatchers.IO) {
-            val curPet = playerRepository.getPetById(1)
+            val curPet = playerRepository.getPetById(CURRENT_PET_ID)
 
             if((curPet.happiness_level < 100) || (curPet.fitness_level < 100)) {
                 // Update pet values
@@ -113,7 +113,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     // Handles when buy bandages button is pressed in shop listview.
     fun onBuyBandagesBtnPress() {
         viewModelScope.launch(Dispatchers.IO) {
-            val curPlayer = playerRepository.getPlayerByUsername("Jtuck")
+            val curPlayer = playerRepository.getPlayerByUsername(PLAYER_USERNAME)
 
             if(curPlayer.money_amount >= BANDAGE_PRICE) {
                 curPlayer.money_amount -= BANDAGE_PRICE
@@ -127,7 +127,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     // Handles when buy firstaid button is pressed in shop listview.
     fun onBuyFirstAidBtnPress() {
         viewModelScope.launch(Dispatchers.IO) {
-            val curPlayer = playerRepository.getPlayerByUsername("Jtuck")
+            val curPlayer = playerRepository.getPlayerByUsername(PLAYER_USERNAME)
 
             if(curPlayer.money_amount >= FIRSTAID_PRICE) {
                 curPlayer.money_amount -= FIRSTAID_PRICE
@@ -141,7 +141,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     // Handles when buy iron paws button is pressed in shop listview.
     fun onBuyIronPawsBtnPress() {
         viewModelScope.launch(Dispatchers.IO) {
-            val curPlayer = playerRepository.getPlayerByUsername("Jtuck")
+            val curPlayer = playerRepository.getPlayerByUsername(PLAYER_USERNAME)
 
             if(curPlayer.money_amount >= IRONPAW_PRICE) {
                 curPlayer.money_amount -= IRONPAW_PRICE
@@ -155,8 +155,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     // Handles when confirm level up button has been pressed.
     fun onConfirmLevelUpBtnPress() {
         viewModelScope.launch(Dispatchers.IO) {
-            val curPet = playerRepository.getPetById(1)
-            val curPlayer = playerRepository.getPlayerByUsername("Jtuck")
+            val curPet = playerRepository.getPetById(CURRENT_PET_ID)
+            val curPlayer = playerRepository.getPlayerByUsername(PLAYER_USERNAME)
 
             if(curPlayer.money_amount >= curPet.levelUpCost) {
                 curPlayer.money_amount -= curPet.levelUpCost

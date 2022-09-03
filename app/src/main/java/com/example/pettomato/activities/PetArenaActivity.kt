@@ -84,12 +84,12 @@ class PetArenaActivity : AppCompatActivity() {
         // ---- END FIRST RUN ----
 
         // Set up observer(s)
-        petArenaViewModel.petListLive.observe(this, Observer<List<PetEntity>>{ currentPetList ->
+        petArenaViewModel.petLive.observe(this, Observer<PetEntity>{ currentPet ->
             if(previousPlayerHealth == PREVIOUS_VAL_UNINITIALIZED) {
-                initializeUIFromPet(currentPetList[0])
+                initializeUIFromPet(currentPet)
             }
 
-            updateUIFromPet(currentPetList[0])
+            updateUIFromPet(currentPet)
         })
         petArenaViewModel.enemyLive.observe(this, Observer<EnemyEntity>{ currentEnemy ->
             if(previousEnemyHealth == PREVIOUS_VAL_UNINITIALIZED) {
