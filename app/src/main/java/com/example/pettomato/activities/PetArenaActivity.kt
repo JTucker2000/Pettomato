@@ -29,8 +29,6 @@ import com.example.pettomato.viewadapters.ItemsListViewAdapter
 class PetArenaActivity : AppCompatActivity() {
     private val petArenaViewModel: PetArenaViewModel by viewModels()
 
-    private var attackIsOngoing: Boolean = false
-
     // Local constants
     private val TAG: String = "PetArenaActivityTag"
     private val REWARD_ANIMATION_DURATION: Long = 3000
@@ -220,7 +218,7 @@ class PetArenaActivity : AppCompatActivity() {
 
     // Returns true if an attack is ongoing or if either menu is open, false otherwise.
     private fun isScreenBusy(): Boolean {
-        return attackIsOngoing ||
+        return petArenaViewModel.attackIsOngoing ||
                 itemsListView.visibility == View.VISIBLE ||
                 statsFragmentContainerView.visibility == View.VISIBLE
     }
@@ -228,7 +226,7 @@ class PetArenaActivity : AppCompatActivity() {
     fun onAttackBtnPress(view: View) {
         if(!isScreenBusy()) {
             // Prevents multiple attacks until animation has finished
-            attackIsOngoing = true
+            petArenaViewModel.attackIsOngoing = true
 
             // Do animations for the player's attack
             playerPetImage.animate()
@@ -255,7 +253,7 @@ class PetArenaActivity : AppCompatActivity() {
                             .setListener(object : AnimatorListenerAdapter() {
                                 override fun onAnimationEnd(animation: Animator) {
                                     // Animation is over, player can attack again
-                                    attackIsOngoing = false
+                                    petArenaViewModel.attackIsOngoing = false
                                 }
                             })
                     }

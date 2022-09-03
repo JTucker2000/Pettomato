@@ -21,6 +21,8 @@ class PetArenaViewModel(application: Application) : AndroidViewModel(application
     val petListLive: LiveData<List<PetEntity>>
     val playerLive: LiveData<PlayerEntity>
 
+    var attackIsOngoing: Boolean = false
+
     init {
         val database = AppDatabase.getDatabase(application)
         val petDao = database.petDao()

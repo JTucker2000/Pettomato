@@ -1,23 +1,23 @@
 package com.example.pettomato.fragments
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import com.example.pettomato.PREVIOUS_VAL_UNINITIALIZED
 import com.example.pettomato.R
 import com.example.pettomato.roomentities.PetEntity
 import com.example.pettomato.viewmodels.MainViewModel
-import com.example.pettomato.viewmodels.PetArenaViewModel
 
 class LevelUpFragment : Fragment() {
-    private val mainViewModel: MainViewModel by viewModels()
+    private val mainViewModel: MainViewModel by activityViewModels()
 
     // View variables
     private lateinit var levelUpPetNameText: TextView
@@ -50,14 +50,55 @@ class LevelUpFragment : Fragment() {
         return view
     }
 
+    // Makes levelUpCostText red and bouncy, while also making levelUpPetImage temporarily sad.
+    private fun levelUpFailAnimation(pet: PetEntity) {
+        // Make text red
+        levelUpCostText.setTextColor(Color.parseColor("#FF0000"))
+
+        // Make pet image sad
+        levelUpPetImage.setImageResource(pet.sad_image_id)
+
+        // Animate bouncing up and down
+        levelUpCostText.animate()
+            .translationY(-20f)
+            .setDuration(65)
+            .setListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator) {
+                    levelUpCostText.animate()
+                        .translationY(20f)
+                        .setDuration(130)
+                        .setListener(object : AnimatorListenerAdapter() {
+                            override fun onAnimationEnd(animation: Animator) {
+                                levelUpCostText.animate()
+                                    .translationY(0f)
+                                    .setDuration(65)
+                                    .setListener(object : AnimatorListenerAdapter() {
+                                        override fun onAnimationEnd(animation: Animator) {
+                                            // When animations are done, reset text and image.
+                                            levelUpCostText.setTextColor(Color.GRAY)
+                                            levelUpPetImage.setImageResource(pet.happy_image_id)
+                                        }
+                                    })
+                            }
+                        })
+                }
+            })
+    }
+
     private fun updateUIFromPet(pet: PetEntity) {
-        // Set pet image
-        pet.setImageFromPet(levelUpPetImage)
+        // Set pet image, pet is always happy on this screen.
+        levelUpPetImage.setImageResource(pet.happy_image_id)
 
         // Set textviews
         levelUpPetNameText.text = pet.pet_name
         levelUpPetLevelText.text = "Level ${pet.pet_level}"
         levelUpCostText.text = "Cost: ${pet.levelUpCost}"
+
+        // Play animations from viewmodel
+        if(mainViewModel.playLevelUpFailAnimation) { // Plays when the player tries to level without enough money.
+            levelUpFailAnimation(pet)
+            mainViewModel.playLevelUpFailAnimation = false
+        }
     }
 
     companion object {

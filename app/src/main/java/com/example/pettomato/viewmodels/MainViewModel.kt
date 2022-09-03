@@ -16,6 +16,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val petListLive: LiveData<List<PetEntity>>
     val playerLive: LiveData<PlayerEntity>
 
+    // Animation variables
+    var playLevelUpFailAnimation: Boolean = false
+
     init {
         val database = AppDatabase.getDatabase(application)
         val petDao = database.petDao()
@@ -158,6 +161,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             if(curPlayer.money_amount >= curPet.levelUpCost) {
                 curPlayer.money_amount -= curPet.levelUpCost
                 curPet.pet_level++
+            } else {
+                playLevelUpFailAnimation = true
             }
 
             playerRepository.updatePet(curPet)
