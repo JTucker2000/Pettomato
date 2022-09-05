@@ -97,7 +97,7 @@
             android:id="@+id/levelUpPetLevel_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="12dp"
             android:fontFamily="@font/press_start_2p"
             android:text="petLevel"
             app:layout_constraintBottom_toTopOf="@+id/levelUpPet_image"

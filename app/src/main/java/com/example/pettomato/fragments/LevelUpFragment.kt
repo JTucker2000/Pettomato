@@ -50,6 +50,18 @@ class LevelUpFragment : Fragment() {
         return view
     }
 
+    // Makes levelUpPetImage rotate 360 degrees.
+    private fun levelUpSuccessAnimation() {
+        levelUpPetImage.animate()
+            .rotation(360f)
+            .setDuration(1000)
+            .setListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator) {
+                    levelUpPetImage.rotation = 0f
+                }
+            })
+    }
+
     // Makes levelUpCostText red and bouncy, while also making levelUpPetImage temporarily sad.
     private fun levelUpFailAnimation(pet: PetEntity) {
         // Make text red
@@ -95,6 +107,10 @@ class LevelUpFragment : Fragment() {
         levelUpCostText.text = "Cost: ${pet.levelUpCost}"
 
         // Play animations from viewmodel
+        if(mainViewModel.playLevelUpSuccessAnimation) { // Plays when the player levels up.
+            levelUpSuccessAnimation()
+            mainViewModel.playLevelUpSuccessAnimation = false
+        }
         if(mainViewModel.playLevelUpFailAnimation) { // Plays when the player tries to level without enough money.
             levelUpFailAnimation(pet)
             mainViewModel.playLevelUpFailAnimation = false

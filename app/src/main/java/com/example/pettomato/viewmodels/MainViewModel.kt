@@ -17,6 +17,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val playerLive: LiveData<PlayerEntity>
 
     // Animation variables
+    var playLevelUpSuccessAnimation: Boolean = false
     var playLevelUpFailAnimation: Boolean = false
 
     init {
@@ -161,6 +162,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             if(curPlayer.money_amount >= curPet.levelUpCost) {
                 curPlayer.money_amount -= curPet.levelUpCost
                 curPet.pet_level++
+                playLevelUpSuccessAnimation = true
             } else {
                 playLevelUpFailAnimation = true
             }
