@@ -29,17 +29,18 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         playerLive = playerRepository.playerLive
     }
 
-    // FOR PREPOPULATING DATABASE IN TESTING
-    fun addPet(petEntity: PetEntity) {
+    // Gives image IDs to database on the first run on the game on this device.
+    // Always sets to the orange cat image set since everyone starts with that pet.
+    fun initImageIDs() {
         viewModelScope.launch(Dispatchers.IO) {
-            playerRepository.addPet(petEntity)
-        }
-    }
+            val curPet = playerRepository.getPetById(CURRENT_PET_ID)
 
-    // FOR PREPOPULATING DATABASE IN TESTING
-    fun addPlayer(playerEntity: PlayerEntity) {
-        viewModelScope.launch(Dispatchers.IO) {
-            playerRepository.addPlayer(playerEntity)
+            curPet.normal_image_id = R.drawable.normalcat1
+            curPet.happy_image_id = R.drawable.happycat1
+            curPet.sad_image_id = R.drawable.sadcat1
+            curPet.angry_image_id = R.drawable.angrycat1
+
+            playerRepository.updatePet(curPet)
         }
     }
 

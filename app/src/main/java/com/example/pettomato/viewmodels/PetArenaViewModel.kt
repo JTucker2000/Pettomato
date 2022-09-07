@@ -109,10 +109,15 @@ class PetArenaViewModel(application: Application) : AndroidViewModel(application
         playerRepository.updatePlayer(curPlayer)
     }
 
-    // FOR PREPOPULATING DATABASE IN TESTING
-    fun addEnemy(enemyEntity: EnemyEntity) {
+    // Gives image IDs to database on the first run on the game on this device.
+    // Always sets to the angry mouse image since everyone starts on that enemy.
+    fun initImageIDs() {
         viewModelScope.launch(Dispatchers.IO) {
-            enemyRepository.addEnemy(enemyEntity)
+            val curEnemy = enemyRepository.getEnemyById(CURRENT_ENEMY_ID)
+
+            curEnemy.image_id = R.drawable.angrymouse1
+
+            enemyRepository.updateEnemy(curEnemy)
         }
     }
 

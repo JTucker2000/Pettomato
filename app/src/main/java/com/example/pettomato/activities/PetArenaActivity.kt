@@ -79,10 +79,6 @@ class PetArenaActivity : AppCompatActivity() {
         enemyPetImage = findViewById<ImageView>(R.id.enemy_petImage)
         statsFragmentContainerView = findViewById<FragmentContainerView>(R.id.arena_stats_fragmentContainerView)
 
-        // ---- FIRST RUN, FOR PREPOPULATING DATABASE ----
-        //petArenaViewModel.addEnemy(EnemyEntity(0, "Angry Mouse", R.drawable.angrymouse1, 1, 10, 10))
-        // ---- END FIRST RUN ----
-
         // Set up observer(s)
         petArenaViewModel.petLive.observe(this, Observer<PetEntity>{ currentPet ->
             if(previousPlayerHealth == PREVIOUS_VAL_UNINITIALIZED) {
@@ -167,6 +163,9 @@ class PetArenaActivity : AppCompatActivity() {
         // Initialize progress bar
         enemyHealthProgressBar.max = enemy.enemy_maxhp
         enemyHealthProgressBar.progress = enemy.enemy_health
+
+        // If this is the first time the game has been launched on this device, give image IDs to the database.
+        if(enemy.image_id == IMAGE_ID_UNINITIALIZED) petArenaViewModel.initImageIDs()
     }
 
     private fun updateUIFromEnemy(enemy: EnemyEntity) {

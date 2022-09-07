@@ -1,0 +1,296 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "0568e531245f9b74ce4b3914335d0659",
+    "entities": [
+      {
+        "tableName": "pets",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `pet_name` TEXT NOT NULL, `normal_image_id` INTEGER NOT NULL, `happy_image_id` INTEGER NOT NULL, `sad_image_id` INTEGER NOT NULL, `angry_image_id` INTEGER NOT NULL, `pet_level` INTEGER NOT NULL, `pet_health` INTEGER NOT NULL, `hunger_level` INTEGER NOT NULL, `thirst_level` INTEGER NOT NULL, `happiness_level` INTEGER NOT NULL, `fitness_level` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pet_name",
+            "columnName": "pet_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "normal_image_id",
+            "columnName": "normal_image_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "happy_image_id",
+            "columnName": "happy_image_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sad_image_id",
+            "columnName": "sad_image_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "angry_image_id",
+            "columnName": "angry_image_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pet_level",
+            "columnName": "pet_level",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pet_health",
+            "columnName": "pet_health",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hunger_level",
+            "columnName": "hunger_level",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "thirst_level",
+            "columnName": "thirst_level",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "happiness_level",
+            "columnName": "happiness_level",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fitness_level",
+            "columnName": "fitness_level",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "players",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`username` TEXT NOT NULL, `money_amount` INTEGER NOT NULL, `arena_level` INTEGER NOT NULL, `num_bandages` INTEGER NOT NULL, `num_firstaid` INTEGER NOT NULL, `num_ironpaw` INTEGER NOT NULL, `num_fightswon` INTEGER NOT NULL, `num_fightslost` INTEGER NOT NULL, `num_arenacoinsearned` INTEGER NOT NULL, `num_bandagesused` INTEGER NOT NULL, `num_firstaidused` INTEGER NOT NULL, `num_ironpawsused` INTEGER NOT NULL, `num_damagedealt` INTEGER NOT NULL, `num_damagetaken` INTEGER NOT NULL, `fightswongoal` INTEGER NOT NULL, `fightslostgoal` INTEGER NOT NULL, `coinsearnedgoal` INTEGER NOT NULL, `bandagesusedgoal` INTEGER NOT NULL, `firstaidusedgoal` INTEGER NOT NULL, `ironpawsusedgoal` INTEGER NOT NULL, `damagedealtgoal` INTEGER NOT NULL, `damagetakengoal` INTEGER NOT NULL, PRIMARY KEY(`username`))",
+        "fields": [
+          {
+            "fieldPath": "username",
+            "columnName": "username",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "money_amount",
+            "columnName": "money_amount",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "arena_level",
+            "columnName": "arena_level",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "num_bandages",
+            "columnName": "num_bandages",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "num_firstaid",
+            "columnName": "num_firstaid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "num_ironpaw",
+            "columnName": "num_ironpaw",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "num_fightswon",
+            "columnName": "num_fightswon",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "num_fightslost",
+            "columnName": "num_fightslost",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "num_arenacoinsearned",
+            "columnName": "num_arenacoinsearned",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "num_bandagesused",
+            "columnName": "num_bandagesused",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "num_firstaidused",
+            "columnName": "num_firstaidused",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "num_ironpawsused",
+            "columnName": "num_ironpawsused",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "num_damagedealt",
+            "columnName": "num_damagedealt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "num_damagetaken",
+            "columnName": "num_damagetaken",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fightswongoal",
+            "columnName": "fightswongoal",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fightslostgoal",
+            "columnName": "fightslostgoal",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "coinsearnedgoal",
+            "columnName": "coinsearnedgoal",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "bandagesusedgoal",
+            "columnName": "bandagesusedgoal",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "firstaidusedgoal",
+            "columnName": "firstaidusedgoal",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ironpawsusedgoal",
+            "columnName": "ironpawsusedgoal",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "damagedealtgoal",
+            "columnName": "damagedealtgoal",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "damagetakengoal",
+            "columnName": "damagetakengoal",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "username"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "enemies",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `enemy_name` TEXT NOT NULL, `image_id` INTEGER NOT NULL, `enemy_level` INTEGER NOT NULL, `enemy_health` INTEGER NOT NULL, `enemy_maxhp` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "enemy_name",
+            "columnName": "enemy_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "image_id",
+            "columnName": "image_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "enemy_level",
+            "columnName": "enemy_level",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "enemy_health",
+            "columnName": "enemy_health",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "enemy_maxhp",
+            "columnName": "enemy_maxhp",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '0568e531245f9b74ce4b3914335d0659')"
+    ]
+  }
+}

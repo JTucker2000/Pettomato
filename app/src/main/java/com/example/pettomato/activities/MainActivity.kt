@@ -80,12 +80,6 @@ class MainActivity : AppCompatActivity() {
         fitnessProgressBar = findViewById<ProgressBar>(R.id.fitness_progressBar)
         levelUpFragmentContainerView = findViewById<FragmentContainerView>(R.id.levelUp_fragmentContainerView)
 
-        // ---- FIRST RUN, FOR PREPOPULATING DATABASE ----
-        /*mainViewModel.addPet(PetEntity(0, "Orange Cat", R.drawable.normalcat1, R.drawable.happycat1, R.drawable.sadcat1,
-            R.drawable.angrycat1, 1, 20, 100, 100, 100, 100))
-        mainViewModel.addPlayer(PlayerEntity("Jtuck", 100, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 10, 10, 10, 10, 10))*/
-        // ---- END FIRST RUN ----
-
         // Set up observer(s)
         mainViewModel.petLive.observe(this, Observer<PetEntity>{ currentPet ->
             if(previousHungerLevel == PREVIOUS_VAL_UNINITIALIZED) {
@@ -144,6 +138,9 @@ class MainActivity : AppCompatActivity() {
         thirstProgressBar.progress = pet.thirst_level
         happinessProgressBar.progress = pet.happiness_level
         fitnessProgressBar.progress = pet.fitness_level
+
+        // If this is the first time the game has been launched on this device, give image IDs to the database.
+        if(pet.normal_image_id == IMAGE_ID_UNINITIALIZED) mainViewModel.initImageIDs()
     }
 
     private fun updateUIFromPet(pet: PetEntity) {

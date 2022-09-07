@@ -30,7 +30,7 @@ abstract class AppDatabase : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context,
                     AppDatabase::class.java, "pettomatodb"
-                ).build()
+                ).createFromAsset("initdatabase.db").build()
                 INSTANCE = instance
                 return instance
             }

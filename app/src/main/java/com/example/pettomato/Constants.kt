@@ -30,3 +30,4 @@ val CURRENT_ENEMY_ID: Int = 1
 // Misc. constants
 val PLAYER_USERNAME: String = "Jtuck"
 val PREVIOUS_VAL_UNINITIALIZED: Int = -1
+val IMAGE_ID_UNINITIALIZED: Int = 0
