@@ -11,17 +11,13 @@
         android:id="@+id/arena_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="32dp"
         android:fontFamily="@font/press_start_2p"
         android:onClick="onArenaBtnPress"
         android:text="Arena"
         android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="@+id/actions_btn"
-        app:layout_constraintEnd_toStartOf="@+id/actions_btn"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/actions_btn" />
+        app:layout_constraintEnd_toEndOf="@+id/petDisplay_btn"
+        app:layout_constraintStart_toStartOf="@+id/petDisplay_btn"
+        app:layout_constraintTop_toBottomOf="@+id/petDisplay_btn" />
 
     <Button
         android:id="@+id/actions_btn"
@@ -285,9 +281,10 @@
         android:onClick="onLevelUpBtnPress"
         android:text="Level Up"
         android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="@+id/actions_btn"
-        app:layout_constraintStart_toStartOf="@+id/actions_btn"
-        app:layout_constraintTop_toBottomOf="@+id/actions_btn" />
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="@+id/shop_btn"
+        app:layout_constraintStart_toStartOf="@+id/shop_btn"
+        app:layout_constraintTop_toBottomOf="@+id/shop_btn" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/levelUp_fragmentContainerView"
@@ -313,5 +310,33 @@
         app:layout_constraintStart_toEndOf="@+id/money_amount_text"
         app:layout_constraintTop_toTopOf="@+id/money_amount_text"
         app:layout_constraintVertical_bias="0.8" />
+
+    <Button
+        android:id="@+id/petDisplay_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/press_start_2p"
+        android:onClick="onPetDisplayBtnPress"
+        android:text="Pets"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/actions_btn"
+        app:layout_constraintEnd_toStartOf="@+id/actions_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/actions_btn" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/petDisplay_fragmentContainerView"
+        android:name="com.example.pettomato.fragments.PetDisplayFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/actions_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/money_update_text" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

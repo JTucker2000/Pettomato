@@ -49,6 +49,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var happinessProgressBar: ProgressBar
     private lateinit var fitnessProgressBar: ProgressBar
     private lateinit var levelUpFragmentContainerView: FragmentContainerView
+    private lateinit var petDisplayFragmentContainerView: FragmentContainerView
 
     // Adapter variables
     private lateinit var shopListViewAdapter: ShopListViewAdapter
@@ -79,6 +80,7 @@ class MainActivity : AppCompatActivity() {
         happinessProgressBar = findViewById<ProgressBar>(R.id.happy_progressBar)
         fitnessProgressBar = findViewById<ProgressBar>(R.id.fitness_progressBar)
         levelUpFragmentContainerView = findViewById<FragmentContainerView>(R.id.levelUp_fragmentContainerView)
+        petDisplayFragmentContainerView = findViewById<FragmentContainerView>(R.id.petDisplay_fragmentContainerView)
 
         // Set up observer(s)
         mainViewModel.petLive.observe(this, Observer<PetEntity>{ currentPet ->
@@ -124,6 +126,9 @@ class MainActivity : AppCompatActivity() {
 
         levelUpFragmentContainerView.visibility = View.INVISIBLE
         levelUpFragmentContainerView.isClickable = false
+
+        petDisplayFragmentContainerView.visibility = View.INVISIBLE
+        petDisplayFragmentContainerView.isClickable = false
     }
 
     private fun initializeUIFromPet(pet: PetEntity) {
@@ -192,7 +197,8 @@ class MainActivity : AppCompatActivity() {
     private fun checkMenuViewsVisible(): Boolean {
         return shopListView.visibility == View.VISIBLE ||
                 actionsListView.visibility == View.VISIBLE ||
-                levelUpFragmentContainerView.visibility == View.VISIBLE
+                levelUpFragmentContainerView.visibility == View.VISIBLE ||
+                petDisplayFragmentContainerView.visibility == View.VISIBLE
     }
 
     fun onShopBtnPress(view: View) {
@@ -277,5 +283,22 @@ class MainActivity : AppCompatActivity() {
         levelUpFragmentContainerView.isClickable = false
         fadeOutView(levelUpFragmentContainerView, MENU_FADE_ANIMATION_DURATION)
         fadeInView(petImage, MENU_FADE_ANIMATION_DURATION)
+    }
+
+    fun onPetDisplayBtnPress(view: View) {
+        when (petDisplayFragmentContainerView.visibility) {
+            View.INVISIBLE -> {
+                if (checkMenuViewsVisible()) return
+                petDisplayFragmentContainerView.isClickable = true
+                fadeInView(petDisplayFragmentContainerView, MENU_FADE_ANIMATION_DURATION)
+                fadeOutView(petImage, MENU_FADE_ANIMATION_DURATION)
+            }
+            View.VISIBLE -> {
+                petDisplayFragmentContainerView.isClickable = false
+                fadeOutView(petDisplayFragmentContainerView, MENU_FADE_ANIMATION_DURATION)
+                fadeInView(petImage, MENU_FADE_ANIMATION_DURATION)
+            }
+            else -> Log.e(TAG, "Error: onPetDisplayBtnPress encountered unexpected visibility")
+        }
     }
 }
