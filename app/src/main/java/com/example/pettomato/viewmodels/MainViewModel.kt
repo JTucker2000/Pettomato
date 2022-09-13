@@ -14,6 +14,7 @@ import kotlinx.coroutines.launch
 class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val playerRepository: PlayerRepository
     val petLive: LiveData<PetEntity>
+    val petListLive: LiveData<List<PetEntity>>
     val playerLive: LiveData<PlayerEntity>
 
     // Animation variables
@@ -26,6 +27,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         val playerDao = database.playerDao()
         playerRepository = PlayerRepository(petDao, playerDao)
         petLive = playerRepository.petLive
+        petListLive = playerRepository.petListLive
         playerLive = playerRepository.playerLive
     }
 

@@ -10,6 +10,7 @@ import com.example.pettomato.roomentities.PlayerEntity
 
 class PlayerRepository(private val petDao: PetDao, private val playerDao: PlayerDao) {
     val petLive: LiveData<PetEntity> = petDao.getByIdLive(CURRENT_PET_ID)
+    val petListLive: LiveData<List<PetEntity>> = petDao.getAllLive()
     val playerLive: LiveData<PlayerEntity> = playerDao.getByUsernameLive(PLAYER_USERNAME)
 
     suspend fun getPetById(pet_id: Int): PetEntity {
