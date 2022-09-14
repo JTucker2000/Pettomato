@@ -16,6 +16,7 @@ import com.example.pettomato.functions.fadeInView
 import com.example.pettomato.functions.fadeOutView
 import com.example.pettomato.roomentities.PetEntity
 import com.example.pettomato.viewadapters.OwnedPetsGridViewAdapter
+import com.example.pettomato.viewadapters.PetShopGridViewAdapter
 import com.example.pettomato.viewmodels.MainViewModel
 
 class PetDisplayFragment : Fragment() {
@@ -30,6 +31,7 @@ class PetDisplayFragment : Fragment() {
 
     // Adapter variables
     private lateinit var ownedPetsGridViewAdapter: OwnedPetsGridViewAdapter
+    private lateinit var petShopGridViewAdapter: PetShopGridViewAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +62,8 @@ class PetDisplayFragment : Fragment() {
         ownedPetsGridView.visibility = View.VISIBLE
         ownedPetsGridView.isClickable = true
 
+        petShopGridViewAdapter = PetShopGridViewAdapter(requireContext())
+        petShopGridView.adapter = petShopGridViewAdapter
         petShopGridView.visibility = View.INVISIBLE
         petShopGridView.isClickable = false
 

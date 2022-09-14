@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
+import com.example.pettomato.ITEM_OPTIONS
 import com.example.pettomato.R
-import com.example.pettomato.itemOptions
 
 class ItemsListViewAdapter(context: Context, private var numOwned: Array<Int>): BaseAdapter() {
     private val curContext: Context
@@ -17,7 +17,7 @@ class ItemsListViewAdapter(context: Context, private var numOwned: Array<Int>): 
     }
 
     override fun getCount(): Int {
-        return itemOptions.size
+        return ITEM_OPTIONS.size
     }
 
     override fun getItem(position: Int): Any {
@@ -33,7 +33,7 @@ class ItemsListViewAdapter(context: Context, private var numOwned: Array<Int>): 
         val layout = layoutInflater.inflate(R.layout.items_list_view_item, parent, false)
 
         val itemNameTextview = layout.findViewById<TextView>(R.id.item_name_textview)
-        itemNameTextview.text = itemOptions[position]
+        itemNameTextview.text = ITEM_OPTIONS[position]
 
         val numOwnedTextView = layout.findViewById<TextView>(R.id.numOwned_textview)
         numOwnedTextView.text = "Currently owned: ${numOwned[position]}"
