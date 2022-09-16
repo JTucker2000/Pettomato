@@ -51,6 +51,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/press_start_2p"
         android:text="SELECT"
+        android:onClick="onSelectOwnedPetBtnPress"
         app:layout_constraintBottom_toBottomOf="@+id/background_image"
         app:layout_constraintEnd_toEndOf="@+id/background_image"
         app:layout_constraintStart_toStartOf="@+id/background_image"

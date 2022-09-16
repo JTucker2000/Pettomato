@@ -174,4 +174,41 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             playerRepository.updatePlayer(curPlayer)
         }
     }
+
+    // Handles when select has been pressed in owned pets gridview.
+    // 'Selects' a new pet by swapping the current pet and selected pet positions in the database.
+    // The pet at position 1 in the DB is always the selected pet.
+    fun onSelectOwnedPetBtnPress(position: Int) {
+        if(position == 0) return
+
+        viewModelScope.launch(Dispatchers.IO) {
+            val curPet = playerRepository.getPetById(CURRENT_PET_ID)
+            val selectedPetDatabasePos = position + 1 // Because DB is 1 indexed and position is 0 indexed.
+            val selectedPet = playerRepository.getPetById(selectedPetDatabasePos)
+
+            playerRepository.updatePetExplicit(CURRENT_PET_ID, selectedPet.pet_name, selectedPet.normal_image_id,
+                selectedPet.happy_image_id, selectedPet.sad_image_id, selectedPet.angry_image_id, selectedPet.pet_level,
+                selectedPet.pet_health, selectedPet.hunger_level, selectedPet.thirst_level, selectedPet.happiness_level,
+                selectedPet.fitness_level)
+
+            playerRepository.updatePetExplicit(selectedPetDatabasePos, curPet.pet_name, curPet.normal_image_id,
+                curPet.happy_image_id, curPet.sad_image_id, curPet.angry_image_id, curPet.pet_level,
+                curPet.pet_health, curPet.hunger_level, curPet.thirst_level, curPet.happiness_level,
+                curPet.fitness_level)
+        }
+    }
+
+    // Handles when buy pet has been pressed in pet shop gridview.
+    fun onBuyPetBtnPress(position: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val curPlayer = playerRepository.getPlayerByUsername(PLAYER_USERNAME)
+            val petCost = PET_PRICES[position]
+
+            if(curPlayer.money_amount >= petCost) {
+                curPlayer.money_amount -= petCost
+                playerRepository.addPet(PURCHASEABLE_PETS[position])
+                playerRepository.updatePlayer(curPlayer)
+            }
+        }
+    }
 }

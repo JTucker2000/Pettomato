@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.pettomato.R
@@ -33,14 +34,22 @@ class OwnedPetsGridViewAdapter(context: Context, private var petList: List<PetEn
         val layoutInflater = LayoutInflater.from(curContext)
         val layout = layoutInflater.inflate(R.layout.owned_pets_grid_view_item, parent, false)
 
-        val ownedPetNameText = layout.findViewById<TextView>(R.id.ownedPetName_text)
+        val ownedPetNameText: TextView = layout.findViewById<TextView>(R.id.ownedPetName_text)
         ownedPetNameText.text = petList[position].pet_name
 
-        val ownedPetLevelText = layout.findViewById<TextView>(R.id.ownedPetLevel_text)
+        val ownedPetLevelText: TextView = layout.findViewById<TextView>(R.id.ownedPetLevel_text)
         ownedPetLevelText.text = "LVL ${petList[position].pet_level}"
 
-        val ownedPetImage = layout.findViewById<ImageView>(R.id.ownedPet_image)
+        val ownedPetImage: ImageView = layout.findViewById<ImageView>(R.id.ownedPet_image)
         petList[position].setImageFromPet(ownedPetImage)
+
+        val selectOwnedPetBtn: Button = layout.findViewById<Button>(R.id.selectOwnedPet_btn)
+        if(position == 0) {
+            selectOwnedPetBtn.text = "SELECTED"
+            selectOwnedPetBtn.textSize = 10f
+            selectOwnedPetBtn.alpha = .5f
+            selectOwnedPetBtn.isClickable = false
+        }
 
         return layout
     }

@@ -26,8 +26,8 @@ class PetDisplayFragment : Fragment() {
     private lateinit var currentPetDisplayText: TextView
     private lateinit var ownedPetsBtn: Button
     private lateinit var petShopBtn: Button
-    private lateinit var ownedPetsGridView: GridView
-    private lateinit var petShopGridView: GridView
+    lateinit var ownedPetsGridView: GridView
+    lateinit var petShopGridView: GridView
 
     // Adapter variables
     private lateinit var ownedPetsGridViewAdapter: OwnedPetsGridViewAdapter
@@ -67,11 +67,11 @@ class PetDisplayFragment : Fragment() {
         petShopGridView.visibility = View.INVISIBLE
         petShopGridView.isClickable = false
 
-        ownedPetsBtn.setOnClickListener(){
+        // Set up click listener(s)
+        ownedPetsBtn.setOnClickListener() {
             openOwnedPetsMenu()
         }
-
-        petShopBtn.setOnClickListener(){
+        petShopBtn.setOnClickListener() {
             openPetShopMenu()
         }
 
@@ -102,6 +102,10 @@ class PetDisplayFragment : Fragment() {
             currentPetDisplayText.text = "Pet Shop"
         }
     }
+
+    fun onSelectOwnedPetBtnPress(view: View) = mainViewModel.onSelectOwnedPetBtnPress(ownedPetsGridView.getPositionForView(view))
+
+    fun onBuyPetBtnPress(view: View) = mainViewModel.onBuyPetBtnPress(petShopGridView.getPositionForView(view))
 
     companion object {
         @JvmStatic

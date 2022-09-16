@@ -17,6 +17,7 @@ import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import com.example.pettomato.*
+import com.example.pettomato.fragments.PetDisplayFragment
 import com.example.pettomato.viewmodels.MainViewModel
 import com.example.pettomato.functions.animateStatusUpdateText
 import com.example.pettomato.functions.fadeInView
@@ -275,6 +276,7 @@ class MainActivity : AppCompatActivity() {
 
     fun onConfirmLevelUpBtnPress(view: View) {
         // Level up the player
+        // TODO: Move animation handling for this out of view model by getting fragment (See onSelectOwnedPetBtnPress)
         mainViewModel.onConfirmLevelUpBtnPress()
     }
 
@@ -300,5 +302,15 @@ class MainActivity : AppCompatActivity() {
             }
             else -> Log.e(TAG, "Error: onPetDisplayBtnPress encountered unexpected visibility")
         }
+    }
+
+    fun onSelectOwnedPetBtnPress(view: View) {
+        val fragment = petDisplayFragmentContainerView.getFragment<PetDisplayFragment>()
+        fragment.onSelectOwnedPetBtnPress(view)
+    }
+
+    fun onBuyPetBtnPress(view: View) {
+        val fragment = petDisplayFragmentContainerView.getFragment<PetDisplayFragment>()
+        fragment.onBuyPetBtnPress(view)
     }
 }

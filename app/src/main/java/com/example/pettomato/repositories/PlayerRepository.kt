@@ -32,6 +32,13 @@ class PlayerRepository(private val petDao: PetDao, private val playerDao: Player
     suspend fun updatePet(petEntity: PetEntity) {
         petDao.update(petEntity)
     }
+    suspend fun updatePetExplicit(id: Int, petName: String, normalImageId: Int, happyImageId: Int,
+                       sadImageId: Int, angryImageId: Int, petLevel: Int, petHealth: Int,
+                       hungerLevel: Int, thirstLevel: Int, happinessLevel: Int, fitnessLevel: Int)
+    {
+        petDao.updateExplicit(id, petName, normalImageId, happyImageId, sadImageId, angryImageId,
+            petLevel, petHealth, hungerLevel, thirstLevel, happinessLevel, fitnessLevel)
+    }
 
     suspend fun updatePlayer(playerEntity: PlayerEntity) {
         playerDao.update(playerEntity)
