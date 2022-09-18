@@ -41,6 +41,15 @@ you will face a weaker enemy the next time you step in the arena.
 <img src="https://media.giphy.com/media/0YyLjARLONMtFeMLxA/giphy.gif" alt="animated" />
 </p>
 
+<p align="center">
+You can purchase new pets and train them to make a powerful team. If one pet is struggling to defeat an enemy, 
+swap to a less tired pet to finish the job.
+</p>
+
+<p align="center">
+<img src="https://media.giphy.com/media/IAyGW402qhOJF6SuSU/giphy.gif" alt="animated" />
+</p>
+
 <h1 align="center"> --- Technologies --- </h1>
 <p align="center"> 
 This app was built using Android Studio Chipmunk 2021.2.1 and Kotlin 1.6.21.
@@ -56,13 +65,8 @@ Tested using an emulated Pixel 5 smartphone running Android API level 32 (Sv2).
 <h1 align="center"> --- Future Plans --- </h1>
 <p align="center"> 
 I made this app as a fun project to teach myself about mobile app development. As such, I am not currently
-planning to list this app on the Google Play store. I am currently still working on this project, although
-most of the core features have already been added. At this time, the remaining core feature(s) to be added are:
-</p>
-<p align="center"> 
-- The ability to buy and switch between different pets
-</p>
-<p align="center"> 
-Once these core features are finished, I will continue to fix bugs and make small improvements. However, most
-of the project will remain the same.
+planning to list this app on the Google Play store. I consider this project completed, but I
+will continue to make occasional bug fixes and improvements. I hope to use the experience I've gained
+making this project to create robust and commercially viable mobile apps in the future. I also want to make
+different kinds of applications, since I enjoy other kinds of development more than video game development.
 </p>
