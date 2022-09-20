@@ -98,7 +98,7 @@ class ArenaStatsFragment : Fragment() {
         damageTakenGoalProgressBar = view.findViewById<ProgressBar>(R.id.damageTakenGoal_progressBar)
 
         // Set up observer(s)
-        petArenaViewModel.playerLive.observe(viewLifecycleOwner, Observer<PlayerEntity>{ currentPlayer ->
+        petArenaViewModel.playerLive.observe(viewLifecycleOwner, Observer<PlayerEntity> { currentPlayer ->
             updateUIFromPlayer(currentPlayer)
         })
 
@@ -170,7 +170,6 @@ class ArenaStatsFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance() =
-            ArenaStatsFragment()
+        fun newInstance() = ArenaStatsFragment()
     }
 }

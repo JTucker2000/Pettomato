@@ -1,7 +1,5 @@
 package com.example.pettomato.activities
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -28,7 +26,7 @@ class GameOverActivity : AppCompatActivity() {
         gameOverPetImage = findViewById<ImageView>(R.id.gameOverPet_image)
 
         // Set up observer(s)
-        gameOverViewModel.petLive.observe(this, Observer<PetEntity>{ currentPet ->
+        gameOverViewModel.petLive.observe(this, Observer<PetEntity> { currentPet ->
             animateDeathFromPet(currentPet)
         })
     }

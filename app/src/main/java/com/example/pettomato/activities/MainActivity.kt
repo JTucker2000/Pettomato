@@ -84,14 +84,14 @@ class MainActivity : AppCompatActivity() {
         petDisplayFragmentContainerView = findViewById<FragmentContainerView>(R.id.petDisplay_fragmentContainerView)
 
         // Set up observer(s)
-        mainViewModel.petLive.observe(this, Observer<PetEntity>{ currentPet ->
+        mainViewModel.petLive.observe(this, Observer<PetEntity> { currentPet ->
             if(previousHungerLevel == PREVIOUS_VAL_UNINITIALIZED) {
                 initializeUIFromPet(currentPet)
             }
 
             updateUIFromPet(currentPet)
         })
-        mainViewModel.playerLive.observe(this, Observer<PlayerEntity>{ currentPlayer ->
+        mainViewModel.playerLive.observe(this, Observer<PlayerEntity> { currentPlayer ->
             if(previousMoneyAmount == PREVIOUS_VAL_UNINITIALIZED) {
                 initializeUIFromPlayer(currentPlayer)
             }
@@ -103,7 +103,7 @@ class MainActivity : AppCompatActivity() {
         val updatePetStatusWorkRequest = PeriodicWorkRequestBuilder<PetStatusUpdateWorker>(15, TimeUnit.MINUTES)
             .build()
         WorkManager.getInstance(this)
-            .enqueueUniquePeriodicWork (
+            .enqueueUniquePeriodicWork(
                 "petStatusUpdate",
                 ExistingPeriodicWorkPolicy.KEEP,
                 updatePetStatusWorkRequest
@@ -274,11 +274,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun onConfirmLevelUpBtnPress(view: View) {
-        // Level up the player
-        // TODO: Move animation handling for this out of view model by getting fragment (See onSelectOwnedPetBtnPress)
-        mainViewModel.onConfirmLevelUpBtnPress()
-    }
+    fun onConfirmLevelUpBtnPress(view: View) = mainViewModel.onConfirmLevelUpBtnPress()
 
     fun onCancelLevelUpBtnPress(view: View) {
         // Close the level up menu

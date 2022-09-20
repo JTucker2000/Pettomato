@@ -2,11 +2,8 @@ package com.example.pettomato.functions
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
-import android.animation.ObjectAnimator
 import android.graphics.Color
-import android.util.Log
 import android.view.View
-import android.widget.ImageView
 import android.widget.TextView
 
 // This file contains top level functions relating to the animation of view objects.

@@ -16,7 +16,7 @@ class PetStatusUpdateWorker(appContext: Context, workerParams: WorkerParameters)
             val database = AppDatabase.getDatabase(applicationContext)
             val petDao = database.petDao()
             val playerDao = database.playerDao()
-            val playerRepository: PlayerRepository = PlayerRepository(petDao, playerDao)
+            val playerRepository = PlayerRepository(petDao, playerDao)
 
             updatePetStatus(playerRepository)
         }

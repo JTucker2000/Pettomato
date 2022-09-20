@@ -43,7 +43,7 @@ class LevelUpFragment : Fragment() {
         levelUpPetImage = view.findViewById<ImageView>(R.id.levelUpPet_image)
 
         // Set up observer(s)
-        mainViewModel.petLive.observe(viewLifecycleOwner, Observer<PetEntity>{ currentPet ->
+        mainViewModel.petLive.observe(viewLifecycleOwner, Observer<PetEntity> { currentPet ->
             updateUIFromPet(currentPet)
         })
 
@@ -119,7 +119,6 @@ class LevelUpFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance() =
-            LevelUpFragment()
+        fun newInstance() = LevelUpFragment()
     }
 }

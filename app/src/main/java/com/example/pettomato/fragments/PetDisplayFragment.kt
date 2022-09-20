@@ -52,7 +52,7 @@ class PetDisplayFragment : Fragment() {
         petShopGridView = view.findViewById<GridView>(R.id.petShop_gridView)
 
         // Set up observer(s)
-        mainViewModel.petListLive.observe(viewLifecycleOwner, Observer<List<PetEntity>>{ currentPetList ->
+        mainViewModel.petListLive.observe(viewLifecycleOwner, Observer<List<PetEntity>> { currentPetList ->
             updateUIFromPetList(currentPetList)
         })
 
@@ -109,7 +109,6 @@ class PetDisplayFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance() =
-            PetDisplayFragment()
+        fun newInstance() = PetDisplayFragment()
     }
 }

@@ -80,21 +80,21 @@ class PetArenaActivity : AppCompatActivity() {
         statsFragmentContainerView = findViewById<FragmentContainerView>(R.id.arena_stats_fragmentContainerView)
 
         // Set up observer(s)
-        petArenaViewModel.petLive.observe(this, Observer<PetEntity>{ currentPet ->
+        petArenaViewModel.petLive.observe(this, Observer<PetEntity> { currentPet ->
             if(previousPlayerHealth == PREVIOUS_VAL_UNINITIALIZED) {
                 initializeUIFromPet(currentPet)
             }
 
             updateUIFromPet(currentPet)
         })
-        petArenaViewModel.enemyLive.observe(this, Observer<EnemyEntity>{ currentEnemy ->
+        petArenaViewModel.enemyLive.observe(this, Observer<EnemyEntity> { currentEnemy ->
             if(previousEnemyHealth == PREVIOUS_VAL_UNINITIALIZED) {
                 initializeUIFromEnemy(currentEnemy)
             }
 
             updateUIFromEnemy(currentEnemy)
         })
-        petArenaViewModel.playerLive.observe(this, Observer<PlayerEntity>{ currentPlayer ->
+        petArenaViewModel.playerLive.observe(this, Observer<PlayerEntity> { currentPlayer ->
             if(previousMoneyAmount == PREVIOUS_VAL_UNINITIALIZED) {
                 initializeUIFromPlayer(currentPlayer)
             }
