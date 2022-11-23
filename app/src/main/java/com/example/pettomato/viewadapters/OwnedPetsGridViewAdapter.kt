@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.pettomato.R
+import com.example.pettomato.activities.MainActivity
 import com.example.pettomato.roomentities.PetEntity
 
 class OwnedPetsGridViewAdapter(context: Context, private var petList: List<PetEntity>): BaseAdapter() {
@@ -50,6 +51,7 @@ class OwnedPetsGridViewAdapter(context: Context, private var petList: List<PetEn
             selectOwnedPetBtn.alpha = .5f
             selectOwnedPetBtn.isClickable = false
         }
+        selectOwnedPetBtn.setOnClickListener { (curContext as MainActivity).onSelectOwnedPetBtnPress(position) }
 
         return layout
     }

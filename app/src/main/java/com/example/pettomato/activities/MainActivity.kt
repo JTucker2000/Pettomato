@@ -6,10 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.ImageView
-import android.widget.ListView
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.*
 import androidx.activity.viewModels
 import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.Observer
@@ -49,6 +46,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var thirstProgressBar: ProgressBar
     private lateinit var happinessProgressBar: ProgressBar
     private lateinit var fitnessProgressBar: ProgressBar
+    private lateinit var shopBtn: Button
+    private lateinit var actionsBtn: Button
+    private lateinit var arenaBtn: Button
+    private lateinit var levelUpBtn: Button
+    private lateinit var petDisplayBtn: Button
     private lateinit var levelUpFragmentContainerView: FragmentContainerView
     private lateinit var petDisplayFragmentContainerView: FragmentContainerView
 
@@ -80,6 +82,11 @@ class MainActivity : AppCompatActivity() {
         thirstProgressBar = findViewById<ProgressBar>(R.id.thirst_progressBar)
         happinessProgressBar = findViewById<ProgressBar>(R.id.happy_progressBar)
         fitnessProgressBar = findViewById<ProgressBar>(R.id.fitness_progressBar)
+        shopBtn  = findViewById<Button>(R.id.shop_btn)
+        actionsBtn = findViewById<Button>(R.id.actions_btn)
+        arenaBtn = findViewById<Button>(R.id.arena_btn)
+        levelUpBtn = findViewById<Button>(R.id.levelUp_btn)
+        petDisplayBtn = findViewById<Button>(R.id.petDisplay_btn)
         levelUpFragmentContainerView = findViewById<FragmentContainerView>(R.id.levelUp_fragmentContainerView)
         petDisplayFragmentContainerView = findViewById<FragmentContainerView>(R.id.petDisplay_fragmentContainerView)
 
@@ -130,6 +137,13 @@ class MainActivity : AppCompatActivity() {
 
         petDisplayFragmentContainerView.visibility = View.INVISIBLE
         petDisplayFragmentContainerView.isClickable = false
+
+        // Set onClickListener(s)
+        shopBtn.setOnClickListener { onShopBtnPress() }
+        actionsBtn.setOnClickListener { onActionsBtnPress() }
+        arenaBtn.setOnClickListener { onArenaBtnPress() }
+        levelUpBtn.setOnClickListener { onLevelUpBtnPress() }
+        petDisplayBtn.setOnClickListener { onPetDisplayBtnPress() }
     }
 
     private fun initializeUIFromPet(pet: PetEntity) {
@@ -202,7 +216,7 @@ class MainActivity : AppCompatActivity() {
                 petDisplayFragmentContainerView.visibility == View.VISIBLE
     }
 
-    fun onShopBtnPress(view: View) {
+    private fun onShopBtnPress() {
         when (shopListView.visibility) {
             View.INVISIBLE -> {
                 if (checkMenuViewsVisible()) return
@@ -219,7 +233,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun onActionBtnPress(view: View) {
+    fun onShopListBtnPress(pos: Int) {
+        when (pos) {
+            0 -> mainViewModel.onBuyBandagesBtnPress()
+            1 -> mainViewModel.onBuyFirstAidBtnPress()
+            2 -> mainViewModel.onBuyIronPawsBtnPress()
+            else -> Log.e(TAG, "Error: onShopListBtnPress encountered unexpected position")
+        }
+    }
+
+    private fun onActionsBtnPress() {
         when (actionsListView.visibility) {
             View.INVISIBLE -> {
                 if (checkMenuViewsVisible()) return
@@ -236,8 +259,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun onActionListBtnPress(view: View) {
-        when (actionsListView.getPositionForView(view)) {
+    fun onActionListBtnPress(pos: Int) {
+        when (pos) {
             0 -> mainViewModel.onFeedBtnPress()
             1 -> mainViewModel.onGiveWaterBtnPress()
             2 -> mainViewModel.onPetBtnPress()
@@ -246,18 +269,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun onShopListBtnPress(view: View) {
-        when (shopListView.getPositionForView(view)) {
-            0 -> mainViewModel.onBuyBandagesBtnPress()
-            1 -> mainViewModel.onBuyFirstAidBtnPress()
-            2 -> mainViewModel.onBuyIronPawsBtnPress()
-            else -> Log.e(TAG, "Error: onShopListBtnPress encountered unexpected position")
-        }
-    }
+    private fun onArenaBtnPress() = startActivity(Intent(this, PetArenaActivity::class.java))
 
-    fun onArenaBtnPress(view: View) = startActivity(Intent(this, PetArenaActivity::class.java))
-
-    fun onLevelUpBtnPress(view: View) {
+    private fun onLevelUpBtnPress() {
         when (levelUpFragmentContainerView.visibility) {
             View.INVISIBLE -> {
                 if (checkMenuViewsVisible()) return
@@ -274,16 +288,14 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun onConfirmLevelUpBtnPress(view: View) = mainViewModel.onConfirmLevelUpBtnPress()
-
-    fun onCancelLevelUpBtnPress(view: View) {
+    fun onCancelLevelUpBtnPress() {
         // Close the level up menu
         levelUpFragmentContainerView.isClickable = false
         fadeOutView(levelUpFragmentContainerView, MENU_FADE_ANIMATION_DURATION)
         fadeInView(petImage, MENU_FADE_ANIMATION_DURATION)
     }
 
-    fun onPetDisplayBtnPress(view: View) {
+    private fun onPetDisplayBtnPress() {
         when (petDisplayFragmentContainerView.visibility) {
             View.INVISIBLE -> {
                 if (checkMenuViewsVisible()) return
@@ -300,13 +312,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun onSelectOwnedPetBtnPress(view: View) {
+    fun onSelectOwnedPetBtnPress(pos: Int) {
         val fragment = petDisplayFragmentContainerView.getFragment<PetDisplayFragment>()
-        fragment.onSelectOwnedPetBtnPress(view)
+        fragment.onSelectOwnedPetBtnPress(pos)
     }
 
-    fun onBuyPetBtnPress(view: View) {
+    fun onBuyPetBtnPress(pos: Int) {
         val fragment = petDisplayFragmentContainerView.getFragment<PetDisplayFragment>()
-        fragment.onBuyPetBtnPress(view)
+        fragment.onBuyPetBtnPress(pos)
     }
 }

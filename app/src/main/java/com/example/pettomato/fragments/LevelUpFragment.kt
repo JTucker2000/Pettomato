@@ -8,11 +8,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.example.pettomato.R
+import com.example.pettomato.activities.MainActivity
 import com.example.pettomato.roomentities.PetEntity
 import com.example.pettomato.viewmodels.MainViewModel
 
@@ -24,6 +26,8 @@ class LevelUpFragment : Fragment() {
     private lateinit var levelUpPetLevelText: TextView
     private lateinit var levelUpCostText: TextView
     private lateinit var levelUpPetImage: ImageView
+    private lateinit var confirmLevelUpBtn: Button
+    private lateinit var cancelLevelUpBtn: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,11 +45,17 @@ class LevelUpFragment : Fragment() {
         levelUpPetLevelText = view.findViewById<TextView>(R.id.levelUpPetLevel_text)
         levelUpCostText = view.findViewById<TextView>(R.id.levelUpCost_text)
         levelUpPetImage = view.findViewById<ImageView>(R.id.levelUpPet_image)
+        confirmLevelUpBtn = view.findViewById<Button>(R.id.confirmLevelUp_btn)
+        cancelLevelUpBtn = view.findViewById<Button>(R.id.cancelLevelUp_btn)
 
         // Set up observer(s)
         mainViewModel.petLive.observe(viewLifecycleOwner, Observer<PetEntity> { currentPet ->
             updateUIFromPet(currentPet)
         })
+
+        // Set onClickListener(s)
+        confirmLevelUpBtn.setOnClickListener { onConfirmLevelUpBtnPress() }
+        cancelLevelUpBtn.setOnClickListener { (activity as MainActivity).onCancelLevelUpBtnPress() }
 
         return view
     }
@@ -116,6 +126,8 @@ class LevelUpFragment : Fragment() {
             mainViewModel.playLevelUpFailAnimation = false
         }
     }
+
+    private fun onConfirmLevelUpBtnPress() = mainViewModel.onConfirmLevelUpBtnPress()
 
     companion object {
         @JvmStatic

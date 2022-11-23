@@ -5,11 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.pettomato.PET_PRICES
 import com.example.pettomato.PURCHASEABLE_PETS
 import com.example.pettomato.R
+import com.example.pettomato.activities.MainActivity
 
 class PetShopGridViewAdapter(context: Context): BaseAdapter() {
     private val curContext: Context
@@ -42,6 +44,9 @@ class PetShopGridViewAdapter(context: Context): BaseAdapter() {
 
         val newPetImage: ImageView = layout.findViewById<ImageView>(R.id.newPet_image)
         PURCHASEABLE_PETS[position].setImageFromPet(newPetImage)
+
+        val buyPetBtn: Button = layout.findViewById<Button>(R.id.buyPet_btn)
+        buyPetBtn.setOnClickListener { (curContext as MainActivity).onBuyPetBtnPress(position) }
 
         return layout
     }

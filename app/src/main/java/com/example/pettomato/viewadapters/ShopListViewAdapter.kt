@@ -8,6 +8,7 @@ import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.TextView
 import com.example.pettomato.*
+import com.example.pettomato.activities.MainActivity
 
 class ShopListViewAdapter(context: Context, private var numOwned: Array<Int>): BaseAdapter() {
     private val curContext: Context
@@ -35,8 +36,9 @@ class ShopListViewAdapter(context: Context, private var numOwned: Array<Int>): B
         val shopItemNameTextview = layout.findViewById<TextView>(R.id.shopItem_name_textview)
         shopItemNameTextview.text = ITEM_OPTIONS[position]
 
-        val buyButton = layout.findViewById<Button>(R.id.buy_button)
-        buyButton.text = ITEM_PRICES[position]
+        val shopListViewBtn = layout.findViewById<Button>(R.id.shop_list_view_btn)
+        shopListViewBtn.text = ITEM_PRICES[position]
+        shopListViewBtn.setOnClickListener { (curContext as MainActivity).onShopListBtnPress(position) }
 
         val numOwnedTextView = layout.findViewById<TextView>(R.id.numOwned_textview)
         numOwnedTextView.text = "Currently owned: ${numOwned[position]}"

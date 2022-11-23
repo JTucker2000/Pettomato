@@ -67,13 +67,9 @@ class PetDisplayFragment : Fragment() {
         petShopGridView.visibility = View.INVISIBLE
         petShopGridView.isClickable = false
 
-        // Set up click listener(s)
-        ownedPetsBtn.setOnClickListener() {
-            openOwnedPetsMenu()
-        }
-        petShopBtn.setOnClickListener() {
-            openPetShopMenu()
-        }
+        // Set onClickListener(s)
+        ownedPetsBtn.setOnClickListener { openOwnedPetsMenu() }
+        petShopBtn.setOnClickListener { openPetShopMenu() }
 
         return view
     }
@@ -103,9 +99,9 @@ class PetDisplayFragment : Fragment() {
         }
     }
 
-    fun onSelectOwnedPetBtnPress(view: View) = mainViewModel.onSelectOwnedPetBtnPress(ownedPetsGridView.getPositionForView(view))
+    fun onSelectOwnedPetBtnPress(pos: Int) = mainViewModel.onSelectOwnedPetBtnPress(pos)
 
-    fun onBuyPetBtnPress(view: View) = mainViewModel.onBuyPetBtnPress(petShopGridView.getPositionForView(view))
+    fun onBuyPetBtnPress(pos: Int) = mainViewModel.onBuyPetBtnPress(pos)
 
     companion object {
         @JvmStatic
