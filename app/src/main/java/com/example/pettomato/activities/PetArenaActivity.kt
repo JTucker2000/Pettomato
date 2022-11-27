@@ -8,10 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.ImageView
-import android.widget.ListView
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.*
 import androidx.activity.viewModels
 import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.Observer
@@ -48,6 +45,10 @@ class PetArenaActivity : AppCompatActivity() {
     private lateinit var playerRewardText: TextView
     private lateinit var playerPetImage: ImageView
     private lateinit var enemyPetImage: ImageView
+    private lateinit var attackBtn: Button
+    private lateinit var itemsBtn: Button
+    private lateinit var statsBtn: Button
+    private lateinit var quitBtn: Button
     private lateinit var statsFragmentContainerView: FragmentContainerView
 
     // Adapter variables
@@ -77,6 +78,10 @@ class PetArenaActivity : AppCompatActivity() {
         playerRewardText = findViewById<TextView>(R.id.playerReward_text)
         playerPetImage = findViewById<ImageView>(R.id.player_petImage)
         enemyPetImage = findViewById<ImageView>(R.id.enemy_petImage)
+        attackBtn = findViewById<Button>(R.id.attack_btn)
+        itemsBtn = findViewById<Button>(R.id.items_btn)
+        statsBtn = findViewById<Button>(R.id.stats_btn)
+        quitBtn = findViewById<Button>(R.id.quit_btn)
         statsFragmentContainerView = findViewById<FragmentContainerView>(R.id.arena_stats_fragmentContainerView)
 
         // Set up observer(s)
@@ -114,6 +119,12 @@ class PetArenaActivity : AppCompatActivity() {
 
         statsFragmentContainerView.visibility = View.INVISIBLE
         statsFragmentContainerView.isClickable = false
+
+        // Set onClickListener(s)
+        attackBtn.setOnClickListener { onAttackBtnPress() }
+        itemsBtn.setOnClickListener { onItemsBtnPress() }
+        statsBtn.setOnClickListener { onStatsBtnPress() }
+        quitBtn.setOnClickListener { onQuitBtnPress() }
     }
 
     private fun initializeUIFromPet(pet: PetEntity) {
@@ -222,7 +233,7 @@ class PetArenaActivity : AppCompatActivity() {
                 statsFragmentContainerView.visibility == View.VISIBLE
     }
 
-    fun onAttackBtnPress(view: View) {
+    private fun onAttackBtnPress() {
         if(!isScreenBusy()) {
             // Prevents multiple attacks until animation has finished
             petArenaViewModel.attackIsOngoing = true
@@ -263,7 +274,7 @@ class PetArenaActivity : AppCompatActivity() {
         }
     }
 
-    fun onItemsBtnPress(view: View) {
+    private fun onItemsBtnPress() {
         when (itemsListView.visibility) {
             View.INVISIBLE -> {
                 if(isScreenBusy()) return
@@ -278,8 +289,8 @@ class PetArenaActivity : AppCompatActivity() {
         }
     }
 
-    fun onItemsListBtnPress(view: View) {
-        when (itemsListView.getPositionForView(view)) {
+    fun onItemUseBtnPress(pos: Int) {
+        when (pos) {
             0 -> petArenaViewModel.onUseBandagesBtnPress()
             1 -> petArenaViewModel.onUseFirstAidBtnPress()
             2 -> petArenaViewModel.onUseIronPawsBtnPress()
@@ -287,7 +298,7 @@ class PetArenaActivity : AppCompatActivity() {
         }
     }
 
-    fun onStatsBtnPress(view: View) {
+    private fun onStatsBtnPress() {
         when (statsFragmentContainerView.visibility) {
             View.INVISIBLE -> {
                 if(isScreenBusy()) return
@@ -302,5 +313,5 @@ class PetArenaActivity : AppCompatActivity() {
         }
     }
 
-    fun onQuitBtnPress(view: View) = startActivity(Intent(this, MainActivity::class.java))
+    private fun onQuitBtnPress() = startActivity(Intent(this, MainActivity::class.java))
 }

@@ -39,7 +39,6 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/press_start_2p"
         android:text="HOME"
-        android:onClick="onHomeBtnPress"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
