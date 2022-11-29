@@ -248,6 +248,8 @@ class PetArenaViewModel(application: Application) : AndroidViewModel(application
             val curPlayer = playerRepository.getPlayerByUsername(PLAYER_USERNAME)
             val curEnemy = enemyRepository.getEnemyById(CURRENT_ENEMY_ID)
 
+            // Note: (curPlayer.num_ironpaw > 0) is already checked for in the activity
+            // Remove if it's too inefficient, currently left here for safety
             if(curPlayer.num_ironpaw > 0) {
                 curPlayer.num_ironpaw -= 1
                 curPlayer.num_ironpawsused += 1

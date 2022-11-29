@@ -58,6 +58,7 @@ class PetArenaActivity : AppCompatActivity() {
     private var previousPlayerHealth: Int = PREVIOUS_VAL_UNINITIALIZED
     private var previousEnemyHealth: Int = PREVIOUS_VAL_UNINITIALIZED
     private var previousMoneyAmount: Int = PREVIOUS_VAL_UNINITIALIZED
+    private var curIronPawsAmount: Int = NUM_OWNED_VAL_UNINITIALIZED
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -209,6 +210,10 @@ class PetArenaActivity : AppCompatActivity() {
     private fun initializeUIFromPlayer(player: PlayerEntity) {
         // Initialize 'previous' UI values
         previousMoneyAmount = player.money_amount
+
+        // Initialize iron paw amount
+        // (For checking if iron paw attack animation should play)
+        curIronPawsAmount = player.num_ironpaw
     }
 
     private fun updateUIFromPlayer(player: PlayerEntity) {
@@ -224,12 +229,14 @@ class PetArenaActivity : AppCompatActivity() {
 
         // Update 'previous' UI values
         previousMoneyAmount = player.money_amount
+
+        // Update iron paw amount
+        curIronPawsAmount = player.num_ironpaw
     }
 
-    // Returns true if an attack is ongoing or if either menu is open, false otherwise.
+    // Returns true if an attack is ongoing or if stats menu is open, false otherwise.
     private fun isScreenBusy(): Boolean {
         return petArenaViewModel.attackIsOngoing ||
-                itemsListView.visibility == View.VISIBLE ||
                 statsFragmentContainerView.visibility == View.VISIBLE
     }
 
@@ -238,6 +245,7 @@ class PetArenaActivity : AppCompatActivity() {
             // Prevents multiple attacks until animation has finished
             petArenaViewModel.attackIsOngoing = true
 
+            // TODO: Combine this with attack animation for iron paws to reduce code duplication (if possible)
             // Do animations for the player's attack
             playerPetImage.animate()
                 .translationX(100f)
@@ -293,7 +301,34 @@ class PetArenaActivity : AppCompatActivity() {
         when (pos) {
             0 -> petArenaViewModel.onUseBandagesBtnPress()
             1 -> petArenaViewModel.onUseFirstAidBtnPress()
-            2 -> petArenaViewModel.onUseIronPawsBtnPress()
+            2 -> {
+                if(!isScreenBusy() && (curIronPawsAmount > 0)) {
+                    // Prevents multiple attacks until animation has finished
+                    petArenaViewModel.attackIsOngoing = true
+
+                    // TODO: Combine this with normal attack animation to reduce code duplication (if possible)
+                    // Do animations for the player's attack
+                    playerPetImage.animate()
+                        .translationX(100f)
+                        .setDuration(100)
+                        .setListener(object : AnimatorListenerAdapter() {
+                            override fun onAnimationEnd(animation: Animator) {
+                                playerPetImage.animate()
+                                    .translationX(0f)
+                                    .setDuration(600)
+                                    .setListener(object : AnimatorListenerAdapter() {
+                                        override fun onAnimationEnd(animation: Animator) {
+                                            // Animation is over, player can attack again
+                                            petArenaViewModel.attackIsOngoing = false
+                                        }
+                                    })
+                            }
+                        })
+
+                    // Modify data in viewmodel
+                    petArenaViewModel.onUseIronPawsBtnPress()
+                }
+            }
             else -> Log.e(TAG, "Error: onItemsListBtnPress encountered unexpected position")
         }
     }
@@ -301,7 +336,7 @@ class PetArenaActivity : AppCompatActivity() {
     private fun onStatsBtnPress() {
         when (statsFragmentContainerView.visibility) {
             View.INVISIBLE -> {
-                if(isScreenBusy()) return
+                if(isScreenBusy() || itemsListView.visibility == View.VISIBLE) return
                 statsFragmentContainerView.isClickable = true
                 fadeInView(statsFragmentContainerView, MENU_FADE_ANIMATION_DURATION)
             }

@@ -38,7 +38,10 @@ val ACTION_PRICES: Array<String> = arrayOf("-$FEED_PRICE Coins", "-$GIVEWATER_PR
 val CURRENT_PET_ID: Int = 1
 val CURRENT_ENEMY_ID: Int = 1
 
-// Misc. constants
-val PLAYER_USERNAME: String = "Jtuck"
+// Uninitialized value constants
 val PREVIOUS_VAL_UNINITIALIZED: Int = -1
 val IMAGE_ID_UNINITIALIZED: Int = 0
+val NUM_OWNED_VAL_UNINITIALIZED: Int = -1
+
+// Misc. constants
+val PLAYER_USERNAME: String = "Jtuck"
