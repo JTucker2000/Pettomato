@@ -64,9 +64,8 @@ Tested using an emulated Pixel 5 smartphone running Android API level 32 (Sv2).
 
 <h1 align="center"> --- Future Plans --- </h1>
 <p align="center"> 
-I made this app as a fun project to teach myself about mobile app development. As such, I am not currently
-planning to list this app on the Google Play store. I consider this project completed, but I
-will continue to make occasional bug fixes and improvements. I hope to use the experience I've gained
-making this project to create robust and commercially viable mobile apps in the future. I also want to make
-different kinds of applications, since I enjoy other kinds of development more than video game development.
+I made this app as a fun project to teach myself about mobile app development. I consider this project mostly completed,
+but I will continue to make occasional bug fixes and improvements. I hope to use the experience I've gained
+making this project to create robust and commercially viable mobile apps in the future. If I eventually reach
+a level of quality that I find acceptable, I might list this app on the Google Play store at some point.
 </p>
