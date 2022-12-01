@@ -37,30 +37,8 @@ class PetArenaViewModel(application: Application) : AndroidViewModel(application
     // Changes the current enemy based on the given arena level.
     private fun setEnemy(arenaLevel: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            when (arenaLevel) {
-                // Each one of these is a level for the player to complete in the pet arena.
-                1 -> enemyRepository.updateEnemy(EnemyEntity(CURRENT_ENEMY_ID, "Angry Mouse", R.drawable.angrymouse1, 1, 10, 10))
-                2 -> enemyRepository.updateEnemy(EnemyEntity(CURRENT_ENEMY_ID, "Bored Doggo", R.drawable.normaldog1, 2, 15, 15))
-                3 -> enemyRepository.updateEnemy(EnemyEntity(CURRENT_ENEMY_ID, "Injured Cat", R.drawable.sadcat2, 5, 15, 40))
-                4 -> enemyRepository.updateEnemy(EnemyEntity(CURRENT_ENEMY_ID, "Happy Husky", R.drawable.happydog2, 3, 20, 20))
-                5 -> enemyRepository.updateEnemy(EnemyEntity(CURRENT_ENEMY_ID, "Angry Lab Mouse", R.drawable.angrymouse2, 4, 25, 25))
-                6 -> enemyRepository.updateEnemy(EnemyEntity(CURRENT_ENEMY_ID, "Indifferent Cat", R.drawable.normalcat1, 4, 35, 35))
-                7 -> enemyRepository.updateEnemy(EnemyEntity(CURRENT_ENEMY_ID, "Angry Shiba", R.drawable.angrydog3, 6, 40, 40))
-                8 -> enemyRepository.updateEnemy(EnemyEntity(CURRENT_ENEMY_ID, "Mr.Whiskers", R.drawable.happycat2, 7, 50, 50))
-                9 -> enemyRepository.updateEnemy(EnemyEntity(CURRENT_ENEMY_ID, "Elated Lab Mouse", R.drawable.happymouse2, 8, 50, 50))
-                10 -> enemyRepository.updateEnemy(EnemyEntity(CURRENT_ENEMY_ID, "Whining Shiba", R.drawable.saddog3, 10, 65, 65))
-                11 -> enemyRepository.updateEnemy(EnemyEntity(CURRENT_ENEMY_ID, "Fat Cat", R.drawable.happycat1, 10, 80, 80))
-                12 -> enemyRepository.updateEnemy(EnemyEntity(CURRENT_ENEMY_ID, "Hungry Mouse", R.drawable.normalmouse1, 12, 70, 70))
-                13 -> enemyRepository.updateEnemy(EnemyEntity(CURRENT_ENEMY_ID, "Well Fed Husky", R.drawable.happydog2, 13, 100, 100))
-                14 -> enemyRepository.updateEnemy(EnemyEntity(CURRENT_ENEMY_ID, "THICC Cat", R.drawable.happycat2, 14, 110, 110))
-                15 -> enemyRepository.updateEnemy(EnemyEntity(CURRENT_ENEMY_ID, "Forgotten Lab Mouse", R.drawable.sadmouse2, 15, 100, 100))
-                16 -> enemyRepository.updateEnemy(EnemyEntity(CURRENT_ENEMY_ID, "Silly Shiba", R.drawable.normaldog3, 17, 120, 120))
-                17 -> enemyRepository.updateEnemy(EnemyEntity(CURRENT_ENEMY_ID, "Bored Cat", R.drawable.normalcat3, 18, 125, 125))
-                18 -> enemyRepository.updateEnemy(EnemyEntity(CURRENT_ENEMY_ID, "Sad Wolf", R.drawable.saddog1, 20, 140, 140))
-                19 -> enemyRepository.updateEnemy(EnemyEntity(CURRENT_ENEMY_ID, "HUSKY Husky", R.drawable.normaldog2, 21, 150, 150))
-                20 -> enemyRepository.updateEnemy(EnemyEntity(CURRENT_ENEMY_ID, "Injured Shiba", R.drawable.saddog3, 23, 100, 150))
-                else -> enemyRepository.updateEnemy(EnemyEntity(CURRENT_ENEMY_ID, "Mega Angry Shiba", R.drawable.angrydog3, 100, 1000, 1000))
-            }
+            if(arenaLevel <= ENEMY_LIST.size) enemyRepository.updateEnemy(ENEMY_LIST[arenaLevel-1])
+            else enemyRepository.updateEnemy(EnemyEntity(CURRENT_ENEMY_ID, "Mega Angry Shiba", R.drawable.angrydog3, 100, 1000, 1000))
         }
     }
 
