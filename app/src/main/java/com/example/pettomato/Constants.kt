@@ -54,12 +54,14 @@ val ENEMY_LIST: Array<EnemyEntity> = arrayOf(
 // Pet shop constants
 val PURCHASEABLE_PETS: Array<PetEntity> = arrayOf(
     PetEntity(0, "Husky", R.drawable.normaldog2, R.drawable.happydog2, R.drawable.saddog2, R.drawable.angrydog2, 1, 20, 100, 100, 100, 100),
-    PetEntity(0, "Lab rat", R.drawable.normalmouse2, R.drawable.happymouse2, R.drawable.sadmouse2, R.drawable.angrymouse2, 1, 20, 100, 100, 100, 100),
+    PetEntity(0, "Lab Rat", R.drawable.normalmouse2, R.drawable.happymouse2, R.drawable.sadmouse2, R.drawable.angrymouse2, 1, 20, 100, 100, 100, 100),
     PetEntity(0, "Grey Cat", R.drawable.normalcat2, R.drawable.happycat2, R.drawable.sadcat2, R.drawable.angrycat2, 1, 20, 100, 100, 100, 100),
     PetEntity(0, "Shiba", R.drawable.normaldog3, R.drawable.happydog3, R.drawable.saddog3, R.drawable.angrydog3, 1, 20, 100, 100, 100, 100),
-    PetEntity(0, "Pitbull", R.drawable.normaldog1, R.drawable.happydog1, R.drawable.saddog1, R.drawable.angrydog1, 1, 20, 100, 100, 100, 100)
+    PetEntity(0, "Pitbull", R.drawable.normaldog1, R.drawable.happydog1, R.drawable.saddog1, R.drawable.angrydog1, 1, 20, 100, 100, 100, 100),
+    PetEntity(0, "House Mouse", R.drawable.normalmouse1, R.drawable.happymouse1, R.drawable.sadmouse1, R.drawable.angrymouse1, 1, 20, 100, 100, 100, 100),
+    PetEntity(0, "Brown Cat", R.drawable.normalcat3, R.drawable.happycat3, R.drawable.sadcat3, R.drawable.angrycat3, 1, 20, 100, 100, 100, 100)
 )
-val PET_PRICES: Array<Int> = arrayOf(1000, 500, 1500, 3000, 2000)
+val PET_PRICES: Array<Int> = arrayOf(1000, 500, 1500, 3000, 2000, 750, 2500)
 
 // Action constants
 val ACTION_OPTIONS: Array<String> = arrayOf("Feed", "Give water", "Pet", "Go for a walk")
