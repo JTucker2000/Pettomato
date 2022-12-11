@@ -12,6 +12,7 @@ import com.example.pettomato.activities.MainActivity
 
 class ActionsListViewAdapter(context: Context): BaseAdapter() {
     private val curContext: Context
+    private class ViewHolder(val actionNameTextView: TextView, val actionsListViewBtn: Button)
 
     init {
         curContext = context
@@ -30,15 +31,27 @@ class ActionsListViewAdapter(context: Context): BaseAdapter() {
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val layoutInflater = LayoutInflater.from(curContext)
-        val layout = layoutInflater.inflate(R.layout.action_list_view_item, parent, false)
+        val layout: View
+        if (convertView == null) {
+            val layoutInflater = LayoutInflater.from(curContext)
+            layout = layoutInflater.inflate(R.layout.action_list_view_item, parent, false)
 
-        val actionNameTextView = layout.findViewById<TextView>(R.id.action_name_textview)
-        actionNameTextView.text = ACTION_OPTIONS[position]
+            val actionNameTextView = layout.findViewById<TextView>(R.id.action_name_textview)
+            val actionsListViewBtn = layout.findViewById<Button>(R.id.actions_list_view_btn)
+            val viewHolder = ViewHolder(actionNameTextView, actionsListViewBtn)
+            layout.tag = viewHolder
+        } else {
+            layout = convertView
+        }
 
-        val actionsListViewBtn = layout.findViewById<Button>(R.id.actions_list_view_btn)
-        actionsListViewBtn.text = ACTION_PRICES[position]
-        actionsListViewBtn.setOnClickListener { (curContext as MainActivity).onActionListBtnPress(position) }
+        val viewHolder = layout.tag as ViewHolder
+
+        // Modify action name text
+        viewHolder.actionNameTextView.text = ACTION_OPTIONS[position]
+
+        // Modify action button
+        viewHolder.actionsListViewBtn.text = ACTION_PRICES[position]
+        viewHolder.actionsListViewBtn.setOnClickListener { (curContext as MainActivity).onActionListBtnPress(position) }
 
         return layout
     }

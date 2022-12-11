@@ -13,6 +13,7 @@ import com.example.pettomato.activities.PetArenaActivity
 
 class ItemsListViewAdapter(context: Context, private var numOwned: Array<Int>): BaseAdapter() {
     private val curContext: Context
+    private class ViewHolder(val itemNameTextView: TextView, val numOwnedTextView: TextView, val itemUseBtn: Button)
 
     init {
         curContext = context
@@ -31,17 +32,30 @@ class ItemsListViewAdapter(context: Context, private var numOwned: Array<Int>): 
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val layoutInflater = LayoutInflater.from(curContext)
-        val layout = layoutInflater.inflate(R.layout.items_list_view_item, parent, false)
+        val layout: View
+        if (convertView == null) {
+            val layoutInflater = LayoutInflater.from(curContext)
+            layout = layoutInflater.inflate(R.layout.items_list_view_item, parent, false)
 
-        val itemNameTextview = layout.findViewById<TextView>(R.id.item_name_textview)
-        itemNameTextview.text = ITEM_OPTIONS[position]
+            val itemNameTextView = layout.findViewById<TextView>(R.id.item_name_textview)
+            val numOwnedTextView = layout.findViewById<TextView>(R.id.numOwned_textview)
+            val itemUseBtn = layout.findViewById<Button>(R.id.item_use_btn)
+            val viewHolder = ViewHolder(itemNameTextView, numOwnedTextView, itemUseBtn)
+            layout.tag = viewHolder
+        } else {
+            layout = convertView
+        }
 
-        val numOwnedTextView = layout.findViewById<TextView>(R.id.numOwned_textview)
-        numOwnedTextView.text = "Currently owned: ${numOwned[position]}"
+        val viewHolder = layout.tag as ViewHolder
 
-        val itemUseBtn = layout.findViewById<Button>(R.id.item_use_btn)
-        itemUseBtn.setOnClickListener { (curContext as PetArenaActivity).onItemUseBtnPress(position) }
+        // Modify item name text
+        viewHolder.itemNameTextView.text = ITEM_OPTIONS[position]
+
+        // Modify num owned text
+        viewHolder.numOwnedTextView.text = "Currently owned: ${numOwned[position]}"
+
+        // Modify item use button
+        viewHolder.itemUseBtn.setOnClickListener { (curContext as PetArenaActivity).onItemUseBtnPress(position) }
 
         return layout
     }

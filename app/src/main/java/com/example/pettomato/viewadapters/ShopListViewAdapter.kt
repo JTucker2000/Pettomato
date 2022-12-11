@@ -12,6 +12,7 @@ import com.example.pettomato.activities.MainActivity
 
 class ShopListViewAdapter(context: Context, private var numOwned: Array<Int>): BaseAdapter() {
     private val curContext: Context
+    private class ViewHolder(val shopItemNameTextview: TextView, val shopListViewBtn: Button, val numOwnedTextView: TextView)
 
     init {
         curContext = context
@@ -30,18 +31,31 @@ class ShopListViewAdapter(context: Context, private var numOwned: Array<Int>): B
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val layoutInflater = LayoutInflater.from(curContext)
-        val layout = layoutInflater.inflate(R.layout.shop_list_view_item, parent, false)
+        val layout: View
+        if (convertView == null) {
+            val layoutInflater = LayoutInflater.from(curContext)
+            layout = layoutInflater.inflate(R.layout.shop_list_view_item, parent, false)
 
-        val shopItemNameTextview = layout.findViewById<TextView>(R.id.shopItem_name_textview)
-        shopItemNameTextview.text = ITEM_OPTIONS[position]
+            val shopItemNameTextview = layout.findViewById<TextView>(R.id.shopItem_name_textview)
+            val shopListViewBtn = layout.findViewById<Button>(R.id.shop_list_view_btn)
+            val numOwnedTextView = layout.findViewById<TextView>(R.id.numOwned_textview)
+            val viewHolder = ViewHolder(shopItemNameTextview, shopListViewBtn, numOwnedTextView)
+            layout.tag = viewHolder
+        } else {
+            layout = convertView
+        }
 
-        val shopListViewBtn = layout.findViewById<Button>(R.id.shop_list_view_btn)
-        shopListViewBtn.text = ITEM_PRICES[position]
-        shopListViewBtn.setOnClickListener { (curContext as MainActivity).onShopListBtnPress(position) }
+        val viewHolder = layout.tag as ViewHolder
 
-        val numOwnedTextView = layout.findViewById<TextView>(R.id.numOwned_textview)
-        numOwnedTextView.text = "Currently owned: ${numOwned[position]}"
+        // Modify shop item name text
+        viewHolder.shopItemNameTextview.text = ITEM_OPTIONS[position]
+
+        // Modify shop buy button
+        viewHolder.shopListViewBtn.text = ITEM_PRICES[position]
+        viewHolder.shopListViewBtn.setOnClickListener { (curContext as MainActivity).onShopListBtnPress(position) }
+
+        // Modify num owned text
+        viewHolder.numOwnedTextView.text = "Currently owned: ${numOwned[position]}"
 
         return layout
     }

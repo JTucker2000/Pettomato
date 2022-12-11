@@ -15,6 +15,7 @@ import com.example.pettomato.activities.MainActivity
 
 class PetShopGridViewAdapter(context: Context): BaseAdapter() {
     private val curContext: Context
+    private class ViewHolder(val newPetNameText: TextView, val newPetPriceText: TextView, val newPetImage: ImageView, val buyPetBtn: Button)
 
     init {
         curContext = context
@@ -33,20 +34,34 @@ class PetShopGridViewAdapter(context: Context): BaseAdapter() {
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val layoutInflater = LayoutInflater.from(curContext)
-        val layout = layoutInflater.inflate(R.layout.pet_shop_grid_view_item, parent, false)
+        val layout: View
+        if (convertView == null) {
+            val layoutInflater = LayoutInflater.from(curContext)
+            layout = layoutInflater.inflate(R.layout.pet_shop_grid_view_item, parent, false)
 
-        val newPetNameText: TextView = layout.findViewById<TextView>(R.id.newPetName_text)
-        newPetNameText.text = PURCHASEABLE_PETS[position].pet_name
+            val newPetNameText = layout.findViewById<TextView>(R.id.newPetName_text)
+            val newPetPriceText = layout.findViewById<TextView>(R.id.newPetPrice_text)
+            val newPetImage = layout.findViewById<ImageView>(R.id.newPet_image)
+            val buyPetBtn = layout.findViewById<Button>(R.id.buyPet_btn)
+            val viewHolder = ViewHolder(newPetNameText, newPetPriceText, newPetImage, buyPetBtn)
+            layout.tag = viewHolder
+        } else {
+            layout = convertView
+        }
 
-        val newPetPriceText: TextView = layout.findViewById<TextView>(R.id.newPetPrice_text)
-        newPetPriceText.text = PET_PRICES[position].toString()
+        val viewHolder = layout.tag as ViewHolder
 
-        val newPetImage: ImageView = layout.findViewById<ImageView>(R.id.newPet_image)
-        PURCHASEABLE_PETS[position].setImageFromPet(newPetImage)
+        // Modify new pet name text
+        viewHolder.newPetNameText.text = PURCHASEABLE_PETS[position].pet_name
 
-        val buyPetBtn: Button = layout.findViewById<Button>(R.id.buyPet_btn)
-        buyPetBtn.setOnClickListener { (curContext as MainActivity).onBuyPetBtnPress(position) }
+        // Modify new pet price text
+        viewHolder.newPetPriceText.text = PET_PRICES[position].toString()
+
+        // Modify new pet image
+        PURCHASEABLE_PETS[position].setImageFromPet(viewHolder.newPetImage)
+
+        // Modify buy pet button
+        viewHolder.buyPetBtn.setOnClickListener { (curContext as MainActivity).onBuyPetBtnPress(position) }
 
         return layout
     }
