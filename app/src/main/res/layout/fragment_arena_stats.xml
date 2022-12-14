@@ -224,6 +224,7 @@
             android:layout_width="225dp"
             android:layout_height="22dp"
             android:progressDrawable="@drawable/pet_status_progressbar"
+            android:progress="1"
             app:layout_constraintStart_toStartOf="@+id/fightsWon_text"
             app:layout_constraintTop_toBottomOf="@+id/fightsWon_text" />
 
@@ -233,6 +234,7 @@
             android:layout_width="225dp"
             android:layout_height="20dp"
             android:progressDrawable="@drawable/pet_status_progressbar"
+            android:progress="1"
             app:layout_constraintStart_toStartOf="@+id/fightsLost_text"
             app:layout_constraintTop_toBottomOf="@+id/fightsLost_text" />
 
@@ -242,6 +244,7 @@
             android:layout_width="225dp"
             android:layout_height="22dp"
             android:progressDrawable="@drawable/pet_status_progressbar"
+            android:progress="1"
             app:layout_constraintStart_toStartOf="@+id/coinsEarned_text"
             app:layout_constraintTop_toBottomOf="@+id/coinsEarned_text" />
 
@@ -251,6 +254,7 @@
             android:layout_width="225dp"
             android:layout_height="22dp"
             android:progressDrawable="@drawable/pet_status_progressbar"
+            android:progress="1"
             app:layout_constraintStart_toStartOf="@+id/bandagesUsed_text"
             app:layout_constraintTop_toBottomOf="@+id/bandagesUsed_text" />
 
@@ -260,6 +264,7 @@
             android:layout_width="225dp"
             android:layout_height="22dp"
             android:progressDrawable="@drawable/pet_status_progressbar"
+            android:progress="1"
             app:layout_constraintStart_toStartOf="@+id/firstAidUsed_text"
             app:layout_constraintTop_toBottomOf="@+id/firstAidUsed_text" />
 
@@ -269,6 +274,7 @@
             android:layout_width="225dp"
             android:layout_height="22dp"
             android:progressDrawable="@drawable/pet_status_progressbar"
+            android:progress="1"
             app:layout_constraintStart_toStartOf="@+id/ironPawsUsed_text"
             app:layout_constraintTop_toBottomOf="@+id/ironPawsUsed_text" />
 
@@ -278,6 +284,7 @@
             android:layout_width="225dp"
             android:layout_height="22dp"
             android:progressDrawable="@drawable/pet_status_progressbar"
+            android:progress="1"
             app:layout_constraintStart_toStartOf="@+id/damageDealt_text"
             app:layout_constraintTop_toBottomOf="@+id/damageDealt_text" />
 
@@ -287,6 +294,7 @@
             android:layout_width="225dp"
             android:layout_height="22dp"
             android:progressDrawable="@drawable/pet_status_progressbar"
+            android:progress="1"
             app:layout_constraintStart_toStartOf="@+id/damageTaken_text"
             app:layout_constraintTop_toBottomOf="@+id/damageTaken_text" />
 
