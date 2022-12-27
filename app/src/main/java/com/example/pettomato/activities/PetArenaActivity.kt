@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.activity.viewModels
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.Observer
 import com.example.pettomato.*
@@ -61,6 +62,8 @@ class PetArenaActivity : AppCompatActivity() {
     private var curIronPawsAmount: Int = NUM_OWNED_VAL_UNINITIALIZED
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pet_arena)
 

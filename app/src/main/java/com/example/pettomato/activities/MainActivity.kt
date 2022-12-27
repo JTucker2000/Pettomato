@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.activity.viewModels
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.Observer
 import androidx.work.ExistingPeriodicWorkPolicy
@@ -65,6 +66,8 @@ class MainActivity : AppCompatActivity() {
     private var previousMoneyAmount: Int = PREVIOUS_VAL_UNINITIALIZED
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 

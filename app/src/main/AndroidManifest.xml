@@ -7,11 +7,11 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/pettomato_icon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/pettomato_icon_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Pettomato"
+        android:theme="@style/Theme.AppSplash"
         tools:targetApi="31">
         <activity
             android:name=".activities.GameOverActivity"

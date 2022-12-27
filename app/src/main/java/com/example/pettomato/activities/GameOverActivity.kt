@@ -6,6 +6,7 @@ import android.widget.Button
 import android.widget.ImageView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.Observer
 import com.example.pettomato.R
 import com.example.pettomato.functions.animatePetDeath
@@ -20,6 +21,8 @@ class GameOverActivity : AppCompatActivity() {
     private lateinit var homeBtn: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game_over)
 
