@@ -165,6 +165,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             if(curPlayer.money_amount >= curPet.levelUpCost) {
                 curPlayer.money_amount -= curPet.levelUpCost
                 curPet.pet_level++
+                curPet.pet_health = curPet.petMaxHp
                 playLevelUpSuccessAnimation = true
             } else {
                 playLevelUpFailAnimation = true
