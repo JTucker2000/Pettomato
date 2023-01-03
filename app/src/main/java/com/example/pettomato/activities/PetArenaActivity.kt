@@ -248,7 +248,7 @@ class PetArenaActivity : AppCompatActivity() {
             // Prevents multiple attacks until animation has finished
             petArenaViewModel.attackIsOngoing = true
 
-            // TODO: Combine this with attack animation for iron paws to reduce code duplication (if possible)
+            // TODO: Make these animations go towards the center of the screen, not just a pixel amount. This will make it work on more screen sizes.
             // Do animations for the player's attack
             playerPetImage.animate()
                 .translationX(100f)
@@ -309,7 +309,7 @@ class PetArenaActivity : AppCompatActivity() {
                     // Prevents multiple attacks until animation has finished
                     petArenaViewModel.attackIsOngoing = true
 
-                    // TODO: Combine this with normal attack animation to reduce code duplication (if possible)
+                    // TODO: Make these animations go towards the center of the screen, not just a pixel amount. This will make it work on more screen sizes.
                     // Do animations for the player's attack
                     playerPetImage.animate()
                         .translationX(100f)

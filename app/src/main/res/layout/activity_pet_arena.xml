@@ -11,25 +11,29 @@
         android:id="@+id/player_petImage"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginBottom="128dp"
-        android:src="@drawable/corgiface1"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
         android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.15"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:src="@drawable/corgiface1"
+        app:layout_constraintBottom_toTopOf="@+id/attack_btn"
+        app:layout_constraintEnd_toStartOf="@+id/center_guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/playerReward_text"
+        app:layout_constraintVertical_bias="0.9" />
 
     <ImageView
         android:id="@+id/enemy_petImage"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginBottom="128dp"
-        android:src="@drawable/germanshepard1"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
         android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:src="@drawable/germanshepard1"
+        app:layout_constraintBottom_toTopOf="@+id/stats_btn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.85"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/center_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/playerReward_text"
+        app:layout_constraintVertical_bias="0.9" />
 
     <Button
         android:id="@+id/attack_btn"
@@ -83,8 +87,8 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="225dp"
         android:layout_height="25dp"
-        android:progressDrawable="@drawable/pet_status_progressbar"
         android:progress="1"
+        android:progressDrawable="@drawable/pet_status_progressbar"
         app:layout_constraintStart_toStartOf="@+id/enemyName_text"
         app:layout_constraintTop_toBottomOf="@+id/enemyName_text" />
 
@@ -92,12 +96,14 @@
         android:id="@+id/playerName_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/press_start_2p"
         android:text="Player"
         android:textColor="@color/white"
         android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.04"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -141,6 +147,7 @@
         android:id="@+id/quit_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         android:fontFamily="@font/press_start_2p"
         android:text="Quit"
         android:textSize="12sp"
@@ -187,6 +194,7 @@
         android:id="@+id/playerReward_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/press_start_2p"
         android:text="Reward Here"
         android:textAlignment="center"
@@ -195,8 +203,8 @@
         app:layout_constraintBottom_toTopOf="@+id/playerLevel_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enemyName_text"
-        app:layout_constraintVertical_bias="0.16000003" />
+        app:layout_constraintTop_toBottomOf="@+id/enemyHealth_progressBar"
+        app:layout_constraintVertical_bias="0.110000014" />
 
     <TextView
         android:id="@+id/playerHealth_update_text"
@@ -237,4 +245,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/enemyHealth_progressBar" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/center_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
 </androidx.constraintlayout.widget.ConstraintLayout>
