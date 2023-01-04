@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/stat_name_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/press_start_2p"
+        android:text="Statistic Name:"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/stat_num_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/press_start_2p"
+        android:text="0"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/stat_name_text"
+        app:layout_constraintStart_toEndOf="@+id/stat_name_text"
+        app:layout_constraintTop_toTopOf="@+id/stat_name_text" />
+
+    <ProgressBar
+        android:id="@+id/stat_progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="225dp"
+        android:layout_height="22dp"
+        android:progress="1"
+        android:progressDrawable="@drawable/pet_status_progressbar"
+        app:layout_constraintStart_toStartOf="@+id/stat_name_text"
+        app:layout_constraintTop_toBottomOf="@+id/stat_name_text" />
+
+    <TextView
+        android:id="@+id/stat_toGoal_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/press_start_2p"
+        android:text="0 to next goal"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/stat_progressBar"
+        app:layout_constraintEnd_toEndOf="@+id/stat_progressBar"
+        app:layout_constraintStart_toStartOf="@+id/stat_progressBar"
+        app:layout_constraintTop_toTopOf="@+id/stat_progressBar" />
+
+    <TextView
+        android:id="@+id/stat_goalReward_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:fontFamily="@font/press_start_2p"
+        android:text="+0"
+        android:textColor="#00DD00"
+        android:textSize="9sp"
+        app:layout_constraintBottom_toBottomOf="@+id/stat_progressBar"
+        app:layout_constraintStart_toEndOf="@+id/stat_progressBar"
+        app:layout_constraintTop_toTopOf="@+id/stat_progressBar" />
+
+    <ImageView
+        android:id="@+id/stat_goalCoin_image"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="8dp"
+        android:src="@drawable/coin_image"
+        app:layout_constraintBottom_toBottomOf="@+id/stat_goalReward_text"
+        app:layout_constraintStart_toEndOf="@+id/stat_goalReward_text"
+        app:layout_constraintTop_toTopOf="@+id/stat_goalReward_text" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

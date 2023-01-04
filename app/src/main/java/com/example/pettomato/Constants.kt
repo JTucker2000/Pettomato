@@ -71,6 +71,9 @@ val PETACTION_PRICE: Int = 0 // Unused
 val WALK_PRICE: Int = 0 // Unused
 val ACTION_PRICES: Array<String> = arrayOf("-$FEED_PRICE Coins", "-$GIVEWATER_PRICE Coins", "Free", "Free")
 
+// Arena stats constants
+val ARENA_STATS_NAMES: Array<String> = arrayOf("Fights Won", "Fights Lost", "Coins Earned", "Bandages Used", "First-Aid Used", "Iron Paws Used", "Damage Dealt", "Damage Taken")
+
 // Uninitialized value constants
 val PREVIOUS_VAL_UNINITIALIZED: Int = -1
 val IMAGE_ID_UNINITIALIZED: Int = 0
