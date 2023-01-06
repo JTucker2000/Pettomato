@@ -103,6 +103,8 @@ class PetDisplayFragment : Fragment() {
 
     fun onBuyPetBtnPress(pos: Int) = mainViewModel.onBuyPetBtnPress(pos)
 
+    fun onEditPetNameBtnPress(pos: Int, name: String) = mainViewModel.onEditPetNameBtnPress(pos, name)
+
     companion object {
         @JvmStatic
         fun newInstance() = PetDisplayFragment()

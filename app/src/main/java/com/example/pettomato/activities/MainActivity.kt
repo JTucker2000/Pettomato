@@ -324,4 +324,9 @@ class MainActivity : AppCompatActivity() {
         val fragment = petDisplayFragmentContainerView.getFragment<PetDisplayFragment>()
         fragment.onBuyPetBtnPress(pos)
     }
+
+    fun onEditPetNameBtnPress(pos: Int, name: String) {
+        val fragment = petDisplayFragmentContainerView.getFragment<PetDisplayFragment>()
+        fragment.onEditPetNameBtnPress(pos, name)
+    }
 }

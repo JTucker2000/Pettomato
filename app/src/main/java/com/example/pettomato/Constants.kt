@@ -81,3 +81,4 @@ val NUM_OWNED_VAL_UNINITIALIZED: Int = -1
 
 // Misc. constants
 val PLAYER_USERNAME: String = "Jtuck"
+val PET_NAME_MAX_LENGTH: Int = 12

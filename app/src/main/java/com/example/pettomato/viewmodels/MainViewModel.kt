@@ -212,4 +212,18 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             }
         }
     }
+
+    // Handles when edit pet name button has been pressed in owned pets gridview.
+    fun onEditPetNameBtnPress(position: Int, name: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val selectedPetDatabasePos = position + 1 // Because DB is 1 indexed and position is 0 indexed.
+            val selectedPet = playerRepository.getPetById(selectedPetDatabasePos)
+
+            if (name.length <= PET_NAME_MAX_LENGTH) {
+                selectedPet.pet_name = name
+            }
+
+            playerRepository.updatePet(selectedPet)
+        }
+    }
 }
