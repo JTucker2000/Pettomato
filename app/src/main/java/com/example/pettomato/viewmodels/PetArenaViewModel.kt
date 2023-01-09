@@ -46,45 +46,55 @@ class PetArenaViewModel(application: Application) : AndroidViewModel(application
     // Should be used after any action that may cause a goal to be reached.
     private suspend fun checkGoals(curPlayer: PlayerEntity) {
         var totalReward: Int = 0
+        var checkAgain: Boolean = false
 
         // Check each goal and reward the player.
         if(curPlayer.toFightsWonGoal <= 0) {
             totalReward += curPlayer.fightsWonGoalReward
-            curPlayer.fightswongoal *= 10
+            curPlayer.fightswongoal *= 5
+            checkAgain = true
         }
         if(curPlayer.toFightsLostGoal <= 0) {
             totalReward += curPlayer.fightsLostGoalReward
-            curPlayer.fightslostgoal *= 10
+            curPlayer.fightslostgoal *= 5
+            checkAgain = true
         }
         if(curPlayer.toCoinsEarnedGoal <= 0) {
             totalReward += curPlayer.coinsEarnedGoalReward
-            curPlayer.coinsearnedgoal *= 100
+            curPlayer.coinsearnedgoal *= 25
+            checkAgain = true
         }
         if(curPlayer.toBandagesUsedGoal <= 0) {
             totalReward += curPlayer.bandagesUsedGoalReward
-            curPlayer.bandagesusedgoal *= 10
+            curPlayer.bandagesusedgoal *= 2
+            checkAgain = true
         }
         if(curPlayer.toFirstAidUsedGoal <= 0) {
             totalReward += curPlayer.firstAidUsedGoalReward
-            curPlayer.firstaidusedgoal *= 10
+            curPlayer.firstaidusedgoal *= 2
+            checkAgain = true
         }
         if(curPlayer.toIronPawsUsedGoal <= 0) {
             totalReward += curPlayer.ironPawsUsedGoalReward
-            curPlayer.ironpawsusedgoal *= 10
+            curPlayer.ironpawsusedgoal *= 2
+            checkAgain = true
         }
         if(curPlayer.toDamageDealtGoal <= 0) {
             totalReward += curPlayer.damageDealtGoalReward
-            curPlayer.damagedealtgoal *= 10
+            curPlayer.damagedealtgoal *= 5
+            checkAgain = true
         }
         if(curPlayer.toDamageTakenGoal <= 0) {
             totalReward += curPlayer.damageTakenGoalReward
-            curPlayer.damagetakengoal *= 10
+            curPlayer.damagetakengoal *= 5
+            checkAgain = true
         }
 
         curPlayer.money_amount += totalReward
         curPlayer.num_arenacoinsearned += totalReward
 
         playerRepository.updatePlayer(curPlayer)
+        if (checkAgain) checkGoals(curPlayer)
     }
 
     // Gives image IDs to database on the first run on the game on this device.
