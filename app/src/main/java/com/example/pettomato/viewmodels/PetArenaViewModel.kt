@@ -61,7 +61,7 @@ class PetArenaViewModel(application: Application) : AndroidViewModel(application
         }
         if(curPlayer.toCoinsEarnedGoal <= 0) {
             totalReward += curPlayer.coinsEarnedGoalReward
-            curPlayer.coinsearnedgoal *= 25
+            curPlayer.coinsearnedgoal *= 20
             checkAgain = true
         }
         if(curPlayer.toBandagesUsedGoal <= 0) {

@@ -248,10 +248,10 @@ class PetArenaActivity : AppCompatActivity() {
             // Prevents multiple attacks until animation has finished
             petArenaViewModel.attackIsOngoing = true
 
-            // TODO: Make these animations go towards the center of the screen, not just a pixel amount. This will make it work on more screen sizes.
             // Do animations for the player's attack
+            val attackDist = window.decorView.width/4f - playerPetImage.width/3f
             playerPetImage.animate()
-                .translationX(100f)
+                .translationX(attackDist)
                 .setDuration(100)
                 .setListener(object : AnimatorListenerAdapter() {
                     override fun onAnimationEnd(animation: Animator) {
@@ -264,7 +264,7 @@ class PetArenaActivity : AppCompatActivity() {
 
             // Do animations for the enemy's attack
             enemyPetImage.animate()
-                .translationX(-100f)
+                .translationX(-attackDist)
                 .setDuration(100)
                 .setListener(object : AnimatorListenerAdapter() {
                     override fun onAnimationEnd(animation: Animator) {
@@ -309,10 +309,10 @@ class PetArenaActivity : AppCompatActivity() {
                     // Prevents multiple attacks until animation has finished
                     petArenaViewModel.attackIsOngoing = true
 
-                    // TODO: Make these animations go towards the center of the screen, not just a pixel amount. This will make it work on more screen sizes.
                     // Do animations for the player's attack
+                    val attackDist = window.decorView.width/2f - playerPetImage.width/3f
                     playerPetImage.animate()
-                        .translationX(100f)
+                        .translationX(attackDist)
                         .setDuration(100)
                         .setListener(object : AnimatorListenerAdapter() {
                             override fun onAnimationEnd(animation: Animator) {
