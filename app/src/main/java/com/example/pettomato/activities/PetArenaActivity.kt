@@ -50,7 +50,9 @@ class PetArenaActivity : AppCompatActivity() {
     private lateinit var itemsBtn: Button
     private lateinit var statsBtn: Button
     private lateinit var quitBtn: Button
+    private lateinit var arenaLevelsBtn: Button
     private lateinit var statsFragmentContainerView: FragmentContainerView
+    private lateinit var arenaLevelsFragmentContainerView: FragmentContainerView
 
     // Adapter variables
     private lateinit var itemsListViewAdapter: ItemsListViewAdapter
@@ -86,7 +88,9 @@ class PetArenaActivity : AppCompatActivity() {
         itemsBtn = findViewById<Button>(R.id.items_btn)
         statsBtn = findViewById<Button>(R.id.stats_btn)
         quitBtn = findViewById<Button>(R.id.quit_btn)
+        arenaLevelsBtn = findViewById<Button>(R.id.arena_levels_btn)
         statsFragmentContainerView = findViewById<FragmentContainerView>(R.id.arena_stats_fragmentContainerView)
+        arenaLevelsFragmentContainerView = findViewById<FragmentContainerView>(R.id.arena_levels_fragmentContainerView)
 
         // Set up observer(s)
         petArenaViewModel.petLive.observe(this, Observer<PetEntity> { currentPet ->
@@ -124,11 +128,15 @@ class PetArenaActivity : AppCompatActivity() {
         statsFragmentContainerView.visibility = View.INVISIBLE
         statsFragmentContainerView.isClickable = false
 
+        arenaLevelsFragmentContainerView.visibility = View.INVISIBLE
+        arenaLevelsFragmentContainerView.isClickable = false
+
         // Set onClickListener(s)
         attackBtn.setOnClickListener { onAttackBtnPress() }
         itemsBtn.setOnClickListener { onItemsBtnPress() }
         statsBtn.setOnClickListener { onStatsBtnPress() }
         quitBtn.setOnClickListener { onQuitBtnPress() }
+        arenaLevelsBtn.setOnClickListener { onArenaLevelsBtnPress() }
     }
 
     private fun initializeUIFromPet(pet: PetEntity) {
@@ -240,7 +248,8 @@ class PetArenaActivity : AppCompatActivity() {
     // Returns true if an attack is ongoing or if stats menu is open, false otherwise.
     private fun isScreenBusy(): Boolean {
         return petArenaViewModel.attackIsOngoing ||
-                statsFragmentContainerView.visibility == View.VISIBLE
+                statsFragmentContainerView.visibility == View.VISIBLE ||
+                arenaLevelsFragmentContainerView.visibility == View.VISIBLE
     }
 
     private fun onAttackBtnPress() {
@@ -352,4 +361,19 @@ class PetArenaActivity : AppCompatActivity() {
     }
 
     private fun onQuitBtnPress() = startActivity(Intent(this, MainActivity::class.java))
+
+    private fun onArenaLevelsBtnPress() {
+        when (arenaLevelsFragmentContainerView.visibility) {
+            View.INVISIBLE -> {
+                if(isScreenBusy() || itemsListView.visibility == View.VISIBLE) return
+                arenaLevelsFragmentContainerView.isClickable = true
+                fadeInView(arenaLevelsFragmentContainerView, MENU_FADE_ANIMATION_DURATION)
+            }
+            View.VISIBLE -> {
+                arenaLevelsFragmentContainerView.isClickable = false
+                fadeOutView(arenaLevelsFragmentContainerView, MENU_FADE_ANIMATION_DURATION)
+            }
+            else -> Log.e(TAG, "Error: onArenaLevelsBtnPress encountered unexpected visibility")
+        }
+    }
 }
