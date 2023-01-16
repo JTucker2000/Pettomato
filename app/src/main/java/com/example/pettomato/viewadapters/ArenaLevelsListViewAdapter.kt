@@ -33,7 +33,7 @@ class ArenaLevelsListViewAdapter(context: Context, private var player: PlayerEnt
         val layout: View
         if (convertView == null) {
             val layoutInflater = LayoutInflater.from(curContext)
-            layout = layoutInflater.inflate(R.layout.action_list_view_item, parent, false)
+            layout = layoutInflater.inflate(R.layout.arena_levels_list_view_item, parent, false)
 
             // init views here
             val viewHolder = ViewHolder()
