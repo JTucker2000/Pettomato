@@ -152,7 +152,6 @@ class PetArenaViewModel(application: Application) : AndroidViewModel(application
 
             // Record lost fight
             curPlayer.num_fightslost += 1
-            if(curPlayer.arena_level > 1) curPlayer.arena_level--
 
             // Reset the enemy
             setEnemy(curPlayer.arena_level)
@@ -178,6 +177,7 @@ class PetArenaViewModel(application: Application) : AndroidViewModel(application
             curPlayer.num_arenacoinsearned += moneyEarned
             curPlayer.num_fightswon += 1
             curPlayer.arena_level += 1
+            if(curPlayer.arena_level > curPlayer.max_arena_level) curPlayer.max_arena_level = curPlayer.arena_level
             curPet.pet_health = curPet.petMaxHp
 
             // Change the enemy to new enemy

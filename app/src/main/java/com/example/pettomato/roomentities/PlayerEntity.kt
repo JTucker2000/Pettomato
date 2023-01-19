@@ -8,6 +8,7 @@ data class PlayerEntity(
     @PrimaryKey val username: String = "",
     var money_amount: Int = 0,
     var arena_level: Int = 0,
+    var max_arena_level: Int = 0,
     var num_bandages: Int = 0,
     var num_firstaid: Int = 0,
     var num_ironpaw: Int = 0,
