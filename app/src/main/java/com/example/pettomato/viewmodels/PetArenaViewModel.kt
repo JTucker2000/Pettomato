@@ -252,4 +252,19 @@ class PetArenaViewModel(application: Application) : AndroidViewModel(application
             checkGoals(curPlayer)
         }
     }
+
+    // Handles when the level select button is pressed in arena levels listview.
+    fun onArenaLevelsListViewBtnPress(position: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val selectedArenaLevel = position + 1
+            val curPlayer = playerRepository.getPlayerByUsername(PLAYER_USERNAME)
+
+            if((selectedArenaLevel <= curPlayer.max_arena_level) && (curPlayer.arena_level != selectedArenaLevel)) {
+                curPlayer.arena_level = selectedArenaLevel
+                setEnemy(curPlayer.arena_level)
+            }
+
+            playerRepository.updatePlayer(curPlayer)
+        }
+    }
 }

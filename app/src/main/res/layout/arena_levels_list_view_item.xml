@@ -51,7 +51,7 @@
         android:layout_marginTop="10dp"
         android:fontFamily="@font/press_start_2p"
         android:text="Enemy Name"
-        android:textSize="12sp"
+        android:textSize="10sp"
         app:layout_constraintStart_toEndOf="@+id/level_enemy_petImage"
         app:layout_constraintTop_toTopOf="@+id/item_border_image" />
 

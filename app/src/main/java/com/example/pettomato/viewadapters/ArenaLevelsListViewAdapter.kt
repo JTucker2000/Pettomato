@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.example.pettomato.ENEMY_LIST
 import com.example.pettomato.R
+import com.example.pettomato.activities.PetArenaActivity
 import com.example.pettomato.roomentities.EnemyEntity
 import com.example.pettomato.roomentities.PlayerEntity
 
@@ -75,7 +76,7 @@ class ArenaLevelsListViewAdapter(context: Context, private var player: PlayerEnt
                 viewHolder.arenaLevelsListViewBtn.alpha = 1f
                 viewHolder.arenaLevelsListViewBtn.isClickable = true
             }
-            // TODO: ADD ONCLICKLISTENER HERE
+            viewHolder.arenaLevelsListViewBtn.setOnClickListener { (curContext as PetArenaActivity).onArenaLevelsListViewBtnPress(position) }
         } else {
             // Modify showing level is not unlocked
             viewHolder.levelEnemyPetImage.setImageResource(R.drawable.enemy_level_locked)

@@ -14,6 +14,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.Observer
 import com.example.pettomato.*
+import com.example.pettomato.fragments.ArenaLevelsFragment
 import com.example.pettomato.viewmodels.PetArenaViewModel
 import com.example.pettomato.functions.animateStatusUpdateText
 import com.example.pettomato.functions.fadeInOutView
@@ -375,5 +376,10 @@ class PetArenaActivity : AppCompatActivity() {
             }
             else -> Log.e(TAG, "Error: onArenaLevelsBtnPress encountered unexpected visibility")
         }
+    }
+
+    fun onArenaLevelsListViewBtnPress(pos: Int) {
+        val fragment = arenaLevelsFragmentContainerView.getFragment<ArenaLevelsFragment>()
+        fragment.onArenaLevelsListViewBtnPress(pos)
     }
 }

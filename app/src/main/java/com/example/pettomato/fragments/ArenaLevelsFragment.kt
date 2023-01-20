@@ -52,6 +52,8 @@ class ArenaLevelsFragment : Fragment() {
         arenaLevelsViewAdapter.updateLevels(player)
     }
 
+    fun onArenaLevelsListViewBtnPress(pos: Int) = petArenaViewModel.onArenaLevelsListViewBtnPress(pos)
+
     companion object {
         @JvmStatic
         fun newInstance() = ArenaLevelsFragment()
