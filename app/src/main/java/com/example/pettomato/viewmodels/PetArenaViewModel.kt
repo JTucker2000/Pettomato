@@ -37,8 +37,7 @@ class PetArenaViewModel(application: Application) : AndroidViewModel(application
     // Changes the current enemy based on the given arena level.
     private fun setEnemy(arenaLevel: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            if(arenaLevel <= ENEMY_LIST.size) enemyRepository.updateEnemy(ENEMY_LIST[arenaLevel-1])
-            else enemyRepository.updateEnemy(EnemyEntity(CURRENT_ENEMY_ID, "Mega Angry Shiba", R.drawable.angrydog3, 100, 1000, 1000))
+            enemyRepository.updateEnemy(ENEMY_LIST[arenaLevel-1])
         }
     }
 
@@ -176,7 +175,7 @@ class PetArenaViewModel(application: Application) : AndroidViewModel(application
             curPlayer.money_amount += moneyEarned
             curPlayer.num_arenacoinsearned += moneyEarned
             curPlayer.num_fightswon += 1
-            curPlayer.arena_level += 1
+            if(curPlayer.arena_level < ENEMY_LIST.size) curPlayer.arena_level += 1
             if(curPlayer.arena_level > curPlayer.max_arena_level) curPlayer.max_arena_level = curPlayer.arena_level
             curPet.pet_health = curPet.petMaxHp
 
