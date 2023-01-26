@@ -9,7 +9,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.pettomato.PET_PRICES
-import com.example.pettomato.PURCHASEABLE_PETS
+import com.example.pettomato.PURCHASABLE_PETS
 import com.example.pettomato.R
 import com.example.pettomato.activities.MainActivity
 
@@ -22,7 +22,7 @@ class PetShopGridViewAdapter(context: Context): BaseAdapter() {
     }
 
     override fun getCount(): Int {
-        return PURCHASEABLE_PETS.size
+        return PURCHASABLE_PETS.size
     }
 
     override fun getItem(position: Int): Any {
@@ -52,13 +52,13 @@ class PetShopGridViewAdapter(context: Context): BaseAdapter() {
         val viewHolder = layout.tag as ViewHolder
 
         // Modify new pet name text
-        viewHolder.newPetNameText.text = PURCHASEABLE_PETS[position].pet_name
+        viewHolder.newPetNameText.text = PURCHASABLE_PETS[position].pet_name
 
         // Modify new pet price text
         viewHolder.newPetPriceText.text = PET_PRICES[position].toString()
 
         // Modify new pet image
-        PURCHASEABLE_PETS[position].setImageFromPet(viewHolder.newPetImage)
+        PURCHASABLE_PETS[position].setImageFromPet(viewHolder.newPetImage)
 
         // Modify buy pet button
         viewHolder.buyPetBtn.setOnClickListener { (curContext as MainActivity).onBuyPetBtnPress(position) }

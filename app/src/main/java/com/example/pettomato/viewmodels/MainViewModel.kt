@@ -207,7 +207,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
             if(curPlayer.money_amount >= petCost) {
                 curPlayer.money_amount -= petCost
-                playerRepository.addPet(PURCHASEABLE_PETS[position])
+                playerRepository.addPet(PURCHASABLE_PETS[position])
                 playerRepository.updatePlayer(curPlayer)
             }
         }
