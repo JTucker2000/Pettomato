@@ -120,7 +120,8 @@ class PetArenaViewModel(application: Application) : AndroidViewModel(application
             else curPet.pet_health = 0
 
             // Update enemy values
-            val playerDamage = curPet.pet_level * 2
+            val happinessScore: Float = (curPet.hunger_level + curPet.thirst_level + curPet.happiness_level + curPet.fitness_level).toFloat()
+            val playerDamage: Int = ((curPet.pet_level * 2) * (happinessScore/200)).toInt()
             if(curEnemy.enemy_health >= playerDamage) curEnemy.enemy_health -= playerDamage
             else curEnemy.enemy_health = 0
 
